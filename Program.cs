@@ -1,10 +1,18 @@
-﻿namespace TempleOfDoom
+﻿using System.Text.Json;
+using TempleOfDoom.controller;
+using TempleOfDoom.model;
+
+namespace TempleOfDoom
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            string FileName = "resources/TempleOfDoom.json";
+            TempleOfDoomGameJson gameData = JsonSerializer.Deserialize<TempleOfDoomGameJson>(File.ReadAllText(FileName));
+            GameController gameController = new GameController(gameData);
+
+
         }
     }
 }
