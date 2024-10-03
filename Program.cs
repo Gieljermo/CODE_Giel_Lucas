@@ -11,8 +11,7 @@ namespace TempleOfDoom
             string FileName = "resources/TempleOfDoom.json";
             TempleOfDoomGameJson gameData = JsonSerializer.Deserialize<TempleOfDoomGameJson>(File.ReadAllText(FileName));
             GameController gameController = new GameController(gameData);
-
-
+            Console.WriteLine( gameController.TempleOfDoomGame);
         }
     }
 }

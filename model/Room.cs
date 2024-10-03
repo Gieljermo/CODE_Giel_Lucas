@@ -12,7 +12,7 @@ namespace TempleOfDoom.model
         public string Type { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
-        public List<Item>? Items { get; private set; }
+        public List<Item>? Items { get; set; }
 
         public Room(int id, string type, int width, int height, List<Item> items)
         {

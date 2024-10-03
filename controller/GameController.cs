@@ -13,12 +13,12 @@ namespace TempleOfDoom.controller
 
         public TempleOfDoomGame GenerateGameClasses(TempleOfDoomGameJson data)
         {
-            var rooms = data.rooms.Select(roomJson => new Room(
+            List<Room> rooms = data.rooms.Select(roomJson => new Room(
                    roomJson.id,
                    roomJson.type,
                    roomJson.width,
                    roomJson.height,
-                   roomJson.items.Select(itemJson => new Item(
+                   roomJson.items?.Select(itemJson => new Item(
                        itemJson.type,
                        itemJson.damage,
                        itemJson.x,
@@ -28,7 +28,7 @@ namespace TempleOfDoom.controller
                )).ToList();
 
             // Convert connections
-            var connections = data.connections.Select(connectionJson => new Connection(
+            List<Connection> connections = data.connections.Select(connectionJson => new Connection(
                 connectionJson.NORTH,
                 connectionJson.SOUTH,
                 connectionJson.WEST,
@@ -41,7 +41,7 @@ namespace TempleOfDoom.controller
             )).ToList();
 
             // Convert player
-            var player = new Player(
+            Player player = new Player(
                 data.player.startRoomId,
                 data.player.startX,
                 data.player.startY,
