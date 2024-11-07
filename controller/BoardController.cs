@@ -13,8 +13,6 @@ namespace TempleOfDoom.controller
     public class BoardController
     {
         private Board board { get; set; }
-        public TempleOfDoomGameJson _json { get; set; }
-
         public Player _player { get; set; }
         public Room _gameRoom { get; set; }
         public Room[] rooms = new Room[10];
@@ -23,9 +21,9 @@ namespace TempleOfDoom.controller
 
         private GameController _gameController;
 
-        public BoardController(GameController controller, TempleOfDoomGameJson json)
+
+        public BoardController(GameController controller)
         {
-            _json = json;
             _gameController = controller;
         }
 
@@ -40,89 +38,85 @@ namespace TempleOfDoom.controller
                 case ConsoleKey.UpArrow:
                     Console.WriteLine("test");
                     break;
-                
             }
 
             _gameController.CheckGameStatus(_player);
         }
 
-        public void CreateStartingRoom(PlayerJson player)
+        // CreateStartingRoom now receives starting room data as parameters instead of relying on JSON
+        public void CreateStartingRoom(Player player, Room startingRoom)
         {
-            _player = new Player ( player.startRoomId, player.startX, player.startY, 3 );
-            _gameRoom = CreateRoom(_json.rooms.Where(r => r.id == _json.player.startRoomId).FirstOrDefault());
-            rooms[_json.player.startRoomId] = _gameRoom;
+            _player = player;
+            _gameRoom = CreateRoom(startingRoom);
+            rooms[startingRoom.Id] = _gameRoom;
             fieldController.AddPlayer(_gameRoom, _player);
 
             board = new Board();
         }
 
-        // Creates a gameroom from a jsonroom and connections
-
-        public Room CreateRoom(RoomJson room)
+        // This version of CreateRoom takes a Room directly and initializes it
+        public Room CreateRoom(Room room)
         {
-            Room gameRoom = new Room(room.id, room.type, room.width, room.height);
-            gameRoom.Fields =  fieldController.CreateFields(room, _player);
+            Room gameRoom = room;
+            gameRoom.Fields = fieldController.CreateFields(room, _player);
 
-            foreach (var item in _json.connections)
+            foreach (var item in _gameController.TempleOfDoomGame.Connections)
             {
-
-                if (item.NORTH == gameRoom.Id || item.SOUTH == gameRoom.Id || item.WEST == gameRoom.Id || item.EAST == gameRoom.Id)
+                if (item.North == gameRoom.Id || item.South == gameRoom.Id || item.West == gameRoom.Id || item.Eeat == gameRoom.Id)
                 {
-                    var connection = new Connection(item.EAST, item.NORTH, item.SOUTH, item.WEST);
-
-                    gameRoom.Connections.Add(connection);
-
+                    gameRoom.Connections.Add(item);
                     gameRoom.Fields = AddDoor(item, gameRoom);
-
                 }
-
             }
+
             return gameRoom;
         }
 
+
         /// <summary>
-        /// This method add a door to the room. 
-        /// As a result of, one piece of the wall will remove
-        /// The door will display in the center of the wall always, where the connection is.
+        /// Adds a door to the room by removing a part of the wall at the center of the wall where the connection is.
         /// </summary>
-        public List<Field> AddDoor(ConnectionJson connection, Room room)
+        public List<Field> AddDoor(Connection connection, Room room)
         {
             foreach (var item in room.Fields)
             {
-                var width = 0;
-                var height = 0;
-                var nextroomid = 0;
-                if (connection.NORTH == room.Id)
+                int width = 0;
+                int height = 0;
+                int nextRoomId = 0;
+
+                if (connection.North == room.Id)
                 {
                     width = (room.Width - 1) / 2;
                     height = room.Height - 1;
-                    nextroomid = connection.SOUTH;
+                    nextRoomId = connection.South;
                 }
-                if (connection.EAST == room.Id)
+                else if (connection.Eeat == room.Id)
                 {
                     width = 0;
                     height = (room.Height - 1) / 2;
-                    nextroomid = connection.WEST;
+                    nextRoomId = connection.West;
                 }
-                if (connection.SOUTH == room.Id)
+                else if (connection.South == room.Id)
                 {
                     width = (room.Width - 1) / 2;
                     height = 0;
-                    nextroomid = connection.NORTH;
+                    nextRoomId = connection.North;
                 }
-                if (connection.WEST == room.Id)
+                else if (connection.West == room.Id)
                 {
                     width = room.Width - 1;
                     height = (room.Height - 1) / 2;
-                    nextroomid = connection.EAST;
+                    nextRoomId = connection.Eeat;
                 }
-                //Search the center of the wall
+
+                // Update the field to create a door
                 if (item.X == width && item.Y == height)
                 {
                     item.IsWall = false;
-                    item.IsConnection = nextroomid;
+                    item.IsConnection = nextRoomId;
                 }
             }
+
             return room.Fields;
         }
 

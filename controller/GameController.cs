@@ -1,41 +1,52 @@
 ﻿using TempleOfDoom.model;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TempleOfDoom.controller
 {
     public class GameController
     {
-        public TempleOfDoomGame TempleOfDoomGame {get; set;}
+        public TempleOfDoomGame TempleOfDoomGame { get; set; }
         private bool gameRunning = true;
         private BoardController boardController;
 
         public GameController(TempleOfDoomGameJson data)
         {
-            boardController = new BoardController(this, data);
+            boardController = new BoardController(this);
             this.TempleOfDoomGame = GenerateGameClasses(data);
-            boardController.CreateStartingRoom(data.player);
 
+            var startingRoom = TempleOfDoomGame.Rooms.FirstOrDefault(r => r.Id == TempleOfDoomGame.Player.StartRoomId);
+            if (startingRoom != null)
+            {
+                boardController.CreateStartingRoom(TempleOfDoomGame.Player, startingRoom);
+            }
+
+            // Game loop
             while (gameRunning)
             {
                 boardController.DrawRoom();
             }
         }
 
+
         public TempleOfDoomGame GenerateGameClasses(TempleOfDoomGameJson data)
         {
+            // Convert rooms
             List<Room> rooms = data.rooms.Select(roomJson => new Room(
-                   roomJson.id,
-                   roomJson.type,
-                   roomJson.width,
-                   roomJson.height
-               )).ToList();
+                roomJson.id,
+                roomJson.type,
+                roomJson.width,
+                roomJson.height
+            )).ToList();
 
             // Convert connections
             List<Connection> connections = data.connections.Select(connectionJson => new Connection(
                 connectionJson.NORTH,
-                connectionJson.SOUTH,
                 connectionJson.WEST,
+                connectionJson.SOUTH,
                 connectionJson.EAST
             )).ToList();
+
 
             // Convert player
             Player player = new Player(

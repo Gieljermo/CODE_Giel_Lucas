@@ -22,28 +22,28 @@ namespace Controlllers
 
         }
 
-        public List<Field> CreateFields(RoomJson room, Player player)
+        public List<Field> CreateFields(Room room, Player player)
         {
             List<Field> fields = new List<Field>();
-            for (int y = 0; y < room.height; y++)
+            for (int y = 0; y < room.Height; y++)
             {
-                for (int x = 0; x < room.width; x++)
+                for (int x = 0; x < room.Width; x++)
                 {
                     Field field = new Field();
                     field.X = x;
                     field.Y = y;
-                    field.Room = room.id;
+                    field.Room = room.Id;
 
-                    if(room.items != null)
+                    if (room.Items != null)
                     {
-                        var item = room.items.Where(ri => ri.x == x).FirstOrDefault(ri => ri.y == y);
+                        var item = room.Items.Where(ri => ri.X == x).FirstOrDefault(ri => ri.Y == y);
                         //if(item != null)
                         //{
                         //    field.Item = itemController.CreateItem(item);
                         //}
                     }
 
-                    if (x > 0 && x < room.width - 1 && y > 0 && y < room.height - 1)
+                    if (x > 0 && x < room.Width - 1 && y > 0 && y < room.Height - 1)
                     {
                         field.IsWall = false;
                     }
