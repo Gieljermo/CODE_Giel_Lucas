@@ -62,7 +62,7 @@ namespace TempleOfDoom.controller
 
             foreach (var item in _gameController.TempleOfDoomGame.Connections)
             {
-                if (item.North == gameRoom.Id || item.South == gameRoom.Id || item.West == gameRoom.Id || item.Eeat == gameRoom.Id)
+                if (item.North == gameRoom.Id || item.South == gameRoom.Id || item.West == gameRoom.Id || item.East == gameRoom.Id)
                 {
                     gameRoom.Connections.Add(item);
                     gameRoom.Fields = AddDoor(item, gameRoom);
@@ -90,7 +90,7 @@ namespace TempleOfDoom.controller
                     height = room.Height - 1;
                     nextRoomId = connection.South;
                 }
-                else if (connection.Eeat == room.Id)
+                else if (connection.East == room.Id)
                 {
                     width = 0;
                     height = (room.Height - 1) / 2;
@@ -106,7 +106,7 @@ namespace TempleOfDoom.controller
                 {
                     width = room.Width - 1;
                     height = (room.Height - 1) / 2;
-                    nextRoomId = connection.Eeat;
+                    nextRoomId = connection.East;
                 }
 
                 // Update the field to create a door

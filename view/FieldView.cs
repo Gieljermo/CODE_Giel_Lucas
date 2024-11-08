@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
+using TempleOfDoom.view;
 
 namespace GameView
 {
@@ -12,47 +13,49 @@ namespace GameView
     {
         public void DrawField(Field field, Room gameRoom)
         {
-            if(field.X == gameRoom.Width - 1)
+            // Check for right edge of the room to print a newline
+            if (field.X == gameRoom.Width - 1)
             {
-                if (field.IsWall)
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine(" #");
-                    return;
-                }
-                else if(field.Player != null)
-                {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine(" X");
-                    return;
-                }
-                else
-                {
-                    Console.WriteLine("  ");
-                    return;
-                }
+                DrawSymbol(field);
+                Console.WriteLine();
+                return;
             }
             else
             {
-                if (field.IsWall)
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.Write(" #");
-                    return;
-                }
-                else if (field.Player != null)
-                {
-                    Console.Write(" X");
-                    return;
-                }
-                else if (field.Item != null)
-                {
-                    new ItemView().drawItem(field.Item.Type);
-                    return;
-                }
+                DrawSymbol(field);
+            }
+        }
 
+        private void DrawSymbol(Field field)
+        {
+            // Draw Wall
+            if (field.IsWall)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write(" #");
+            }
+            // Draw Player
+            else if (field.Player != null)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write(" X");
+            }
+            // Draw Item
+            else if (field.Item != null)
+            {
+                new ItemView().drawItem(field.Item.Type);
+            }
+            // Draw Door
+            else if (field.Door != null)
+            {
+                new DoorView().DrawDoor(field.Door);
+            }
+            // Empty Field
+            else
+            {
                 Console.Write("  ");
             }
         }
     }
+
 }

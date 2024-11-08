@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,12 +25,15 @@ namespace TempleOfDoom.model
         public int AmountOfLives { get; set; }
         public int AmountOfStones { get; set; }
 
+        public List<IItem> Inventory { get; set; }
+
         public Player(int startRoomId, int startX, int startY, int lives)
         {
             this.StartRoomId = startRoomId;
             this.xPosition = startX;
             this.yPosition = startY;
             this.AmountOfLives = lives;
+            Inventory = new List<IItem>();
         }
     }
 }

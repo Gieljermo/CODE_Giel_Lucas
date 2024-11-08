@@ -16,7 +16,7 @@ namespace TempleOfDoom.model
         public List<Connection> Connections { get; set; }
         public List<Field>? Fields { get; set; }
 
-        public List<Item>? Items { get; set; }
+        public List<Item> Items { get; set; }
 
         public Room(int id, string type, int width, int height)
         {

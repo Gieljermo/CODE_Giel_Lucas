@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,9 @@ namespace Domain
         public int X { get; set; }
         public int Y { get; set; }
         public int Room { get; set; }
-        public Item Item { get; set; }
+        public IItem Item { get; set; }
+        public Door Door { get; set; }
+
         public Player Player { get; set; }
         public bool IsWall { get; set; }
         public int IsConnection { get; set; }
@@ -26,6 +29,11 @@ namespace Domain
             //this.Player = player;
             //this.IsWall = isWall;
             //this.IsConnection = isConnection;
+        }
+
+        public void RemoveItem()
+        {
+            this.Item = null;
         }
 
 

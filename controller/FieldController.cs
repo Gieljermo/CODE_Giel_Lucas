@@ -10,7 +10,7 @@ namespace Controlllers
 {
     public class FieldController
     {
-        //private ItemController itemController = new ItemController();
+        private ItemController itemController = new ItemController();
 
         public void AddPlayer(Room gameRoom, Player player)
         {
@@ -37,10 +37,10 @@ namespace Controlllers
                     if (room.Items != null)
                     {
                         var item = room.Items.Where(ri => ri.X == x).FirstOrDefault(ri => ri.Y == y);
-                        //if(item != null)
-                        //{
-                        //    field.Item = itemController.CreateItem(item);
-                        //}
+                        if (item != null)
+                        {
+                            field.Item = itemController.CreateItem(item);
+                        }
                     }
 
                     if (x > 0 && x < room.Width - 1 && y > 0 && y < room.Height - 1)
