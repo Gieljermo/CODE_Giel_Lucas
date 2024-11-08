@@ -16,7 +16,7 @@ namespace TempleOfDoom.controller
             boardController = new BoardController(this);
             this.TempleOfDoomGame = GenerateGameClasses(data);
 
-            var startingRoom = TempleOfDoomGame.Rooms.FirstOrDefault(r => r.Id == TempleOfDoomGame.Player.StartRoomId + 3);
+            var startingRoom = TempleOfDoomGame.Rooms.FirstOrDefault(r => r.Id == TempleOfDoomGame.Player.StartRoomId);
             if (startingRoom != null)
             {
                 boardController.CreateStartingRoom(TempleOfDoomGame.Player, startingRoom);
