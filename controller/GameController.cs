@@ -1,44 +1,90 @@
 ﻿using TempleOfDoom.model;
+using System.Collections.Generic;
+using System.Linq;
+using Domain.Interfaces;
 
 namespace TempleOfDoom.controller
 {
     public class GameController
     {
-        public TempleOfDoomGame TempleOfDoomGame {get; set;}
+        public TempleOfDoomGame TempleOfDoomGame { get; set; }
+        private bool gameRunning = true;
+        private BoardController boardController;
 
         public GameController(TempleOfDoomGameJson data)
         {
+            boardController = new BoardController(this);
             this.TempleOfDoomGame = GenerateGameClasses(data);
+
+            var startingRoom = TempleOfDoomGame.Rooms.FirstOrDefault(r => r.Id == TempleOfDoomGame.Player.StartRoomId + 3);
+            if (startingRoom != null)
+            {
+                boardController.CreateStartingRoom(TempleOfDoomGame.Player, startingRoom);
+            }
+
+            // Game loop
+            while (gameRunning)
+            {
+                boardController.DrawRoom();
+            }
         }
+
 
         public TempleOfDoomGame GenerateGameClasses(TempleOfDoomGameJson data)
         {
-            List<Room> rooms = data.rooms.Select(roomJson => new Room(
-                   roomJson.id,
-                   roomJson.type,
-                   roomJson.width,
-                   roomJson.height,
-                   roomJson.items?.Select(itemJson => new Item(
-                       itemJson.type,
-                       itemJson.damage,
-                       itemJson.x,
-                       itemJson.y,
-                       itemJson.color
-                   )).ToList()
-               )).ToList();
+            List<Room> rooms = data.rooms.Select(roomJson =>
+            {
+                // Initialize room
+                var room = new Room(
+                    roomJson.id,
+                    roomJson.type,
+                    roomJson.width,
+                    roomJson.height
+                );
+
+                // Populate the room's items
+                if (roomJson.items != null)
+                {
+                    room.Items = roomJson.items.Select(itemJson => new Item(
+                        itemJson.type,
+                        itemJson.damage,
+                        itemJson.x,
+                        itemJson.y,
+                        itemJson.color
+                    )).ToList();
+                }
+
+                return room;
+            }).ToList();
+
+
+
 
             // Convert connections
-            List<Connection> connections = data.connections.Select(connectionJson => new Connection(
-                connectionJson.NORTH,
-                connectionJson.SOUTH,
-                connectionJson.WEST,
-                connectionJson.EAST,
-                connectionJson.doors.Select(doorJson => new Door(
-                    doorJson.type,
-                    doorJson.color,
-                    doorJson.no_of_stones
-                )).ToList()
-            )).ToList();
+            List<Connection> connections = data.connections.Select(connectionJson =>
+            {
+                var connection = new Connection(
+                    connectionJson.NORTH,
+                    connectionJson.WEST,
+                    connectionJson.SOUTH,
+                    connectionJson.EAST
+                );
+
+                if (connectionJson.doors != null)
+                {
+                    connection.Doors = connectionJson.doors.Select(doorJson => new Door(
+                        doorJson.type,
+                        doorJson.color,
+                        doorJson.no_of_stones
+                    )).Cast<IDoor>().ToList(); // Cast naar IDoor
+                }
+
+                return connection;
+            }).ToList();
+
+
+
+
 
             // Convert player
             Player player = new Player(
@@ -50,6 +96,25 @@ namespace TempleOfDoom.controller
 
             // Create and return the TempleOfDoomGame domain object
             return new TempleOfDoomGame(rooms, connections, player);
+        }
+
+
+
+        public void CheckGameStatus(Player player)
+        {
+            if (player.AmountOfLives <= 0)
+            {
+                gameRunning = false;
+                boardController.DrawLosingScreen();
+                return;
+            }
+
+            if (player.AmountOfStones >= 5)
+            {
+                gameRunning = false;
+                boardController.DrawWinScreen();
+                return;
+            }
         }
     }
 }

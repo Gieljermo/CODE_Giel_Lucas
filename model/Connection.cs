@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,17 +11,17 @@ namespace TempleOfDoom.model
     {
         public int North { get; set; }
         public int South { get; set; }
-        public List<Door> Doors { get; set; }
+        public List<IDoor> Doors { get; set; }
         public int West { get; set; }
-        public int Eeat { get; set; }
+        public int East { get; set; }
 
-        public Connection(int north, int west, int south, int east, List<Door> doors)
+        public Connection(int north, int west, int south, int east)
         {
             this.North = north;
             this.South = south;
             this.West = west;
-            this.Eeat = east;
-            this.Doors = doors;
+            this.East = east;
+            Doors = new List<IDoor>();
         }
     }
 }
