@@ -10,11 +10,10 @@ namespace Domain.Decorators
 {
     public class DoorColorDecorator : BaseDoorDecorator
     {
-        private string _color;
 
         public DoorColorDecorator(IDoor wrappee, string color) : base(wrappee)
         {
-            _color = color;
+            base.Color = color;
         }
 
         public override void OpenDoor(Player player)
@@ -22,4 +21,5 @@ namespace Domain.Decorators
             base.OpenDoor(player);
         }
     }
+
 }

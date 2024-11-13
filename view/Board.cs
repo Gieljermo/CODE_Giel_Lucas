@@ -18,6 +18,7 @@ namespace TempleOfDoom.view
             Console.WriteLine("Current level: TempleOfDoom.json");
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine("--------------------------------------------------");
+            Console.ResetColor();
             foreach (Field field in gameRoom.Fields)
             {
                 new FieldView().DrawField(field, gameRoom);

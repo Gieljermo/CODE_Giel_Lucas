@@ -11,11 +11,11 @@ namespace TempleOfDoom.model
     {
         private bool _isOpen;
         public string Type { get; set; }
-        public string Color { get; set; }
-        public int NumberOfStones { get; set; }
+        public string? Color { get; set; }
         public bool IsOpen { get => _isOpen; set => _isOpen = value; }
+        public int NumberOfStones { get; set; }
 
-        public Door(string type, string color, int no_of_stones)
+        public Door(string type, string? color, int no_of_stones)
         {
             this.Type = type;
             this.Color = color;
@@ -25,7 +25,6 @@ namespace TempleOfDoom.model
         public void OpenDoor(Player player)
         {
             this.IsOpen = true;
-            Console.WriteLine(IsOpen);
         }
     }
 }

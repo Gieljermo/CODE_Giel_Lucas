@@ -1,20 +1,32 @@
 ﻿using Domain.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TempleOfDoom.model;
 
 namespace Domain.Decorators
 {
     public abstract class BaseDoorDecorator : IDoor
     {
-
         private IDoor _wrappee;
 
-        private bool _isOpen;
-        public bool IsOpen { get => _isOpen; set => _isOpen = value; }
+        public virtual bool IsOpen
+        {
+            get => _wrappee.IsOpen;
+            set => _wrappee.IsOpen = value;
+        }
+
+        public virtual string? Color
+        {
+            get => _wrappee.Color;
+            set => _wrappee.Color = value;
+        }
+
+        public virtual string Type
+        {
+            get => _wrappee.Type;
+            set => _wrappee.Type = value;
+        }
+
+        public int NumberOfStones { get; set; }
 
         public BaseDoorDecorator(IDoor wrappee)
         {

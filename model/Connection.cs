@@ -15,7 +15,7 @@ namespace TempleOfDoom.model
         public int West { get; set; }
         public int East { get; set; }
 
-        public Connection(int north, int west, int south, int east, List<Door> doors = null)
+        public Connection(int north, int west, int south, int east)
         {
             this.North = north;
             this.South = south;

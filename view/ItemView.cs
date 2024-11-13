@@ -17,7 +17,7 @@ namespace GameView
             }
             else if(type == "sankara stone")
             {
-                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.Write(" S");
             }
             else if(type == "boobytrap")

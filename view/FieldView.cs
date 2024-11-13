@@ -50,6 +50,7 @@ namespace GameView
             {
                 new DoorView().DrawDoor(field.Door);
             }
+
             // Empty Field
             else
             {

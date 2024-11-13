@@ -1,11 +1,15 @@
 ﻿using Controlllers;
 using Domain;
+using Domain.Decorators;
+using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Decorators;
 using TempleOfDoom.view;
 
 namespace TempleOfDoom.controller
@@ -84,6 +88,7 @@ namespace TempleOfDoom.controller
                 int height = 0;
                 int nextRoomId = 0;
 
+                // Determine the position of the door based on room and connection layout
                 if (connection.North == room.Id)
                 {
                     width = (room.Width - 1) / 2;
@@ -109,9 +114,34 @@ namespace TempleOfDoom.controller
                     nextRoomId = connection.East;
                 }
 
-                // Update the field to create a door
+                // Create and decorate the door at the calculated position
                 if (item.X == width && item.Y == height)
                 {
+                    IDoor door = new Door(connection.Doors.FirstOrDefault()?.Type, connection.Doors.FirstOrDefault()?.Color, 0);
+
+                    foreach (var doorInfo in connection.Doors)
+                    {
+                        switch (doorInfo.Type)
+                        {
+                            case "open on stones in room":
+                                int requiredStones = doorInfo.NumberOfStones;
+                                door = new DoorOnStonesDecorator(door, requiredStones, room);
+                                break;
+                            case "colored":
+                                door = new DoorColorDecorator(door, doorInfo.Color);
+                                break;
+                            case "toggle":
+                                door = new DoorToggleDecorator(door);
+                                break;
+                            case "open on odd":
+                                door = new OpenOnOddDoorDecorator(door);
+                                break;
+                            case "closing gate":
+                                door = new ClosingGateDoorDecorator(door);
+                                break;
+                        }
+                    }
+                    item.Door = door;
                     item.IsWall = false;
                     item.IsConnection = nextRoomId;
                 }
@@ -119,6 +149,8 @@ namespace TempleOfDoom.controller
 
             return room.Fields;
         }
+
+
 
         public void DrawLosingScreen()
         {
