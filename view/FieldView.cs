@@ -34,12 +34,6 @@ namespace GameView
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write(" #");
             }
-            // Draw Player
-            else if (field.Player != null)
-            {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write(" X");
-            }
             // Draw Item
             else if (field.Item != null)
             {

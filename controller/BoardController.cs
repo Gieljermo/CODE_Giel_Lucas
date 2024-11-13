@@ -19,6 +19,7 @@ namespace TempleOfDoom.controller
         private Board board { get; set; }
         public Player _player { get; set; }
         public Room _gameRoom { get; set; }
+
         public Room[] rooms = new Room[10];
 
         private FieldController fieldController = new FieldController();
@@ -33,17 +34,19 @@ namespace TempleOfDoom.controller
 
         public void DrawRoom()
         {
-            board.DrawRoom(_gameRoom, _player);
-
-            var ch = board.checkForInput(_gameRoom);
-
-            switch (ch)
+            Field currentPlayerField = _gameRoom.Fields.Where(f => f.Y == _player.YPositon).FirstOrDefault(f => f.X == _player.XPositon);
+            if (currentPlayerField != null && currentPlayerField.IsConnection != 0)
             {
-                case ConsoleKey.UpArrow:
-                    Console.WriteLine("test");
-                    break;
+                _gameRoom = _gameController.TempleOfDoomGame.Rooms.Where(r => r.Id == currentPlayerField.IsConnection).FirstOrDefault();
+                CreateRoom(_gameRoom);
+                Field newRoomDoor = _gameRoom.Fields.Where(f => f.IsConnection == currentPlayerField.Room).FirstOrDefault();
+                if (newRoomDoor != null)
+                {
+                    _player.XPositon = newRoomDoor.X;
+                    _player.YPositon = newRoomDoor.Y;
+                }
             }
-
+            board.DrawRoom(_gameRoom, _player);
             _gameController.CheckGameStatus(_player);
         }
 
@@ -52,8 +55,6 @@ namespace TempleOfDoom.controller
         {
             _player = player;
             _gameRoom = CreateRoom(startingRoom);
-            rooms[startingRoom.Id] = _gameRoom;
-            fieldController.AddPlayer(_gameRoom, _player);
 
             board = new Board();
         }

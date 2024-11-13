@@ -10,22 +10,31 @@ namespace TempleOfDoom.controller
         public TempleOfDoomGame TempleOfDoomGame { get; set; }
         private bool gameRunning = true;
         private BoardController boardController;
+        private PlayerController playerController;
 
         public GameController(TempleOfDoomGameJson data)
         {
-            boardController = new BoardController(this);
             this.TempleOfDoomGame = GenerateGameClasses(data);
+            this.boardController = new BoardController(this);
+            this.playerController = new PlayerController(TempleOfDoomGame.Player);
 
-            var startingRoom = TempleOfDoomGame.Rooms.FirstOrDefault(r => r.Id == TempleOfDoomGame.Player.StartRoomId + 3);
+
+            var startingRoom = TempleOfDoomGame.Rooms.FirstOrDefault(r => r.Id == TempleOfDoomGame.Player.StartRoomId);
             if (startingRoom != null)
             {
                 boardController.CreateStartingRoom(TempleOfDoomGame.Player, startingRoom);
             }
 
-            // Game loop
+            Loop();
+        }
+
+        public void Loop()
+        {
             while (gameRunning)
             {
                 boardController.DrawRoom();
+                ConsoleKey key = Console.ReadKey(true).Key;
+                playerController.Move(key, boardController._gameRoom);
             }
         }
 
@@ -81,10 +90,6 @@ namespace TempleOfDoom.controller
 
                 return connection;
             }).ToList();
-
-
-
-
 
             // Convert player
             Player player = new Player(

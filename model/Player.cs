@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Domain;
+using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,16 @@ namespace TempleOfDoom.model
             this.yPosition = startY;
             this.AmountOfLives = lives;
             Inventory = new List<IItem>();
+        }
+
+        public void Move(int x, int y, Room room)
+        {
+            Field fieldToMoveTo = room.Fields.Where(f => f.Y == this.YPositon + y).FirstOrDefault(f => f.X == this.XPositon + x);
+            if (fieldToMoveTo != null && !fieldToMoveTo.IsWall)
+            {
+                this.xPosition += x;
+                this.yPosition += y;
+            }
         }
     }
 }
