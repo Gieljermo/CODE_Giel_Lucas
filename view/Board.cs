@@ -21,6 +21,13 @@ namespace TempleOfDoom.view
             Console.ResetColor();
             foreach (Field field in gameRoom.Fields)
             {
+                if(field.X == player.XPositon && field.Y == player.YPositon)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(" X");
+                    continue;
+                }
+
                 new FieldView().DrawField(field, gameRoom);
             }
             Console.WriteLine("");

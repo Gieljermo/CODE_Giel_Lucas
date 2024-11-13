@@ -14,16 +14,6 @@ namespace Controlllers
     {
         private ItemController itemController = new ItemController();
 
-        public void AddPlayer(Room gameRoom, Player player)
-        {
-            Field field = gameRoom.Fields.Where(f => f.X == player.XPositon && f.Y == player.YPositon).FirstOrDefault();
-            if (field != null)
-            {
-                field.Player = player;  // Assign the player to only the correct field
-            }
-
-        }
-
         public List<Field> CreateFields(Room room, Player player)
         {
             List<Field> fields = new List<Field>();
