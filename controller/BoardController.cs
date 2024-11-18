@@ -22,14 +22,15 @@ namespace TempleOfDoom.controller
 
         public Room[] rooms = new Room[10];
 
-        private FieldController fieldController = new FieldController();
+        private FieldController fieldController;
 
         private GameController _gameController;
 
 
-        public BoardController(GameController controller)
+        public BoardController(GameController controller, FieldController fieldController)
         {
             _gameController = controller;
+            this.fieldController = fieldController;
         }
 
         public void DrawRoom()
@@ -161,6 +162,28 @@ namespace TempleOfDoom.controller
         public void DrawWinScreen()
         {
             board.DrawWinScreen();
+        }
+
+        public bool CanMoveTo(int x, int y)
+        {
+            Field fieldToMoveTo = _gameRoom.Fields.Where(f => f.Y == y).FirstOrDefault(f => f.X == x);
+            if (fieldToMoveTo.IsWall || fieldToMoveTo == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public IItem GetItemAtPosition(int x, int y)
+        {
+            Field fieldToCheck = _gameRoom.Fields.Where(f => f.X == x && f.Y == y).FirstOrDefault();
+            if(fieldToCheck == null)
+            {
+                return null;
+            }
+
+            return fieldToCheck.Item;
         }
     }
 }
