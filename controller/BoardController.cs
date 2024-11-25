@@ -167,7 +167,7 @@ namespace TempleOfDoom.controller
         public bool CanMoveTo(int x, int y)
         {
             Field fieldToMoveTo = _gameRoom.Fields.Where(f => f.Y == y).FirstOrDefault(f => f.X == x);
-            if (fieldToMoveTo.IsWall || fieldToMoveTo == null)
+            if (fieldToMoveTo == null || fieldToMoveTo.IsWall)
             {
                 return false;
             }
