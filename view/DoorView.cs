@@ -1,79 +1,53 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Decorators;
+using Domain.Interfaces;
 using System;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Decorators;
 
 namespace TempleOfDoom.view
 {
     public class DoorView
     {
-        public void DrawDoor(IDoor door)
+        public void DrawDoor(IDoor door, bool isHorizontal)
         {
-            // Handle door colors
-            //if (!string.IsNullOrEmpty(door.Color))
-            //{
-            //    // Set the color of the door based on the 'Color' property
-            //    switch (door.Color)
-            //    {
-            //        case "green":
-            //            Console.ForegroundColor = ConsoleColor.Green;
-            //            Console.Write(" =");
-            //            break;
-            //        case "red":
-            //            Console.ForegroundColor = ConsoleColor.Red;
-            //            Console.Write(" |");
-            //            break;
-            //        default:
-            //            Console.ForegroundColor = ConsoleColor.White;
-            //            break;
-            //    }
-            //}
-            //else
-            //{
-            //    // Default color if no color is specified
-            //    Console.ForegroundColor = ConsoleColor.White;
-            //}
+            // Default color and symbol
+            ConsoleColor doorColor = ConsoleColor.White;
+            string doorSymbol = isHorizontal ? " =" : " |";
 
-            // Handle door types and draw the appropriate symbol
-            switch (door.Type)
+            // Traverse through the chain of decorators
+            IDoor currentDoor = door;
+            while (currentDoor is BaseDoorDecorator decorator)
             {
-                case "colored":
-                    if(door.Color == "red")
+                // Check for specific decorator types
+                if (decorator is DoorColorDecorator colorDecorator)
+                {
+                    doorColor = colorDecorator.color.ToLower() switch
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write(" |");
-                    }
-                    else if(door.Color == "green")
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write(" =");
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write(" ");
-                    }
-                    break;
-                case "toggle":
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.Write(" ┴");
-                    break;
-                case "closing gate":
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.Write(" ∩");
-                    break;
-                case "open on odd": 
-                    Console.ForegroundColor = ConsoleColor.Gray;
-                    Console.Write(" ↔"); 
-                    break;
-                case "open on stones in room":
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write(" W");
-                    break;
-                default: 
-                    Console.Write("  ");
-                    break;
+                        "green" => ConsoleColor.Green,
+                        "red" => ConsoleColor.Red,
+                        _ => doorColor // Keep the existing color if unrecognized
+                    };
+                }
+                else if (decorator is DoorToggleDecorator)
+                {
+                    doorSymbol = " T"; // Override symbol for toggle doors
+                }
+                else if (decorator is ClosingGateDoorDecorator)
+                {
+                    doorSymbol = " ∩"; // Override symbol for closing gate
+                }
+
+                // Move to the next decorator in the chain
+                currentDoor = decorator._wrappee;
             }
 
+            // Apply the color
+            Console.ForegroundColor = doorColor;
+
+            // Draw the final door symbol
+            Console.Write(doorSymbol);
+
+            // Reset console color
             Console.ResetColor();
         }
     }

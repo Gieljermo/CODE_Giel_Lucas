@@ -16,17 +16,17 @@ namespace GameView
             // Check for right edge of the room to print a newline
             if (field.X == gameRoom.Width - 1)
             {
-                DrawSymbol(field);
+                DrawSymbol(field, gameRoom.Height);
                 Console.WriteLine();
                 return;
             }
             else
             {
-                DrawSymbol(field);
+                DrawSymbol(field, gameRoom.Height);
             }
         }
 
-        private void DrawSymbol(Field field)
+        private void DrawSymbol(Field field, int height)
         {
             // Draw Wall
             if (field.IsWall)
@@ -42,7 +42,12 @@ namespace GameView
             // Draw Door
             else if (field.Door != null)
             {
-                new DoorView().DrawDoor(field.Door);
+                bool horizontal = false;
+                if(field.Y == 0 || field.Y == height - 1)
+                {
+                    horizontal = true;
+                }
+                new DoorView().DrawDoor(field.Door, horizontal);
             }
 
             // Empty Field

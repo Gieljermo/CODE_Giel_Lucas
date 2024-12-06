@@ -9,10 +9,7 @@ namespace Domain.Interfaces
 {
     public interface IDoor
     {
-        string Color { get; set; }
-        string Type { get; set; }
-        int NumberOfStones { get; set; }
         bool IsOpen { get; set; }
-        void OpenDoor(Player player);
+        void OpenDoor();
     }
 }

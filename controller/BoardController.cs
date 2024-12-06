@@ -118,31 +118,7 @@ namespace TempleOfDoom.controller
                 // Create and decorate the door at the calculated position
                 if (item.X == width && item.Y == height)
                 {
-                    IDoor door = new Door(connection.Doors.FirstOrDefault()?.Type, connection.Doors.FirstOrDefault()?.Color, 0);
-
-                    foreach (var doorInfo in connection.Doors)
-                    {
-                        switch (doorInfo.Type)
-                        {
-                            case "open on stones in room":
-                                int requiredStones = doorInfo.NumberOfStones;
-                                door = new DoorOnStonesDecorator(door, requiredStones, room);
-                                break;
-                            case "colored":
-                                door = new DoorColorDecorator(door, doorInfo.Color);
-                                break;
-                            case "toggle":
-                                door = new DoorToggleDecorator(door);
-                                break;
-                            case "open on odd":
-                                door = new OpenOnOddDoorDecorator(door);
-                                break;
-                            case "closing gate":
-                                door = new ClosingGateDoorDecorator(door);
-                                break;
-                        }
-                    }
-                    item.Door = door;
+                    item.Door = connection.Door;
                     item.IsWall = false;
                     item.IsConnection = nextRoomId;
                 }

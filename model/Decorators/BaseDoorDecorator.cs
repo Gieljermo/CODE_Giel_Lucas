@@ -6,7 +6,7 @@ namespace Domain.Decorators
 {
     public abstract class BaseDoorDecorator : IDoor
     {
-        private IDoor _wrappee;
+        public IDoor _wrappee;
 
         public virtual bool IsOpen
         {
@@ -14,28 +14,14 @@ namespace Domain.Decorators
             set => _wrappee.IsOpen = value;
         }
 
-        public virtual string? Color
-        {
-            get => _wrappee.Color;
-            set => _wrappee.Color = value;
-        }
-
-        public virtual string Type
-        {
-            get => _wrappee.Type;
-            set => _wrappee.Type = value;
-        }
-
-        public int NumberOfStones { get; set; }
-
         public BaseDoorDecorator(IDoor wrappee)
         {
             _wrappee = wrappee;
         }
 
-        public virtual void OpenDoor(Player player)
+        public virtual void OpenDoor()
         {
-            _wrappee.OpenDoor(player);
+            _wrappee.OpenDoor();
         }
     }
 }
