@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Interfaces;
+using Controlllers;
 using TempleOfDoom.model.Factory;
 
 namespace TempleOfDoom.controller
@@ -12,12 +13,14 @@ namespace TempleOfDoom.controller
         private bool gameRunning = true;
         private BoardController boardController;
         private PlayerController playerController;
+        private FieldController fieldController;
 
         public GameController(TempleOfDoomGameJson data)
         {
             this.TempleOfDoomGame = GenerateGameClasses(data);
-            this.boardController = new BoardController(this);
-            this.playerController = new PlayerController(TempleOfDoomGame.Player);
+            fieldController = new FieldController();
+            this.boardController = new BoardController(this, fieldController);
+            this.playerController = new PlayerController(TempleOfDoomGame.Player, boardController);
 
 
             var startingRoom = TempleOfDoomGame.Rooms.FirstOrDefault(r => r.Id == TempleOfDoomGame.Player.StartRoomId);

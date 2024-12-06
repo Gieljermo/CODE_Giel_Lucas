@@ -24,6 +24,10 @@ namespace TempleOfDoom.view
                 if(field.X == player.XPositon && field.Y == player.YPositon)
                 {
                     Console.ForegroundColor = ConsoleColor.White;
+                    if(player.XPositon == gameRoom.Width - 1){
+                        Console.WriteLine(" X");
+                        continue;
+                    }
                     Console.Write(" X");
                     continue;
                 }

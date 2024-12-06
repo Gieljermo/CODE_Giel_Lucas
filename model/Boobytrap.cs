@@ -10,6 +10,7 @@ namespace Domain
 {
     public class Boobytrap : IItem
     {
+
         private string _type;
         public string Type { get => _type; set => _type = value; }
 
