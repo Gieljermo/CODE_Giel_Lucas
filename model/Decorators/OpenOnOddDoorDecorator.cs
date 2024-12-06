@@ -15,9 +15,9 @@ namespace TempleOfDoom.model.Decorators
 
         }
 
-        public override void OpenDoor(Player player)
+        public override void OpenDoor()
         {
-            base.OpenDoor(player);
+            base.OpenDoor();
         }
     }
 }

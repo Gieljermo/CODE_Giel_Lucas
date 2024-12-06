@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Domain.Interfaces;
 using Controlllers;
+using TempleOfDoom.model.Factory;
 
 namespace TempleOfDoom.controller
 {
@@ -82,13 +83,12 @@ namespace TempleOfDoom.controller
                     connectionJson.EAST
                 );
 
-                if (connectionJson.doors != null)
+                DoorFactory doorFactory = new DoorFactory();
+
+                // If doors are defined, create the decorated door
+                if (connectionJson.doors != null && connectionJson.doors.Any())
                 {
-                    connection.Doors = connectionJson.doors.Select(doorJson => new Door(
-                        doorJson.type,
-                        doorJson.color,
-                        doorJson.no_of_stones
-                    )).Cast<IDoor>().ToList(); // Cast naar IDoor
+                    connection.Door = doorFactory.CreateDecoratedDoor(connectionJson.doors);
                 }
 
                 return connection;

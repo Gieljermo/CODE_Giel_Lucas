@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,14 +12,16 @@ namespace Domain.Decorators
     public class DoorColorDecorator : BaseDoorDecorator
     {
 
+        public string color;
+
         public DoorColorDecorator(IDoor wrappee, string color) : base(wrappee)
         {
-            base.Color = color;
+           this.color = color;
         }
 
-        public override void OpenDoor(Player player)
+        public override void OpenDoor()
         {
-            base.OpenDoor(player);
+            base.OpenDoor();
         }
     }
 

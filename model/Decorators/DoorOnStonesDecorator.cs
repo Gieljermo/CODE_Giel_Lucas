@@ -18,11 +18,11 @@ namespace Domain.Decorators
             _room = room;
         }
 
-        public override void OpenDoor(Player player)
+        public override void OpenDoor()
         {
             if(CheckRoomForStones() == _neededStones)
             {
-                base.OpenDoor(player);
+                base.OpenDoor();
             }
         }
 
