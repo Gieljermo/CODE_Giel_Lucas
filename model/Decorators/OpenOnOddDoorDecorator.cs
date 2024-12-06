@@ -17,7 +17,10 @@ namespace TempleOfDoom.model.Decorators
 
         public override void OpenDoor(Player player)
         {
-            base.OpenDoor(player);
+            if (player.AmountOfLives % 2 != 0)
+            {
+                base.OpenDoor(player);
+            }
         }
     }
 }
