@@ -16,12 +16,12 @@ namespace TempleOfDoom.model.Decorators
             base.IsOpen = true;
         }
 
-        public override void OpenDoor(Player player)
+        public override void OpenDoor(Player player, Room room)
         {
             if (!playerPassed)
             {
                 playerPassed = true;
-                base.OpenDoor(player);
+                base.OpenDoor(player, room);
             }
             else
             {

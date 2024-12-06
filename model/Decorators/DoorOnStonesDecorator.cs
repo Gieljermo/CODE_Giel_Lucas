@@ -11,25 +11,26 @@ namespace Domain.Decorators
     public class DoorOnStonesDecorator : BaseDoorDecorator
     {
         private int _neededStones;
-        private Room _room;
-        public DoorOnStonesDecorator(IDoor wrappee, int neededStones, Room room) : base(wrappee) 
+        public DoorOnStonesDecorator(IDoor wrappee, int neededStones) : base(wrappee) 
         {
             _neededStones = neededStones;
-            _room = room;
         }
 
-        public override void OpenDoor(Player player)
+        public override void OpenDoor(Player player, Room room)
         {
-            if(CheckRoomForStones() == _neededStones)
+            if(CheckRoomForStones(room) != _neededStones)
             {
-                base.OpenDoor(player);
+                base.IsOpen = false;
+                return;
             }
+ 
+            base.OpenDoor(player, room);
         }
 
-        private int CheckRoomForStones()
+        private int CheckRoomForStones(Room room)
         {
             int amountOfStones = 0;
-            foreach(var field in _room.Fields)
+            foreach(var field in room.Fields)
             {
                 if(field.Item != null && field.Item is SankaraStone)
                 {

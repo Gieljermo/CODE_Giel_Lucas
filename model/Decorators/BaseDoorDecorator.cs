@@ -19,9 +19,9 @@ namespace Domain.Decorators
             _wrappee = wrappee;
         }
 
-        public virtual void OpenDoor(Player player)
+        public virtual void OpenDoor(Player player, Room room)
         {
-            _wrappee.OpenDoor(player);
+            _wrappee.OpenDoor(player, room);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Domain
                 {
                     if (currentDoor is DoorToggleDecorator toggleableDoor)
                     {
-                        toggleableDoor.OpenDoor(player);
+                        toggleableDoor.OpenDoor(player, room);
                         break;
                     }
 
