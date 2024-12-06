@@ -1,6 +1,7 @@
 ﻿using Domain.Decorators;
 using Domain.Interfaces;
 using System;
+using System.Text;
 using TempleOfDoom.model;
 using TempleOfDoom.model.Decorators;
 
@@ -10,6 +11,7 @@ namespace TempleOfDoom.view
     {
         public void DrawDoor(IDoor door, bool isHorizontal)
         {
+            Console.OutputEncoding = Encoding.UTF8;
             // Default color and symbol
             ConsoleColor doorColor = ConsoleColor.White;
             string doorSymbol = isHorizontal ? " =" : " |";
@@ -30,7 +32,7 @@ namespace TempleOfDoom.view
                 }
                 else if (decorator is DoorToggleDecorator)
                 {
-                    doorSymbol = " T"; // Override symbol for toggle doors
+                    doorSymbol = " Ʇ"; // Override symbol for toggle doors
                 }
                 else if (decorator is ClosingGateDoorDecorator)
                 {
