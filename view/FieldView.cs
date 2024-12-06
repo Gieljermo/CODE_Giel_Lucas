@@ -37,7 +37,7 @@ namespace GameView
             // Draw Item
             else if (field.Item != null)
             {
-                new ItemView().drawItem(field.Item.Type);
+                new ItemView().drawItem(field.Item);
             }
             // Draw Door
             else if (field.Door != null)

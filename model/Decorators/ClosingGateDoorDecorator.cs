@@ -10,14 +10,23 @@ namespace TempleOfDoom.model.Decorators
 {
     public class ClosingGateDoorDecorator : BaseDoorDecorator
     {
+        bool playerPassed = false;
         public ClosingGateDoorDecorator(IDoor wrappee) : base(wrappee)
         {
-
+            base.IsOpen = true;
         }
 
-        public override void OpenDoor()
+        public override void OpenDoor(Player player, Room room)
         {
-            base.OpenDoor();
+            if (!playerPassed)
+            {
+                playerPassed = true;
+                base.OpenDoor(player, room);
+            }
+            else
+            {
+                base.IsOpen = false;
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Domain.Decorators
             
         }
 
-        public override void OpenDoor()
+        public override void OpenDoor(Player player, Room room)
         {
             if (this.IsOpen)
             {
@@ -24,13 +24,13 @@ namespace Domain.Decorators
             }
             else
             {
-                base.OpenDoor();
+                base.OpenDoor(player, room);
             }
         }
 
         private void CloseDoor()
         {
-            this.IsOpen = false;
+            base.IsOpen = false;
         }
     }
 }

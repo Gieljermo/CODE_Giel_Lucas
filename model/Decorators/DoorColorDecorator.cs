@@ -19,9 +19,12 @@ namespace Domain.Decorators
            this.color = color;
         }
 
-        public override void OpenDoor()
+        public override void OpenDoor(Player player, Room room)
         {
-            base.OpenDoor();
+            if (player.Inventory.OfType<Key>().Any(k => k.Color == color))
+            {
+                base.OpenDoor(player, room);
+            }
         }
     }
 

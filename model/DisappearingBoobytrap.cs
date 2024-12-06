@@ -13,7 +13,7 @@ namespace Domain
         private string _type;
         public string Type { get => _type; set => _type = value; }
         public int Damage { get; set; }
-        public void Interact(Player player, Field field)
+        public void Interact(Player player, Field field, Room room)
         {
             player.AmountOfLives--;
             field.RemoveItem();

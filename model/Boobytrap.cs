@@ -15,7 +15,7 @@ namespace Domain
         public string Type { get => _type; set => _type = value; }
 
         public int Damage { get; set; }
-        public void Interact(Player player, Field field)
+        public void Interact(Player player, Field field, Room room)
         {
             player.AmountOfLives -= Damage;
         }

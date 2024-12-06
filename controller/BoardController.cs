@@ -38,8 +38,13 @@ namespace TempleOfDoom.controller
             Field currentPlayerField = _gameRoom.Fields.Where(f => f.Y == _player.YPositon).FirstOrDefault(f => f.X == _player.XPositon);
             if (currentPlayerField != null && currentPlayerField.IsConnection != 0)
             {
-                _gameRoom = _gameController.TempleOfDoomGame.Rooms.Where(r => r.Id == currentPlayerField.IsConnection).FirstOrDefault();
-                CreateRoom(_gameRoom);
+                _gameRoom = rooms[currentPlayerField.IsConnection];
+                if (_gameRoom == null)
+                {
+                    _gameRoom = _gameController.TempleOfDoomGame.Rooms.Where(r => r.Id == currentPlayerField.IsConnection).FirstOrDefault();
+                    CreateRoom(_gameRoom);
+                }
+               
                 Field newRoomDoor = _gameRoom.Fields.Where(f => f.IsConnection == currentPlayerField.Room).FirstOrDefault();
                 if (newRoomDoor != null)
                 {
@@ -47,6 +52,7 @@ namespace TempleOfDoom.controller
                     _player.YPositon = newRoomDoor.Y;
                 }
             }
+
             board.DrawRoom(_gameRoom, _player);
             _gameController.CheckGameStatus(_player);
         }
@@ -74,6 +80,8 @@ namespace TempleOfDoom.controller
                     gameRoom.Fields = AddDoor(item, gameRoom);
                 }
             }
+
+            rooms[gameRoom.Id] = gameRoom;
 
             return gameRoom;
         }
@@ -148,6 +156,14 @@ namespace TempleOfDoom.controller
                 return false;
             }
 
+            IDoor door = GetDoor(x, y);
+            if (door != null)
+            {
+                door.OpenDoor(_player, _gameRoom);
+                return door.IsOpen;
+
+            }
+
             return true;
         }
 
@@ -160,6 +176,17 @@ namespace TempleOfDoom.controller
             }
 
             return fieldToCheck.Item;
+        }
+
+        public IDoor GetDoor(int x, int y)
+        {
+            Field fieldToCheck = _gameRoom.Fields.Where(f => f.X == x && f.Y == y).FirstOrDefault();
+            if (fieldToCheck == null)
+            {
+                return null;
+            }
+
+            return fieldToCheck.Door;
         }
     }
 }

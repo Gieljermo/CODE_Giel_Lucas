@@ -17,7 +17,7 @@ namespace TempleOfDoom.model
 
         }
 
-        public void OpenDoor()
+        public void OpenDoor(Player player, Room room)
         {
             this.IsOpen = true;
         }

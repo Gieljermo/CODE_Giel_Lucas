@@ -24,8 +24,8 @@ namespace TempleOfDoom.model.Factory
                     "colored" when !string.IsNullOrEmpty(doorProperty.color) =>
                         new DoorColorDecorator(decoratedDoor, doorProperty.color),
 
-                    //"open on stones in room" when room != null =>
-                    //    new DoorOnStonesDecorator(decoratedDoor, doorProperty.no_of_stones, room),
+                    "open on stones in room" =>
+                        new DoorOnStonesDecorator(decoratedDoor, doorProperty.no_of_stones),
 
                     "open on odd" =>
                         new OpenOnOddDoorDecorator(decoratedDoor),

@@ -14,7 +14,7 @@ namespace Domain
         public string Type { get => _type; set => _type = value; }
 
 
-        public void Interact(Player player, Field field)
+        public void Interact(Player player, Field field, Room room)
         {
             player.AmountOfStones++;
             field.RemoveItem();
