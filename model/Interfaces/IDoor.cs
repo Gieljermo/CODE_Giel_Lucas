@@ -10,6 +10,6 @@ namespace Domain.Interfaces
     public interface IDoor
     {
         bool IsOpen { get; set; }
-        void OpenDoor();
+        void OpenDoor(Player player);
     }
 }

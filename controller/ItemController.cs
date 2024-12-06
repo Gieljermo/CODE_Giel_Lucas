@@ -24,6 +24,9 @@ namespace Controlllers
                 } else if(createdItem is DisappearingBoobytrap)
                 {
                     ((DisappearingBoobytrap)createdItem).Damage = item.Damage;
+                } else if(createdItem is Key)
+                {
+                    ((Key) createdItem).Color = item.Color;
                 }
             }
             return createdItem;

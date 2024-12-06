@@ -34,14 +34,14 @@ namespace TempleOfDoom.controller
         {
             if (movementMap.TryGetValue(key, out var movement))
             {
-                if(boardController.CanMoveTo(Player.XPositon + movement.xMovement, Player.YPositon + movement.yMovement)){
-                    Player.Move(movement.xMovement, movement.yMovement, room);
-                }
-
                 IItem item = boardController.GetItemAtPosition(Player.XPositon, Player.YPositon);
                 if (item != null)
                 {
                     item.Interact(Player, room.Fields.Where(f => f.X == Player.XPositon).Where(f => f.Y == Player.YPositon).FirstOrDefault());
+                }
+
+                if (boardController.CanMoveTo(Player.XPositon + movement.xMovement, Player.YPositon + movement.yMovement)){
+                    Player.Move(movement.xMovement, movement.yMovement, room);
                 }
             }
         }

@@ -148,6 +148,14 @@ namespace TempleOfDoom.controller
                 return false;
             }
 
+            IDoor door = GetDoor(x, y);
+            if (door != null)
+            {
+                door.OpenDoor(_player);
+                return door.IsOpen;
+
+            }
+
             return true;
         }
 
@@ -160,6 +168,17 @@ namespace TempleOfDoom.controller
             }
 
             return fieldToCheck.Item;
+        }
+
+        public IDoor GetDoor(int x, int y)
+        {
+            Field fieldToCheck = _gameRoom.Fields.Where(f => f.X == x && f.Y == y).FirstOrDefault();
+            if (fieldToCheck == null)
+            {
+                return null;
+            }
+
+            return fieldToCheck.Door;
         }
     }
 }

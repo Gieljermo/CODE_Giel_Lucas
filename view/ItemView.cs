@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain;
+using Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,30 +10,33 @@ namespace GameView
 {
     public class ItemView
     {
-        public void drawItem(string type)
+        public void drawItem(IItem item)
         {
-            if(type == "disappearing boobytrap")
+            if(item.Type == "disappearing boobytrap")
             {
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write(" @");
             }
-            else if(type == "sankara stone")
+            else if(item.Type == "sankara stone")
             {
                 Console.ForegroundColor = ConsoleColor.Magenta;
                 Console.Write(" S");
             }
-            else if(type == "boobytrap")
+            else if(item.Type == "boobytrap")
             {
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write(" O");
             }
-            else if (type == "key")
+            else if (item.Type == "key")
             {
-                if(type == "key")
-                Console.ForegroundColor = ConsoleColor.Green;
+                string colorName = ((Key)item).Color;
+                if (Enum.TryParse(colorName, true, out ConsoleColor consoleColor))
+                {
+                    Console.ForegroundColor = consoleColor;
+                }
                 Console.Write(" K");
             }
-            else if (type == "pressure plate")
+            else if (item.Type == "pressure plate")
             {
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write(" T");
