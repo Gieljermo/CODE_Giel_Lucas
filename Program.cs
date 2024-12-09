@@ -1,6 +1,8 @@
 ﻿using System.Text.Json;
 using TempleOfDoom.controller;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Interfaces;
+using TempleOfDoom.model.Readers;
 
 namespace TempleOfDoom
 {
@@ -8,10 +10,12 @@ namespace TempleOfDoom
     {
         static void Main(string[] args)
         {
-            string FileName = "resources/TempleOfDoom.json";
-            TempleOfDoomGameJson gameData = JsonSerializer.Deserialize<TempleOfDoomGameJson>(File.ReadAllText(FileName));
-            GameController gameController = new GameController(gameData);
-           // Console.WriteLine( gameController.TempleOfDoomGame);
+            string fileName = "resources/TempleOfDoom.json";
+
+
+            IFileReader fileReader = new JsonFileReader();
+
+            GameController gameController = new GameController(fileReader, fileName);
         }
     }
 }

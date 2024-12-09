@@ -4,6 +4,7 @@ using System.Linq;
 using Domain.Interfaces;
 using Controlllers;
 using TempleOfDoom.model.Factory;
+using TempleOfDoom.model.Interfaces;
 
 namespace TempleOfDoom.controller
 {
@@ -14,10 +15,12 @@ namespace TempleOfDoom.controller
         private BoardController boardController;
         private PlayerController playerController;
         private FieldController fieldController;
+        private readonly TempleOfDoomGameJson _gameData;
 
-        public GameController(TempleOfDoomGameJson data)
+        public GameController(IFileReader fileReader, string fileName)
         {
-            this.TempleOfDoomGame = GenerateGameClasses(data);
+            this._gameData = fileReader.readFile(fileName);
+            this.TempleOfDoomGame = GenerateGameClasses(_gameData);
             fieldController = new FieldController();
             this.boardController = new BoardController(this, fieldController);
             this.playerController = new PlayerController(TempleOfDoomGame.Player, boardController);
