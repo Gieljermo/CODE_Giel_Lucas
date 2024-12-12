@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Domain.Decorators.BaseDoorDecorator">
+    <Position X="11" Y="10" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAgAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>model\Decorators\BaseDoorDecorator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_wrappee" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Domain.Decorators.DoorColorDecorator">
+    <Position X="16.75" Y="12.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>model\Decorators\DoorColorDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Decorators.DoorOnStonesDecorator">
+    <Position X="5" Y="12.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAFAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>model\Decorators\DoorOnStonesDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Decorators.DoorToggleDecorator">
+    <Position X="8" Y="12.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>model\Decorators\DoorToggleDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TempleOfDoom.model.Decorators.ClosingGateDoorDecorator">
+    <Position X="10.75" Y="12.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>model\Decorators\ClosingGateDoorDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TempleOfDoom.model.Decorators.OpenOnOddDoorDecorator">
+    <Position X="13.75" Y="12.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>model\Decorators\OpenOnOddDoorDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Domain.Boobytrap" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAQAAAAAAAAAIAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>model\Boobytrap.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Domain.DisappearingBoobytrap" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="8" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAQAAAAAAAAAIAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>model\DisappearingBoobytrap.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Domain.Field">
+    <Position X="5.25" Y="8.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAIACAAAAAAAAAAABAAAAAEAAAAgAAEAAAAAAAAYAA=</HashCode>
+      <FileName>model\Field.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Door" />
+      <Property Name="Item" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Domain.Key" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAIAAAAAAAAQAAgAAAAAA=</HashCode>
+      <FileName>model\Key.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Domain.PressurePlate" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAIAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>model\PressurePlate.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Domain.SankaraStone" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAIAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>model\SankaraStone.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TempleOfDoom.model.Connection">
+    <Position X="11.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAACAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAABAAQ=</HashCode>
+      <FileName>model\Connection.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Door" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="TempleOfDoom.model.Item" Collapsed="true">
+    <Position X="8.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAQAAgAAAYAA=</HashCode>
+      <FileName>model\Item.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TempleOfDoom.model.Player">
+    <Position X="8" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAGBAAIAAAAAAQAAAAAAAAAgAAQAAAAAAAiAAAAA=</HashCode>
+      <FileName>model\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TempleOfDoom.model.Room">
+    <Position X="8.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAABAAACAAAAAAAAEAAAAAAAAAAAQAAACAAgAA=</HashCode>
+      <FileName>model\Room.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Connections" />
+      <Property Name="Fields" />
+      <Property Name="Items" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="TempleOfDoom.model.TempleOfDoomGame">
+    <Position X="8.5" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAASAAAAA=</HashCode>
+      <FileName>model\TempleOfDoomGame.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Player" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Rooms" />
+      <Property Name="Connections" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Interface Name="Domain.Interfaces.IDoor" Collapsed="true">
+    <Position X="6.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>model\Interfaces\IDoor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Domain.Interfaces.IItem" Collapsed="true">
+    <Position X="3.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>model\Interfaces\IItem.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
