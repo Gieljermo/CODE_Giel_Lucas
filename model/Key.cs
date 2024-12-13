@@ -15,7 +15,7 @@ namespace Domain
         public string Color { get; set; } 
         public void Interact(Player player, Field field, Room room)
         {
-            player.Inventory.Add(this);
+            player.AddItemToInvetory(this);
             field.RemoveItem();
         }
     }

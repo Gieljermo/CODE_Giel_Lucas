@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TempleOfDoom.model.Observers;
 
 namespace TempleOfDoom.model
 {
@@ -12,6 +13,8 @@ namespace TempleOfDoom.model
     {
         public int StartRoomId { get; set; }
         private int xPosition;
+        private List<IInventoryObserver> inventoryObservers = new List<IInventoryObserver>();
+        private List<IHealthObserver> healthObservers = new List<IHealthObserver>();
         public int XPositon
         {
             get { return xPosition; }
@@ -45,6 +48,53 @@ namespace TempleOfDoom.model
                 this.xPosition += x;
                 this.yPosition += y;
             }
+        }
+
+        public void AddInventoryObserver(IInventoryObserver observer)
+        {
+            inventoryObservers.Add(observer);
+        }
+
+        public void RemoveInvetoryObserver(IInventoryObserver observer)
+        {
+            inventoryObservers.Remove(observer);
+        }
+
+        public void AddHealthObserver(IHealthObserver observer)
+        {
+            healthObservers.Add(observer);
+        }
+
+        public void RemoveHealthObserver(IHealthObserver observer)
+        {
+            healthObservers.Remove(observer);
+        }
+
+        public void takeDamage(int amount)
+        {
+            this.AmountOfLives -= amount;
+            changeHealth();
+        }
+
+        private void changeHealth()
+        {
+            foreach(var observer in healthObservers)
+            {
+                observer.OnHealthChanged(this.AmountOfLives);
+            }
+        }
+
+        public void changeInventory()
+        {
+            foreach (var observer in inventoryObservers) { 
+                observer.onInventoryChange(this.Inventory);
+            }
+        }
+
+        internal void AddItemToInvetory(IItem item)
+        {
+            this.Inventory.Add(item);
+            changeInventory();
         }
     }
 }
