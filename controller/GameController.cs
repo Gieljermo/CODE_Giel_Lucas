@@ -5,6 +5,8 @@ using Domain.Interfaces;
 using Controlllers;
 using TempleOfDoom.model.Factory;
 using TempleOfDoom.model.Interfaces;
+using TempleOfDoom.model.Observers;
+using Domain.Decorators;
 
 namespace TempleOfDoom.controller
 {
@@ -73,7 +75,12 @@ namespace TempleOfDoom.controller
                 return room;
             }).ToList();
 
-
+            Player player = new Player(
+                data.player.startRoomId,
+                data.player.startX,
+                data.player.startY,
+                data.player.lives
+            );
 
 
             // Convert connections
@@ -88,22 +95,41 @@ namespace TempleOfDoom.controller
 
                 DoorFactory doorFactory = new DoorFactory();
 
-                // If doors are defined, create the decorated door
                 if (connectionJson.doors != null && connectionJson.doors.Any())
                 {
-                    connection.Door = doorFactory.CreateDecoratedDoor(connectionJson.doors);
+                    var decoratedDoor = doorFactory.CreateDecoratedDoor(connectionJson.doors);
+                    connection.Door = decoratedDoor;
+
+                    while (decoratedDoor is BaseDoorDecorator decorator)
+                    {
+                        if (decorator is IInventoryObserver inventoryObserver)
+                        {
+                            player.AddInventoryObserver(inventoryObserver);
+                        }
+
+                        if (decorator is IHealthObserver healthObserver)
+                        {
+                            player.AddHealthObserver(healthObserver);
+                        }
+
+                        decoratedDoor = decorator._wrappee;
+                    }
+
+                    // Lastly, check the base door itself
+                    if (decoratedDoor is IInventoryObserver baseObserver)
+                    {
+                        player.AddInventoryObserver(baseObserver);
+                    }
+
+                    if (decoratedDoor is IHealthObserver baseHealthObserver)
+                    {
+                        player.AddHealthObserver(baseHealthObserver);
+                    }
                 }
 
                 return connection;
             }).ToList();
 
-            // Convert player
-            Player player = new Player(
-                data.player.startRoomId,
-                data.player.startX,
-                data.player.startY,
-                data.player.lives
-            );
 
             // Create and return the TempleOfDoomGame domain object
             return new TempleOfDoomGame(rooms, connections, player);
