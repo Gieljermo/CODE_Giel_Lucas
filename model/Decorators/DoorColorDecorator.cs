@@ -32,7 +32,7 @@ namespace Domain.Decorators
 
         public override void OpenDoor(Player player, Room room)
         {
-            if (player.Inventory.OfType<Key>().Any(k => k.Color == color))
+            if (hasKey)
             {
                 base.OpenDoor(player, room);
             }

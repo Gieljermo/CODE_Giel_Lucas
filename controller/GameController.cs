@@ -104,7 +104,12 @@ namespace TempleOfDoom.controller
                     {
                         if (decorator is IInventoryObserver inventoryObserver)
                         {
-                            player.AddObserver(inventoryObserver);
+                            player.AddInventoryObserver(inventoryObserver);
+                        }
+
+                        if (decorator is IHealthObserver healthObserver)
+                        {
+                            player.AddHealthObserver(healthObserver);
                         }
 
                         decoratedDoor = decorator._wrappee;
@@ -113,7 +118,12 @@ namespace TempleOfDoom.controller
                     // Lastly, check the base door itself
                     if (decoratedDoor is IInventoryObserver baseObserver)
                     {
-                        player.AddObserver(baseObserver);
+                        player.AddInventoryObserver(baseObserver);
+                    }
+
+                    if (decoratedDoor is IHealthObserver baseHealthObserver)
+                    {
+                        player.AddHealthObserver(baseHealthObserver);
                     }
                 }
 

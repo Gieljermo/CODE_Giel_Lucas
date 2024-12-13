@@ -13,7 +13,8 @@ namespace TempleOfDoom.model
     {
         public int StartRoomId { get; set; }
         private int xPosition;
-        private List<IInventoryObserver> observers = new List<IInventoryObserver>();
+        private List<IInventoryObserver> inventoryObservers = new List<IInventoryObserver>();
+        private List<IHealthObserver> healthObservers = new List<IHealthObserver>();
         public int XPositon
         {
             get { return xPosition; }
@@ -49,19 +50,43 @@ namespace TempleOfDoom.model
             }
         }
 
-        public void AddObserver(IInventoryObserver observer)
+        public void AddInventoryObserver(IInventoryObserver observer)
         {
-            observers.Add(observer);
+            inventoryObservers.Add(observer);
         }
 
-        public void RemoveObserver(IInventoryObserver observer)
+        public void RemoveInvetoryObserver(IInventoryObserver observer)
         {
-            observers.Remove(observer);
+            inventoryObservers.Remove(observer);
+        }
+
+        public void AddHealthObserver(IHealthObserver observer)
+        {
+            healthObservers.Add(observer);
+        }
+
+        public void RemoveHealthObserver(IHealthObserver observer)
+        {
+            healthObservers.Remove(observer);
+        }
+
+        public void takeDamage(int amount)
+        {
+            this.AmountOfLives -= amount;
+            changeHealth();
+        }
+
+        private void changeHealth()
+        {
+            foreach(var observer in healthObservers)
+            {
+                observer.OnHealthChanged(this.AmountOfLives);
+            }
         }
 
         public void changeInventory()
         {
-            foreach (var observer in observers) { 
+            foreach (var observer in inventoryObservers) { 
                 observer.onInventoryChange(this.Inventory);
             }
         }
