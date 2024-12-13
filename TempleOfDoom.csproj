@@ -7,4 +7,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="resources\TempleOfDoom.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="resources\TempleOfDoom.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
