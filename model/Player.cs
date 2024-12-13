@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TempleOfDoom.model.Observers;
 
 namespace TempleOfDoom.model
 {
@@ -12,6 +13,7 @@ namespace TempleOfDoom.model
     {
         public int StartRoomId { get; set; }
         private int xPosition;
+        private List<IInventoryObserver> observers = new List<IInventoryObserver>();
         public int XPositon
         {
             get { return xPosition; }
@@ -45,6 +47,29 @@ namespace TempleOfDoom.model
                 this.xPosition += x;
                 this.yPosition += y;
             }
+        }
+
+        public void AddObserver(IInventoryObserver observer)
+        {
+            observers.Add(observer);
+        }
+
+        public void RemoveObserver(IInventoryObserver observer)
+        {
+            observers.Remove(observer);
+        }
+
+        public void changeInventory()
+        {
+            foreach (var observer in observers) { 
+                observer.onInventoryChange(this.Inventory);
+            }
+        }
+
+        internal void AddItemToInvetory(IItem item)
+        {
+            this.Inventory.Add(item);
+            changeInventory();
         }
     }
 }
