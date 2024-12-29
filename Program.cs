@@ -10,7 +10,7 @@ namespace TempleOfDoom
     {
         static void Main(string[] args)
         {
-            string fileName = "resources/TempleOfDoom.json";
+            string fileName = "resources/TempleOfDoom_Extended_B_2122.json";
 
 
             IFileReader fileReader = new JsonFileReader();

@@ -8,14 +8,11 @@ using TempleOfDoom.model;
 
 namespace Domain
 {
-    public class DisappearingBoobytrap : IItem
+    public class DisappearingBoobytrap : Boobytrap
     {
-        private string _type;
-        public string Type { get => _type; set => _type = value; }
-        public int Damage { get; set; }
-        public void Interact(Player player, Field field, Room room)
+        public override void Interact(Player player, Field field, Room room)
         {
-            player.AmountOfLives--;
+            player.takeDamage(Damage);
             field.RemoveItem();
         }
     }

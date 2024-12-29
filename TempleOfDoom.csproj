@@ -8,13 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="resources\TempleOfDoom.json" />
+    <Reference Include="CODE_TempleOfDoom_DownloadableContent">
+      <HintPath>..\..\..\OneDrive\Documenten\School\Jaar 3\Code\CODE_TempleOfDoom_DownloadableContent\CODE_TempleOfDoom_DownloadableContent.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="resources\TempleOfDoom.json">
+    <None Update="resources\TempleOfDoom_Extended_B_2122.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
   </ItemGroup>
 
 </Project>

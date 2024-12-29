@@ -14,7 +14,7 @@ namespace TempleOfDoom.view
         public void DrawRoom(Room gameRoom, Player player)
         {
             Console.Clear();
-            Console.WriteLine("Welcom to The Temple of Doom!");
+            Console.WriteLine("Welcome to The Temple of Doom!");
             Console.WriteLine("Current level: TempleOfDoom.json");
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine("--------------------------------------------------");

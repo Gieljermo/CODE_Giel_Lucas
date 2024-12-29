@@ -12,7 +12,10 @@ namespace Domain
     {
         private string _type;
         public string Type { get => _type; set => _type = value; }
-
+        public int Damage { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int X { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Y { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Color { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public void Interact(Player player, Field field, Room room)
         {

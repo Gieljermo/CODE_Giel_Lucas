@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TempleOfDoom.model.Interfaces;
 using TempleOfDoom.model.Observers;
 
 namespace TempleOfDoom.model
 {
-    public class Player
+    public class Player : IObservable
     {
         public int StartRoomId { get; set; }
         private int xPosition;
@@ -50,51 +51,52 @@ namespace TempleOfDoom.model
             }
         }
 
-        public void AddInventoryObserver(IInventoryObserver observer)
-        {
-            inventoryObservers.Add(observer);
-        }
-
-        public void RemoveInvetoryObserver(IInventoryObserver observer)
-        {
-            inventoryObservers.Remove(observer);
-        }
-
-        public void AddHealthObserver(IHealthObserver observer)
-        {
-            healthObservers.Add(observer);
-        }
-
-        public void RemoveHealthObserver(IHealthObserver observer)
-        {
-            healthObservers.Remove(observer);
-        }
-
         public void takeDamage(int amount)
         {
             this.AmountOfLives -= amount;
-            changeHealth();
+            NotifyHealthObservers();
         }
 
-        private void changeHealth()
-        {
-            foreach(var observer in healthObservers)
-            {
-                observer.OnHealthChanged(this.AmountOfLives);
-            }
-        }
-
-        public void changeInventory()
-        {
-            foreach (var observer in inventoryObservers) { 
-                observer.onInventoryChange(this.Inventory);
-            }
-        }
 
         internal void AddItemToInvetory(IItem item)
         {
             this.Inventory.Add(item);
-            changeInventory();
+            NotifyInventoryObservers();
+        }
+
+        public void RegisterObserverHealth(IHealthObserver healthobserver)
+        {
+            healthObservers.Add(healthobserver);
+        }
+
+        public void RegisterObserverInventory(IInventoryObserver inventoryObserver)
+        {
+            inventoryObservers.Add(inventoryObserver);
+        }
+
+        public void UnregisterObserverInventory(IInventoryObserver inventoryObserver)
+        {
+            inventoryObservers.Remove(inventoryObserver);
+        }
+
+        public void UnregisterObserverHealth(IHealthObserver healthObserver)
+        {
+            healthObservers.Remove(healthObserver);
+        }
+
+        public void NotifyHealthObservers()
+        {
+            foreach (var observer in healthObservers)
+            {
+                observer.OnHealthChanged(this.AmountOfLives);
+            }
+        }
+        public void NotifyInventoryObservers()
+        { 
+            foreach (var observer in inventoryObservers)
+            {
+                observer.onInventoryChange(this.Inventory);
+            }
         }
     }
 }

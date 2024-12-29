@@ -49,6 +49,11 @@ namespace GameView
                 }
                 new DoorView().DrawDoor(field.Door, horizontal);
             }
+            else if(field.Connection != null)
+            {
+                Console.ResetColor();
+                Console.Write(" *");
+            }
 
             // Empty Field
             else

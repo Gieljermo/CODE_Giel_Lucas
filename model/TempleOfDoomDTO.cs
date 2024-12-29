@@ -37,6 +37,7 @@ public class ConnectionJson
     public int NORTH { get; set; }
     public int SOUTH { get; set; }
     public DoorJson[] doors { get; set; }
+    public PortalJson[] portal { get; set; }
     public int WEST { get; set; }
     public int EAST { get; set; }
 }
@@ -46,4 +47,11 @@ public class DoorJson
     public string type { get; set; }
     public string color { get; set; }
     public int no_of_stones { get; set; }
+}
+
+public class PortalJson
+{
+    public int roomId { get; set; }
+    public int x { get; set; }
+    public int y { get; set; }
 }

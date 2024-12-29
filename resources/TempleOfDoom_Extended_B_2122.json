@@ -36,6 +36,20 @@
 			"type": "room",
 			"width": 11,
 			"height": 7,
+			"specialFloorTiles":[
+				{
+					"type": "conveyor belt",
+					"direction": "EAST",
+					"x": 8,
+					"y": 1
+				},
+				{
+					"type": "conveyor belt",
+					"direction": "WEST",
+					"x": 9,
+					"y": 5
+				}
+			],
 			"items": [
 				{
 					"type": "key",
@@ -84,6 +98,26 @@
 					"x": 6,
 					"y": 4
 				}
+			],
+			"enemies": [
+				{
+					"type": "horizontal",
+					"x": 2,
+					"y": 5,
+					"minX": 2,
+					"minY": 5,
+					"maxX": 7,
+					"maxY": 5
+				},
+				{
+					"type": "vertical",
+					"x": 9,
+					"y": 1,
+					"minX": 8,
+					"minY": 1,
+					"maxX": 9,
+					"maxY": 5
+				}
 			]
 		},
 		{
@@ -91,6 +125,38 @@
 			"type": "room",
 			"width": 5,
 			"height": 5,
+			"specialFloorTiles":[
+				{
+					"type": "conveyor belt",
+					"direction": "EAST",
+					"x": 1,
+					"y": 1
+				},
+				{
+					"type": "conveyor belt",
+					"direction": "EAST",
+					"x": 2,
+					"y": 1
+				},
+				{
+					"type": "conveyor belt",
+					"direction": "SOUTH",
+					"x": 3,
+					"y": 1
+				},
+				{
+					"type": "conveyor belt",
+					"direction": "SOUTH",
+					"x": 3,
+					"y": 2
+				},
+				{
+					"type": "conveyor belt",
+					"direction": "WEST",
+					"x": 3,
+					"y": 3
+				}
+			],
 			"items": [
 				{
 					"type": "key",
@@ -188,46 +254,73 @@
 		{
 			"NORTH": 4,
 			"SOUTH": 5,
-			"doors": [{
-				"type": "colored",
-				"color": "yellow"
-			},{
-				"type": "open on stones in room",
-				"no_of_stones": 0
-			}]
+			"doors": [
+				{
+					"type": "colored",
+					"color": "green"
+				},
+				{
+					"type": "open on stones in room",
+					"no_of_stones": 0
+				}
+			]
 		},
 		{
 			"WEST": 4,
 			"EAST": 7,
-			"doors": [{
-				"type": "colored",
-				"color": "red"
-			},{
-				"type": "open on odd"
-			}]
+			"doors": [
+				{
+					"type": "colored",
+					"color": "red"
+				},
+				{
+					"type": "open on odd"
+				}
+			]
 		},
 		{
 			"NORTH": 6,
 			"SOUTH": 7,
-			"doors": [{
-				"type": "toggle"
-			}]
+			"doors": [
+				{
+					"type": "toggle"
+				}
+			]
 		},
 		{
 			"NORTH": 7,
 			"SOUTH": 8,
-			"doors": [{
-				"type": "toggle"
-			},{
-				"type": "open on odd"
-			}]
+			"doors": [
+				{
+					"type": "toggle"
+				},
+				{
+					"type": "open on odd"
+				}
+			]
 		},
 		{
 			"NORTH": 8,
 			"SOUTH": 9,
-			"doors": [{
-				"type": "closing gate"
-			}]
+			"doors": [
+				{
+					"type": "closing gate"
+				}
+			]
+		},
+		{
+			"portal": [
+				{
+					"roomId": 9,
+					"x": 3,
+					"y": 2
+				},
+				{
+					"roomId": 3,
+					"x": 1,
+					"y": 3
+				}
+			]
 		}
 	],
 	"player": {

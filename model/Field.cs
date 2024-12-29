@@ -17,6 +17,7 @@ namespace Domain
         public IDoor Door { get; set; }
         public bool IsWall { get; set; }
         public int IsConnection { get; set; }
+        public Connection? Connection { get; set; }
 
         public Field()
         {

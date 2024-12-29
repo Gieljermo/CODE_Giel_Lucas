@@ -23,8 +23,8 @@ namespace TempleOfDoom.controller
         {
             this._gameData = fileReader.readFile(fileName);
             this.TempleOfDoomGame = GenerateGameClasses(_gameData);
-            fieldController = new FieldController();
-            this.boardController = new BoardController(this, fieldController);
+            this.fieldController = new FieldController();
+            this.boardController = new BoardController(this, this.fieldController);
             this.playerController = new PlayerController(TempleOfDoomGame.Player, boardController);
 
 
@@ -93,6 +93,16 @@ namespace TempleOfDoom.controller
                     connectionJson.EAST
                 );
 
+                // Populate the room's items
+                if (connectionJson.portal != null)
+                {
+                    connection.Portals = connectionJson.portal.Select(portalJson => new Portal(
+                        portalJson.roomId,
+                        portalJson.x,
+                        portalJson.y
+                    )).ToList();
+                }
+
                 DoorFactory doorFactory = new DoorFactory();
 
                 if (connectionJson.doors != null && connectionJson.doors.Any())
@@ -104,12 +114,12 @@ namespace TempleOfDoom.controller
                     {
                         if (decorator is IInventoryObserver inventoryObserver)
                         {
-                            player.AddInventoryObserver(inventoryObserver);
+                            player.RegisterObserverInventory(inventoryObserver);
                         }
 
                         if (decorator is IHealthObserver healthObserver)
                         {
-                            player.AddHealthObserver(healthObserver);
+                            player.RegisterObserverHealth(healthObserver);
                         }
 
                         decoratedDoor = decorator._wrappee;
@@ -118,12 +128,12 @@ namespace TempleOfDoom.controller
                     // Lastly, check the base door itself
                     if (decoratedDoor is IInventoryObserver baseObserver)
                     {
-                        player.AddInventoryObserver(baseObserver);
+                        player.RegisterObserverInventory(baseObserver);
                     }
 
                     if (decoratedDoor is IHealthObserver baseHealthObserver)
                     {
-                        player.AddHealthObserver(baseHealthObserver);
+                        player.RegisterObserverHealth(baseHealthObserver);
                     }
                 }
 

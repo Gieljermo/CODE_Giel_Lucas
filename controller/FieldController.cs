@@ -14,9 +14,16 @@ namespace Controlllers
     {
         private ItemController itemController = new ItemController();
 
-        public List<Field> CreateFields(Room room, Player player)
+        public List<Field> CreateFields(Room room, Player player, List<Connection> connections)
         {
             List<Field> fields = new List<Field>();
+
+            var roomPortals = connections
+                .Where(c => c.Portals != null) // Alleen connections met portals
+                .SelectMany(c => c.Portals)   // Combineer alle portals in één lijst
+                .Where(p => p.RoomId == room.Id) // Filter portals voor de huidige kamer
+                .ToList();
+
             for (int y = 0; y < room.Height; y++)
             {
                 for (int x = 0; x < room.Width; x++)
@@ -34,6 +41,14 @@ namespace Controlllers
                             field.Item = itemController.CreateItem(item);
                         }
                     }
+
+                    // Controleer of er een portaal is op deze positie
+                    var portal = roomPortals.FirstOrDefault(p => p.X == x && p.Y == y);
+                    if (portal != null)
+                    {
+                        field.Connection = connections.FirstOrDefault(c => c.Portals.Any(p => p.RoomId == portal.RoomId));
+                    }
+
 
                     if (x > 0 && x < room.Width - 1 && y > 0 && y < room.Height - 1)
                     {

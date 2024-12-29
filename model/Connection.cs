@@ -14,6 +14,7 @@ namespace TempleOfDoom.model
         public IDoor Door { get; set; }
         public int West { get; set; }
         public int East { get; set; }
+        public List<Portal> Portals { get; set; }
 
         public Connection(int north, int west, int south, int east)
         {
@@ -21,6 +22,7 @@ namespace TempleOfDoom.model
             this.South = south;
             this.West = west;
             this.East = east;
+            Portals = new List<Portal>();
         }
     }
 }
