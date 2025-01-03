@@ -324,7 +324,7 @@
 		}
 	],
 	"player": {
-		"startRoomId": 1,
+		"startRoomId": 4,
 		"startX": 2,
 		"startY": 2,
 		"lives": 3
