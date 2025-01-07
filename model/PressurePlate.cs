@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using Domain.Decorators;
 using Domain.Interfaces;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Interfaces;
 
 namespace Domain
 {
-    public class PressurePlate : IItem
+    public class PressurePlate : Item
     {
         private string _type;
         public string Type { get => _type; set => _type = value; }
@@ -17,6 +18,12 @@ namespace Domain
         public int X { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int Y { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public string Color { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public PressurePlate(string type, IPosition position)
+           : base(type, position)
+        {
+            this.Type = type;
+        }
 
         public void Interact(Player player, Field field, Room room)
         {

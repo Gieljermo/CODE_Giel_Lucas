@@ -22,7 +22,7 @@ namespace Domain.Decorators
             this.hasKey = false;
         }
 
-        public void onInventoryChange(List<IItem> inventory)
+        public void onInventoryChange(List<Item> inventory)
         {
             if(inventory.OfType<Key>().Any(k => k.Color == color))
             {

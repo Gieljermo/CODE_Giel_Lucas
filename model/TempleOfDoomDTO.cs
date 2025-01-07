@@ -1,4 +1,6 @@
 ﻿
+using TempleOfDoom.model.Enums;
+
 public class TempleOfDoomGameJson
 {
     public RoomJson[] rooms { get; set; }
@@ -21,6 +23,8 @@ public class RoomJson
     public int width { get; set; }
     public int height { get; set; }
     public ItemJson[] items { get; set; }
+    public SpecialFloorTileJson[] specialFloorTiles { get; set; }
+    public EnemyJson[] enemies { get; set; }
 }
 
 public class ItemJson
@@ -30,6 +34,25 @@ public class ItemJson
     public int x { get; set; }
     public int y { get; set; }
     public string color { get; set; }
+}
+
+public class SpecialFloorTileJson
+{
+    public string type { get; set; }
+    public int x { get; set; }
+    public int y { get; set; }
+    public string direction { get; set; }
+}
+
+public class EnemyJson
+{
+    public string type { get; set; }
+    public int x { get; set; }
+    public int y { get; set; }
+    public int minX { get; set; }
+    public int maxX { get; set; }
+    public int minY { get; set; }
+    public int maxY { get; set; }
 }
 
 public class ConnectionJson

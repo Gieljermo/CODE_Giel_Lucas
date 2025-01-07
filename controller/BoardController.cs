@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
 using TempleOfDoom.model.Decorators;
+using TempleOfDoom.model.Interfaces;
 using TempleOfDoom.view;
 
 namespace TempleOfDoom.controller
@@ -35,17 +36,16 @@ namespace TempleOfDoom.controller
 
         public void DrawRoom()
         {
-            Field currentPlayerField = _gameRoom.Fields.Where(f => f.Y == _player.YPositon).FirstOrDefault(f => f.X == _player.XPositon);
+            Field currentPlayerField = _gameRoom.Fields.Where(f => f.Position.Y == _player.Position.Y).FirstOrDefault(f => f.Position.X == _player.Position.X);
             if (currentPlayerField != null && currentPlayerField.IsConnection != 0)
             {
-                Field fieldToMoveTo = _gameRoom.Fields.Where(f => f.Y == _player.YPositon).FirstOrDefault(f => f.X == _player.XPositon);
+                Field fieldToMoveTo = _gameRoom.Fields.Where(f => f.Position.Y == _player.Position.Y).FirstOrDefault(f => f.Position.X == _player.Position.X);
                 if (fieldToMoveTo != null && fieldToMoveTo.Connection != null && fieldToMoveTo.Connection.Portals != null)
                 {
                     Portal newPortal = fieldToMoveTo.Connection.Portals.FirstOrDefault(f => f.RoomId != _gameRoom.Id);
                     if (newPortal != null)
                     {
-                        _player.XPositon = newPortal.X;
-                        _player.YPositon = newPortal.Y;
+                        _player.Position = newPortal.Position;
                     }
                 }
                 _gameRoom = rooms[currentPlayerField.IsConnection];
@@ -56,11 +56,10 @@ namespace TempleOfDoom.controller
                 }
 
 
-                Field newRoomDoor = _gameRoom.Fields.Where(f => f.IsConnection == currentPlayerField.Room).FirstOrDefault();
+                Field newRoomDoor = _gameRoom.Fields.Where(f => f.IsConnection == currentPlayerField.Room.Id).FirstOrDefault();
                 if (newRoomDoor != null)
                 {
-                    _player.XPositon = newRoomDoor.X;
-                    _player.YPositon = newRoomDoor.Y;
+                    _player.Position = newRoomDoor.Position;
                 }
             }
 
@@ -137,7 +136,7 @@ namespace TempleOfDoom.controller
                 }
 
                 // If no portal was found, follow the regular connection logic
-                if (item.X == width && item.Y == height)
+                if (item.Position.X == width && item.Position.Y == height)
                 {
                     item.Door = connection.Door;
                     item.IsWall = false;
@@ -162,9 +161,9 @@ namespace TempleOfDoom.controller
             board.DrawWinScreen();
         }
 
-        public bool CanMoveTo(int x, int y)
+        public bool CanMoveTo(IPosition position)
         {
-            Field fieldToMoveTo = _gameRoom.Fields.Where(f => f.Y == y).FirstOrDefault(f => f.X == x);
+            Field fieldToMoveTo = _gameRoom.Fields.Where(f => f.Position.Y == position.Y).FirstOrDefault(f => f.Position.X == position.X);
             if (fieldToMoveTo == null || fieldToMoveTo.IsWall)
             {
                 return false;
@@ -176,9 +175,6 @@ namespace TempleOfDoom.controller
                 if (availablePortal != null)
                 {
                     fieldToMoveTo.IsConnection = availablePortal.RoomId;
-                    //fieldToMoveTo.Room = availablePortal.RoomId;
-                    //fieldToMoveTo.X = availablePortal.X;
-                    //fieldToMoveTo.Y = availablePortal.Y;
 
 
                     return true;
@@ -186,7 +182,7 @@ namespace TempleOfDoom.controller
             }
 
 
-            IDoor door = GetDoor(x, y);
+            IDoor door = GetDoor(position);
             if (door != null)
             {
                 door.OpenDoor(_player, _gameRoom);
@@ -198,20 +194,20 @@ namespace TempleOfDoom.controller
             return true;
         }
 
-        public IItem GetItemAtPosition(int x, int y)
+        public IInteractiveFieldElement GetItemAtPosition(IPosition position)
         {
-            Field fieldToCheck = _gameRoom.Fields.Where(f => f.X == x && f.Y == y).FirstOrDefault();
+            Field fieldToCheck = _gameRoom.Fields.Where(f => f.Position.Equals(position)).FirstOrDefault();
             if(fieldToCheck == null)
             {
                 return null;
             }
 
-            return fieldToCheck.Item;
+            return fieldToCheck.InteractiveFieldElement;
         }
 
-        public IDoor GetDoor(int x, int y)
+        public IDoor GetDoor(IPosition position)
         {
-            Field fieldToCheck = _gameRoom.Fields.Where(f => f.X == x && f.Y == y).FirstOrDefault();
+            Field fieldToCheck = _gameRoom.Fields.Where(f => f.Position.Equals(position)).FirstOrDefault();
             if (fieldToCheck == null)
             {
                 return null;

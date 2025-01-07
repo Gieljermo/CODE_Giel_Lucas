@@ -14,7 +14,7 @@ namespace GameView
         public void DrawField(Field field, Room gameRoom)
         {
             // Check for right edge of the room to print a newline
-            if (field.X == gameRoom.Width - 1)
+            if (field.Position.X == gameRoom.Width - 1)
             {
                 DrawSymbol(field, gameRoom.Height);
                 Console.WriteLine();
@@ -35,25 +35,29 @@ namespace GameView
                 Console.Write(" #");
             }
             // Draw Item
-            else if (field.Item != null)
+            else if (field.InteractiveFieldElement != null)
             {
-                new ItemView().drawItem(field.Item);
+                new ItemView().drawItem(field.InteractiveFieldElement);
             }
             // Draw Door
             else if (field.Door != null)
             {
                 bool horizontal = false;
-                if(field.Y == 0 || field.Y == height - 1)
+                if (field.Position.Y == 0 || field.Position.Y == height - 1)
                 {
                     horizontal = true;
                 }
                 new DoorView().DrawDoor(field.Door, horizontal);
             }
-            else if(field.Connection != null)
+            // Draw Connection
+            else if (field.Connection != null)
             {
                 Console.ResetColor();
                 Console.Write(" *");
             }
+
+
+
 
             // Empty Field
             else
@@ -61,6 +65,7 @@ namespace GameView
                 Console.Write("  ");
             }
         }
+
     }
 
 }

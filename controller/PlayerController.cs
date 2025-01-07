@@ -8,11 +8,14 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Interfaces;
 
 namespace TempleOfDoom.controller
 {
     public class PlayerController
     {
+        private const int SHOOT_DAMAGE = 1;
+
         private Player Player;
         private readonly Dictionary<ConsoleKey, (int xMovement, int yMovement)> movementMap;
         private BoardController boardController;
@@ -34,15 +37,41 @@ namespace TempleOfDoom.controller
         {
             if (movementMap.TryGetValue(key, out var movement))
             {
-                IItem item = boardController.GetItemAtPosition(Player.XPositon, Player.YPositon);
-                if (item != null)
+              //  IPosition positionForMove = new Position(movement.xMovement, movement.yMovement);
+                IPosition canMoveToPosition = new Position(Player.Position.X + movement.xMovement, Player.Position.Y + movement.yMovement);
+
+                if (boardController.CanMoveTo(canMoveToPosition))
                 {
-                    item.Interact(Player, room.Fields.Where(f => f.X == Player.XPositon).Where(f => f.Y == Player.YPositon).FirstOrDefault(), room);
+                    var positionForMove = new Position(movement.xMovement, movement.yMovement);
+                    Player.Move(positionForMove, room);
+
+
+                    IInteractiveFieldElement item = boardController.GetItemAtPosition(Player.Position);
+                    Field field = room.Fields.Where(f => f.Position.Equals(Player.Position)).FirstOrDefault();
+
+                    if (item != null)
+                    {
+                        item.Interact(Player, field, room);
+
+                    }
+
+
+
+
                 }
 
-                if (boardController.CanMoveTo(Player.XPositon + movement.xMovement, Player.YPositon + movement.yMovement)){
-                    Player.Move(movement.xMovement, movement.yMovement, room);
+               
+            }
+        }
+        public void CheckDamage(Room room)
+        {
+            foreach (var opponent in room.Opponents)
+            {
+                if (opponent.Position.Equals(Player.Position))
+                {
+                    Player.takeDamage(SHOOT_DAMAGE);
                 }
+
             }
         }
     }

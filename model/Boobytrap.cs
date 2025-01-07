@@ -5,20 +5,32 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Interfaces;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Adapter;
+using TempleOfDoom.model.Interfaces;
 
 namespace Domain
 {
-    public class Boobytrap : IItem
+    public class Boobytrap : Item
     {
 
         private string _type;
         public string Type { get => _type; set => _type = value; }
 
         public int Damage { get; set; }
+        public override int GetDamage() => Damage;
 
-        public virtual void Interact(Player player, Field field, Room room)
+
+
+        public Boobytrap(string type, IPosition position, int damage)
+            : base(type, position)
         {
-            player.takeDamage(Damage);
+            this.Type = type; 
+            this.Damage = damage;
+        }
+
+        public override void Interact(IEntity entity, Field field, Room room)
+        {
+            entity.takeDamage(Damage);
         }
     }
 }

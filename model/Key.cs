@@ -5,18 +5,27 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Interfaces;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Adapter;
+using TempleOfDoom.model.Interfaces;
 
 namespace Domain
 {
-    public class Key : IItem
+    public class Key : Item
     {
         private string _type;
         public string Type { get => _type; set => _type = value; }
         public string Color { get; set; }
+        public override string GetColor() => Color;
 
-        public void Interact(Player player, Field field, Room room)
+        public Key(string type, IPosition position, string color)
+           : base(type, position)
         {
-            player.AddItemToInvetory(this);
+            this.Color = color;
+        }
+
+        public override void Interact(IEntity entity, Field field, Room room)
+        {
+            entity.AddItemToInvetory(this);
             field.RemoveItem();
         }
     }

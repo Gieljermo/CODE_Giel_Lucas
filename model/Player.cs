@@ -10,55 +10,40 @@ using TempleOfDoom.model.Observers;
 
 namespace TempleOfDoom.model
 {
-    public class Player : IObservable
+    public class Player : Entity, IObservable
     {
         public int StartRoomId { get; set; }
-        private int xPosition;
+
         private List<IInventoryObserver> inventoryObservers = new List<IInventoryObserver>();
         private List<IHealthObserver> healthObservers = new List<IHealthObserver>();
-        public int XPositon
-        {
-            get { return xPosition; }
-            set { xPosition = value; }
-        }
-        private int yPosition;
-        public int YPositon
-        {
-            get { return yPosition; }
-            set { yPosition = value; }
-        }
-        public int AmountOfLives { get; set; }
-        public int AmountOfStones { get; set; }
 
-        public List<IItem> Inventory { get; set; }
+        public List<Item> Inventory { get; set; }
 
         public Player(int startRoomId, int startX, int startY, int lives)
         {
             this.StartRoomId = startRoomId;
-            this.xPosition = startX;
-            this.yPosition = startY;
-            this.AmountOfLives = lives;
-            Inventory = new List<IItem>();
+            Position = new Position(startX, startY);
+            this.Lives = lives;
+            Inventory = new List<Item>();
         }
 
-        public void Move(int x, int y, Room room)
+        public override void Move(IPosition position, Room room)
         {
-            Field fieldToMoveTo = room.Fields.Where(f => f.Y == this.YPositon + y).FirstOrDefault(f => f.X == this.XPositon + x);
+            Field fieldToMoveTo = room.Fields.Where(f => f.Position.Y == this.Position.Y + position.Y && f.Position.X == this.Position.X + position.X).FirstOrDefault();
             if (fieldToMoveTo != null && !fieldToMoveTo.IsWall)
             {
-                this.xPosition += x;
-                this.yPosition += y;
+                this.Position = fieldToMoveTo.Position;
             }
         }
 
-        public void takeDamage(int amount)
+
+        public override void takeDamage(int amount)
         {
-            this.AmountOfLives -= amount;
+            this.Lives -= amount;
             NotifyHealthObservers();
         }
 
-
-        internal void AddItemToInvetory(IItem item)
+        public override void AddItemToInvetory(Item item)
         {
             this.Inventory.Add(item);
             NotifyInventoryObservers();
@@ -88,15 +73,17 @@ namespace TempleOfDoom.model
         {
             foreach (var observer in healthObservers)
             {
-                observer.OnHealthChanged(this.AmountOfLives);
+                observer.OnHealthChanged(this.Lives);
             }
         }
         public void NotifyInventoryObservers()
-        { 
+        {
             foreach (var observer in inventoryObservers)
             {
                 observer.onInventoryChange(this.Inventory);
             }
         }
+
+
     }
 }

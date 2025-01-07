@@ -32,7 +32,7 @@ namespace TempleOfDoom.model.Decorators
 
         public override void OpenDoor(Player player, Room room)
         {
-            if (player.AmountOfLives % 2 != 0)
+            if (player.Lives % 2 != 0)
             {
                 base.OpenDoor(player, room);
             }

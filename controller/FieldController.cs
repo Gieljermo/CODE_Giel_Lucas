@@ -1,68 +1,130 @@
 ﻿using Domain;
 using Domain.Decorators;
+using Domain.Factory;
 using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Interfaces;
 
 namespace Controlllers
 {
     public class FieldController
     {
-        private ItemController itemController = new ItemController();
+        private FieldElementFactory elementFactory = new FieldElementFactory();
 
         public List<Field> CreateFields(Room room, Player player, List<Connection> connections)
         {
             List<Field> fields = new List<Field>();
 
-            var roomPortals = connections
-                .Where(c => c.Portals != null) // Alleen connections met portals
-                .SelectMany(c => c.Portals)   // Combineer alle portals in één lijst
-                .Where(p => p.RoomId == room.Id) // Filter portals voor de huidige kamer
-                .ToList();
+            // Portalen ophalen
+            var roomPortals = GetRoomPortals(connections, room.Id);
 
             for (int y = 0; y < room.Height; y++)
             {
                 for (int x = 0; x < room.Width; x++)
                 {
-                    Field field = new Field();
-                    field.X = x;
-                    field.Y = y;
-                    field.Room = room.Id;
+                    IPosition position = new Position(x, y); // Maak een Position object van x en y
 
-                    if (room.Items != null)
-                    {
-                        var item = room.Items.Where(ri => ri.X == x).FirstOrDefault(ri => ri.Y == y);
-                        if (item != null)
-                        {
-                            field.Item = itemController.CreateItem(item);
-                        }
-                    }
+                    Field field = CreateBaseField(room, position);
 
-                    // Controleer of er een portaal is op deze positie
-                    var portal = roomPortals.FirstOrDefault(p => p.X == x && p.Y == y);
-                    if (portal != null)
-                    {
-                        field.Connection = connections.FirstOrDefault(c => c.Portals.Any(p => p.RoomId == portal.RoomId));
-                    }
+                    // Verwerk items
+                    ProcessItems(field, room, position);
 
+                    // Verwerk portalen
+                    ProcessPortals(field, roomPortals, connections, position);
 
-                    if (x > 0 && x < room.Width - 1 && y > 0 && y < room.Height - 1)
-                    {
-                        field.IsWall = false;
-                    }
-                    else
-                    {
-                        field.IsWall = true;
-                    }
+                    // Verwerk speciale vloerplaten
+                    ProcessSpecialFloorTiles(field, room, position);
+
+                    // Stel muurwaarde in
+                    field.IsWall = IsWall(x, y, room.Width, room.Height);
+
                     fields.Add(field);
                 }
             }
+
             return fields;
         }
+
+
+        private Field CreateBaseField(Room room, IPosition position)
+        {
+            return new Field
+            {
+                Room = room,
+                Position  = position
+            };
+        }
+
+        private void ProcessItems(Field field, Room room, IPosition position)
+        {
+            if (room.Items == null)
+            {
+                return;
+            }
+
+            var item = room.Items.FirstOrDefault(ri => ri.Position.Equals(position));
+            if (item == null)
+            {
+                return;
+            }
+
+            string color = item.GetColor();
+            int damage = item.GetDamage();
+
+            field.InteractiveFieldElement = elementFactory.CreateItem(item.Type, item.Position, damage, color);
+        }
+
+
+        private void ProcessPortals(Field field, List<Portal> roomPortals, List<Connection> connections, IPosition position)
+        {
+            Portal? portal = roomPortals.FirstOrDefault(p => p.Position.Equals(position));
+
+            if (portal == null)
+            {
+                return;
+            }
+
+            field.Connection = connections.FirstOrDefault(c => c.Portals.Any(p => p.RoomId == portal.RoomId));
+        }
+
+        private void ProcessSpecialFloorTiles(Field field, Room room, IPosition position)
+        {
+            if (room.SpecialFloorTiles == null)
+            {
+                return;
+            }
+
+            var specialTile = room.SpecialFloorTiles.FirstOrDefault(sft => sft.Position.Equals(position));
+            if (specialTile == null)
+            {
+                return;
+            }
+
+            field.InteractiveFieldElement = elementFactory.CreateSpecialFloorTile(specialTile.Type, specialTile.Position, specialTile.Direction);
+        }
+
+
+        private bool IsWall(int x, int y, int width, int height)
+        {
+            return x == 0 || x == width - 1 || y == 0 || y == height - 1;
+        }
+
+        private List<Portal> GetRoomPortals(List<Connection> connections, int roomId)
+        {
+            var Rconnections = connections
+                .Where(c => c.Portals != null)
+                .SelectMany(c => c.Portals)
+                .Where(p => p.RoomId == roomId)
+                .ToList();
+            return Rconnections;
+        }
+
 
         public bool isMoveValid(Field nextField)
         {

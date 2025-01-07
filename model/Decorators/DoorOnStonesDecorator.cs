@@ -32,7 +32,7 @@ namespace Domain.Decorators
             int amountOfStones = 0;
             foreach(var field in room.Fields)
             {
-                if(field.Item != null && field.Item is SankaraStone)
+                if(field.InteractiveFieldElement != null && field.InteractiveFieldElement is SankaraStone)
                 {
                     amountOfStones++;
                 }

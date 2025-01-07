@@ -54,7 +54,6 @@
       <HashCode>AAAAAACAAAAAAAQAAAAAAAAAIAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>model\Boobytrap.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.DisappearingBoobytrap" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="18.75" Y="9.75" Width="2" />
@@ -66,11 +65,10 @@
   <Class Name="Domain.Field">
     <Position X="15.75" Y="8.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAIACAAAAAAAAAAABAAAAAEAAAAgAAEAAAAAAAAYAA=</HashCode>
+      <HashCode>AAAIACAAAAAAAAEAABAAAAAAAAAAgAAEAAAAAAAAYgA=</HashCode>
       <FileName>model\Field.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Item" />
       <Property Name="Door" />
     </ShowAsAssociation>
   </Class>
@@ -80,7 +78,6 @@
       <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAIAAAAAAAAQAAgAAAAAA=</HashCode>
       <FileName>model\Key.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.PressurePlate" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="16.25" Y="13" Width="1.5" />
@@ -88,7 +85,6 @@
       <HashCode>AAAAAACAAAAAAAQAAAAAAAAAIAAAAAAAAQAAgAAAYAA=</HashCode>
       <FileName>model\PressurePlate.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.SankaraStone" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="14" Y="11.75" Width="1.5" />
@@ -96,12 +92,11 @@
       <HashCode>AAAAAACAAAAAAAQAAAAAAAAAIAAAAAAAAQAAgAAAYAA=</HashCode>
       <FileName>model\SankaraStone.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="TempleOfDoom.model.Connection">
     <Position X="20.25" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACAACAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAABAAQ=</HashCode>
+      <HashCode>AACAACAAAAAAAIAAAAAAAAAAEAAAAAAAAAAAAAABAAQ=</HashCode>
       <FileName>model\Connection.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -111,7 +106,7 @@
   <Class Name="TempleOfDoom.model.Player">
     <Position X="16.75" Y="0.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAgAAGBAAIBAAAQQYAAAAAAAAAgAAQCBAAABAiAACBA=</HashCode>
+      <HashCode>AAgAAGBAAIBAAAQQYAAAAAAAAAgAAQCBAAABAqAACBA=</HashCode>
       <FileName>model\Player.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -119,7 +114,7 @@
   <Class Name="TempleOfDoom.model.Room">
     <Position X="20.25" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAABAAACAAAAAAAAEAAAAAAAAAAAQAAACAAgAA=</HashCode>
+      <HashCode>AAACAAAABAAACAAAAAAAAEAAAAAAQAAAAQAAACAAgAA=</HashCode>
       <FileName>model\Room.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -142,9 +137,9 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="TempleOfDoom.model.Item" Collapsed="true">
-    <Position X="11.25" Y="11.75" Width="1.5" />
+    <Position X="10.75" Y="13" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAIAAAAAAAAQAAgAAAYAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAQAAAAAAYAA=</HashCode>
       <FileName>model\Item.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -154,13 +149,6 @@
     <TypeIdentifier>
       <HashCode>IAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>model\Interfaces\IDoor.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="Domain.Interfaces.IItem" Collapsed="true">
-    <Position X="13.5" Y="10.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAQAAAAAAAAA=</HashCode>
-      <FileName>model\Interfaces\IItem.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

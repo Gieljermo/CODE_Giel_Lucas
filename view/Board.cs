@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Adapter;
 
 namespace TempleOfDoom.view
 {
@@ -21,23 +22,44 @@ namespace TempleOfDoom.view
             Console.ResetColor();
             foreach (Field field in gameRoom.Fields)
             {
-                if(field.X == player.XPositon && field.Y == player.YPositon)
+                if (field.Position.Equals(player.Position))
                 {
                     Console.ForegroundColor = ConsoleColor.White;
-                    if(player.XPositon == gameRoom.Width - 1){
+                    if(player.Position.X == gameRoom.Width - 1){
                         Console.WriteLine(" X");
                         continue;
                     }
                     Console.Write(" X");
                     continue;
                 }
+                bool printed = false;
+                foreach (Opponent opponent in gameRoom.Opponents)
+                {
+                    if (field.Position.Equals(opponent.Position))
+                    {
+                        if (opponent.Position.X == gameRoom.Width - 1)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                            Console.WriteLine(" E");
+                            printed = true;
+                            break;
+                        }
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.Write(" E");
+                        printed = true;
+                        break;
+                    }
+                }
 
-                new FieldView().DrawField(field, gameRoom);
+                if (!printed)
+                {
+                    new FieldView().DrawField(field, gameRoom);
+                }
             }
             Console.WriteLine("");
             Console.WriteLine("");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Lives: " + player.AmountOfLives);
+            Console.WriteLine("Lives: " + player.Lives);
             Console.WriteLine("Amount of stones: " + player.AmountOfStones);
         }
 

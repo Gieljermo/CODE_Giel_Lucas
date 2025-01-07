@@ -2,15 +2,19 @@
 using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TempleOfDoom.model;
+using TempleOfDoom.model.Enums;
 
 namespace GameView
 {
     public class ItemView
     {
-        public void drawItem(IItem item)
+        public void drawItem(IInteractiveFieldElement item)
         {
             if(item.Type == "disappearing boobytrap")
             {
@@ -27,9 +31,10 @@ namespace GameView
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write(" O");
             }
-            else if (item.Type == "key")
-            {
-                string colorName = ((Key)item).Color;
+            //else if (item.Type == "key")
+            else if (item is Key keyObject)
+                {
+                string colorName = keyObject.Color;
                 if (Enum.TryParse(colorName, true, out ConsoleColor consoleColor))
                 {
                     Console.ForegroundColor = consoleColor;
@@ -41,6 +46,31 @@ namespace GameView
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write(" T");
             }
+
+            else if (item is ConveyorBelt ConveyorBeltObject)
+            {
+                if (ConveyorBeltObject.Direction == Direction.NORTH)
+                {
+                    Console.ResetColor();
+                    Console.Write(" ^");
+                }
+                else if (ConveyorBeltObject.Direction == Direction.EAST)
+                {
+                    Console.ResetColor();
+                    Console.Write(" >");
+                }
+                else if (ConveyorBeltObject.Direction == Direction.SOUTH)
+                {
+                    Console.ResetColor();
+                    Console.Write(" v");
+                }
+                else if (ConveyorBeltObject.Direction == Direction.WEST)
+                {
+                    Console.ResetColor();
+                    Console.Write(" <");
+                }
+            }
+            
         }
     }
 }

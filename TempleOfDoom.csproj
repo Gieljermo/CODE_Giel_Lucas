@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <Reference Include="CODE_TempleOfDoom_DownloadableContent">
-      <HintPath>..\..\..\OneDrive\Documenten\School\Jaar 3\Code\CODE_TempleOfDoom_DownloadableContent\CODE_TempleOfDoom_DownloadableContent.dll</HintPath>
+      <HintPath>..\..\..\OneDrive\Documenten\School\Jaar 3\Code\CODE_TempleOfDoom_DownloadableContent (1)\CODE_TempleOfDoom_DownloadableContent.dll</HintPath>
     </Reference>
   </ItemGroup>
 

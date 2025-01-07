@@ -7,6 +7,10 @@ using TempleOfDoom.model.Factory;
 using TempleOfDoom.model.Interfaces;
 using TempleOfDoom.model.Observers;
 using Domain.Decorators;
+using Domain.Factory;
+using Domain;
+using TempleOfDoom.model.Adapter;
+using TempleOfDoom.model.Enums;
 
 namespace TempleOfDoom.controller
 {
@@ -16,6 +20,7 @@ namespace TempleOfDoom.controller
         private bool gameRunning = true;
         private BoardController boardController;
         private PlayerController playerController;
+        private OpponentController opponentController;
         private FieldController fieldController;
         private readonly TempleOfDoomGameJson _gameData;
 
@@ -26,7 +31,7 @@ namespace TempleOfDoom.controller
             this.fieldController = new FieldController();
             this.boardController = new BoardController(this, this.fieldController);
             this.playerController = new PlayerController(TempleOfDoomGame.Player, boardController);
-
+            this.opponentController = new OpponentController(boardController);
 
             var startingRoom = TempleOfDoomGame.Rooms.FirstOrDefault(r => r.Id == TempleOfDoomGame.Player.StartRoomId);
             if (startingRoom != null)
@@ -44,6 +49,13 @@ namespace TempleOfDoom.controller
                 boardController.DrawRoom();
                 ConsoleKey key = Console.ReadKey(true).Key;
                 playerController.Move(key, boardController._gameRoom);
+                playerController.CheckDamage(boardController._gameRoom);
+                opponentController.Move(key, boardController._gameRoom);
+                playerController.CheckDamage(boardController._gameRoom);
+                opponentController.CheckDamage(key, boardController._gameRoom, TempleOfDoomGame.Player);
+
+
+
             }
         }
 
@@ -60,16 +72,59 @@ namespace TempleOfDoom.controller
                     roomJson.height
                 );
 
+                FieldElementFactory itemFactory = new FieldElementFactory();
+
                 // Populate the room's items
                 if (roomJson.items != null)
                 {
-                    room.Items = roomJson.items.Select(itemJson => new Item(
-                        itemJson.type,
-                        itemJson.damage,
-                        itemJson.x,
-                        itemJson.y,
-                        itemJson.color
-                    )).ToList();
+                    room.Items = roomJson.items.Select<ItemJson, Item>(itemJson =>
+                    {
+                        IPosition position = new Position(itemJson.x, itemJson.y);
+                        return (Item)itemFactory.CreateItem(itemJson.type, position, itemJson.damage, itemJson.color);
+
+                    }).ToList();
+                }
+
+                // Populate the room's items
+                if (roomJson.specialFloorTiles != null)
+                {
+                    room.SpecialFloorTiles = roomJson.specialFloorTiles.Select(floorJson =>
+                    {
+                        // Probeer de string om te zetten naar de enum
+                        if (Enum.TryParse<Direction>(floorJson.direction, true, out var direction))
+                        {
+                            IPosition position = new Position(floorJson.x, floorJson.y);
+
+                            return new SpecialFloorTile(
+                                floorJson.type,
+                                position,
+                                direction
+                            );
+                        }
+                        else
+                        {
+                            throw new ArgumentException($"Ongeldige richting: {floorJson.direction}");
+                        }
+                    }).ToList();
+                }
+
+                // Populate the room's items
+                if (roomJson.enemies != null)
+                {
+                    room.Opponents = roomJson.enemies.Select(opponentJson =>
+                    {
+                        // Maak een Position object en geef dit door aan de Portal constructor
+                        IPosition portalPosition = new Position(opponentJson.x, opponentJson.y);
+                        return new Opponent(
+                        opponentJson.type,
+                        portalPosition,
+                        opponentJson.minX,
+                        opponentJson.maxX,
+                        opponentJson.minY,
+                        opponentJson.maxY
+
+                        );
+                    }).ToList();
                 }
 
                 return room;
@@ -96,11 +151,14 @@ namespace TempleOfDoom.controller
                 // Populate the room's items
                 if (connectionJson.portal != null)
                 {
-                    connection.Portals = connectionJson.portal.Select(portalJson => new Portal(
-                        portalJson.roomId,
-                        portalJson.x,
-                        portalJson.y
-                    )).ToList();
+                    connection.Portals = connectionJson.portal.Select(portalJson =>
+                    {
+                        IPosition portalPosition = new Position(portalJson.x, portalJson.y);
+                        return new Portal(
+                            portalJson.roomId,
+                            portalPosition
+                        );
+                    }).ToList();
                 }
 
                 DoorFactory doorFactory = new DoorFactory();
@@ -149,7 +207,7 @@ namespace TempleOfDoom.controller
 
         public void CheckGameStatus(Player player)
         {
-            if (player.AmountOfLives <= 0)
+            if (player.Lives <= 0)
             {
                 gameRunning = false;
                 boardController.DrawLosingScreen();
