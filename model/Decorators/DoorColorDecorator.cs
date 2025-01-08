@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Interfaces;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Adapter;
 using TempleOfDoom.model.Observers;
 
 namespace Domain.Decorators
@@ -22,7 +23,7 @@ namespace Domain.Decorators
             this.hasKey = false;
         }
 
-        public void onInventoryChange(List<Item> inventory)
+        public void OnInventoryChange(List<Item> inventory)
         {
             if(inventory.OfType<Key>().Any(k => k.Color == color))
             {

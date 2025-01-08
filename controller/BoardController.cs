@@ -9,6 +9,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Adapter;
 using TempleOfDoom.model.Decorators;
 using TempleOfDoom.model.Interfaces;
 using TempleOfDoom.view;

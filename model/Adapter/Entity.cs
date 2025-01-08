@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TempleOfDoom.model.Enums;
 using TempleOfDoom.model.Interfaces;
 
-namespace TempleOfDoom.model
+namespace TempleOfDoom.model.Adapter
 {
     public abstract class Entity : IEntity
     {
@@ -16,32 +16,32 @@ namespace TempleOfDoom.model
         public virtual int Lives { get; set; }
         public virtual int AmountOfStones { get; set; }
 
-        public virtual void moveByConveyor(IEntity entity, int amount, Direction direction)
+        public virtual void MoveByConveyor(IEntity entity, int amount, Direction direction)
         {
-            this.Position = new Position(this.Position.X, this.Position.Y);
+            Position = new Position(Position.X, Position.Y);
 
             switch (direction)
             {
                 case Direction.NORTH:
-                    this.Position.Y -= amount;
+                    Position.Y -= amount;
                     break;
                 case Direction.EAST:
-                    this.Position.X += amount;
+                    Position.X += amount;
                     break;
                 case Direction.SOUTH:
-                    this.Position.Y += amount;
+                    Position.Y += amount;
                     break;
                 case Direction.WEST:
-                    this.Position.X -= amount;
+                    Position.X -= amount;
                     break;
                 default:
                     throw new InvalidOperationException("Invalid direction");
             }
         }
 
-        public virtual void takeDamage(int amount)
+        public virtual void TakeDamage(int amount)
         {
-            this.Lives -= amount;
+            Lives -= amount;
         }
 
         public virtual void AddItemToInvetory(Item item)

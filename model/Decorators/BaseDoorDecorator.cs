@@ -1,6 +1,7 @@
 ﻿using Domain.Interfaces;
 using System;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Adapter;
 
 namespace Domain.Decorators
 {

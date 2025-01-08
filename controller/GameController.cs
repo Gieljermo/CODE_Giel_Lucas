@@ -11,6 +11,7 @@ using Domain.Factory;
 using Domain;
 using TempleOfDoom.model.Adapter;
 using TempleOfDoom.model.Enums;
+using TempleOfDoom.model.DTO;
 
 namespace TempleOfDoom.controller
 {

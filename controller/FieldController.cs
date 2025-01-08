@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Adapter;
 using TempleOfDoom.model.Interfaces;
 
 namespace Controlllers
@@ -54,11 +55,7 @@ namespace Controlllers
 
         private Field CreateBaseField(Room room, IPosition position)
         {
-            return new Field
-            {
-                Room = room,
-                Position  = position
-            };
+            return new Field(room, position);
         }
 
         private void ProcessItems(Field field, Room room, IPosition position)

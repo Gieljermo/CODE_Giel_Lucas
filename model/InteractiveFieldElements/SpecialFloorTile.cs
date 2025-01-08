@@ -6,29 +6,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model.Adapter;
+using TempleOfDoom.model.Enums;
 using TempleOfDoom.model.Interfaces;
 
 namespace TempleOfDoom.model
 {
-    public abstract class Item : IInteractiveFieldElement
+    public class SpecialFloorTile : IInteractiveFieldElement
     {
         public string Type { get; set; }
+        public Direction Direction { get; set; }
         public IPosition Position { get; set; }
 
-        public virtual string GetColor() => "default";
-        public virtual int GetDamage() => 0;
-
-        public Item(string type, IPosition position)
+        public SpecialFloorTile(string type, IPosition position, Direction direction)
         {
             this.Type = type;
             this.Position = position;
+            this.Direction = direction;
         }
 
-
-
-        public virtual void Interact(IEntity entity, Field field, Room room)
+        public virtual void Interact(IEntity entity, Field field)
         {
-
+            return;
         }
     }
 }

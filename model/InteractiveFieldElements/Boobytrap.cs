@@ -10,23 +10,27 @@ using TempleOfDoom.model.Interfaces;
 
 namespace Domain
 {
-    public class Key : Item
+    public class Boobytrap : Item
     {
+
         private string _type;
         public string Type { get => _type; set => _type = value; }
-        public string Color { get; set; }
-        public override string GetColor() => Color;
 
-        public Key(string type, IPosition position, string color)
-           : base(type, position)
+        public int Damage { get; set; }
+        public override int GetDamage() => Damage;
+
+
+
+        public Boobytrap(string type, IPosition position, int damage)
+            : base(type, position)
         {
-            this.Color = color;
+            this.Type = type; 
+            this.Damage = damage;
         }
 
-        public override void Interact(IEntity entity, Field field, Room room)
+        public override void Interact(IEntity entity, Field field)
         {
-            entity.AddItemToInvetory(this);
-            field.RemoveItem();
+            entity.TakeDamage(Damage);
         }
     }
 }

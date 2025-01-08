@@ -8,6 +8,6 @@ namespace TempleOfDoom.model.Interfaces
 {
     public interface IFileReader
     {
-        TempleOfDoomGameJson readFile(string file);
+        public TempleOfDoomGameJson readFile(string file);
     }
 }

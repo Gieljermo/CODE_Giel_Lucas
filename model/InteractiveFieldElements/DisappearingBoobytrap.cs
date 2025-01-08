@@ -18,9 +18,9 @@ namespace Domain
             this.Type = type;
         }
 
-        public override void Interact(IEntity entity, Field field, Room room)
+        public override void Interact(IEntity entity, Field field)
         {
-            entity.takeDamage(Damage);
+            entity.TakeDamage(Damage);
             field.RemoveItem();
         }
     }

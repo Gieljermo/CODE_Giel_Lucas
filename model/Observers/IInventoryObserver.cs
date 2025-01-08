@@ -9,6 +9,6 @@ namespace TempleOfDoom.model.Observers
 {
     public interface IInventoryObserver
     {
-        public void onInventoryChange(List<Item> inventory);
+        public void OnInventoryChange(List<Item> inventory);
     }
 }

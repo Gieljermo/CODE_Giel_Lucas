@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using TempleOfDoom.model.Interfaces;
 using TempleOfDoom.model.Observers;
 
-namespace TempleOfDoom.model
+namespace TempleOfDoom.model.Adapter
 {
     public class Player : Entity, IObservable
     {
@@ -21,31 +21,31 @@ namespace TempleOfDoom.model
 
         public Player(int startRoomId, int startX, int startY, int lives)
         {
-            this.StartRoomId = startRoomId;
+            StartRoomId = startRoomId;
             Position = new Position(startX, startY);
-            this.Lives = lives;
+            Lives = lives;
             Inventory = new List<Item>();
         }
 
         public override void Move(IPosition position, Room room)
         {
-            Field fieldToMoveTo = room.Fields.Where(f => f.Position.Y == this.Position.Y + position.Y && f.Position.X == this.Position.X + position.X).FirstOrDefault();
+            Field fieldToMoveTo = room.Fields.Where(f => f.Position.Y == Position.Y + position.Y && f.Position.X == Position.X + position.X).FirstOrDefault();
             if (fieldToMoveTo != null && !fieldToMoveTo.IsWall)
             {
-                this.Position = fieldToMoveTo.Position;
+                Position = fieldToMoveTo.Position;
             }
         }
 
 
-        public override void takeDamage(int amount)
+        public override void TakeDamage(int amount)
         {
-            this.Lives -= amount;
+            Lives -= amount;
             NotifyHealthObservers();
         }
 
         public override void AddItemToInvetory(Item item)
         {
-            this.Inventory.Add(item);
+            Inventory.Add(item);
             NotifyInventoryObservers();
         }
 
@@ -73,14 +73,14 @@ namespace TempleOfDoom.model
         {
             foreach (var observer in healthObservers)
             {
-                observer.OnHealthChanged(this.Lives);
+                observer.OnHealthChanged(Lives);
             }
         }
         public void NotifyInventoryObservers()
         {
             foreach (var observer in inventoryObservers)
             {
-                observer.onInventoryChange(this.Inventory);
+                observer.OnInventoryChange(Inventory);
             }
         }
 

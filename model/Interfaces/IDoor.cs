@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Adapter;
 
 namespace Domain.Interfaces
 {
     public interface IDoor
     {
-        bool IsOpen { get; set; }
-        void OpenDoor(Player player, Room room);
+        public bool IsOpen { get; set; }
+        public void OpenDoor(Player player, Room room);
     }
 }

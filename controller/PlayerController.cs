@@ -8,6 +8,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Adapter;
 using TempleOfDoom.model.Interfaces;
 
 namespace TempleOfDoom.controller
@@ -37,7 +38,6 @@ namespace TempleOfDoom.controller
         {
             if (movementMap.TryGetValue(key, out var movement))
             {
-              //  IPosition positionForMove = new Position(movement.xMovement, movement.yMovement);
                 IPosition canMoveToPosition = new Position(Player.Position.X + movement.xMovement, Player.Position.Y + movement.yMovement);
 
                 if (boardController.CanMoveTo(canMoveToPosition))
@@ -51,7 +51,7 @@ namespace TempleOfDoom.controller
 
                     if (item != null)
                     {
-                        item.Interact(Player, field, room);
+                        item.Interact(Player, field);
 
                     }
 
@@ -69,7 +69,7 @@ namespace TempleOfDoom.controller
             {
                 if (opponent.Position.Equals(Player.Position))
                 {
-                    Player.takeDamage(SHOOT_DAMAGE);
+                    Player.TakeDamage(SHOOT_DAMAGE);
                 }
 
             }

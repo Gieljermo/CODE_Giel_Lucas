@@ -18,11 +18,11 @@ namespace TempleOfDoom.model
         {
         }
 
-        public override void Interact(IEntity entity, Field field, Room room)
+        public override void Interact(IEntity entity, Field field)
         {
             if(entity != null)
             {
-                entity.moveByConveyor(entity, 1, Direction);
+                entity.MoveByConveyor(entity, 1, Direction);
             }
         }
     }

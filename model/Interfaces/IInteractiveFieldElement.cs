@@ -5,14 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model.Adapter;
-using TempleOfDoom.model.Interfaces;
 
-namespace TempleOfDoom.model
+namespace TempleOfDoom.model.Interfaces
 {
     public interface IInteractiveFieldElement
     {
-        string Type { get; set; }
+        public string Type { get; set; }
         public IPosition Position { get; set; }
-        void Interact(IEntity entity, Field field, Room room);
+        public void Interact(IEntity entity, Field field);
     }
 }

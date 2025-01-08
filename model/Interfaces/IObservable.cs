@@ -9,11 +9,11 @@ namespace TempleOfDoom.model.Interfaces
 {
     public interface IObservable
     {
-        void RegisterObserverHealth(IHealthObserver healthobserver);
-        void RegisterObserverInventory(IInventoryObserver inventoryObserver);
-        void UnregisterObserverInventory(IInventoryObserver inventoryObserver);
-        void UnregisterObserverHealth(IHealthObserver healthObserver);
-        void NotifyHealthObservers();
-        void NotifyInventoryObservers();
+        public void RegisterObserverHealth(IHealthObserver healthobserver);
+        public void RegisterObserverInventory(IInventoryObserver inventoryObserver);
+        public void UnregisterObserverInventory(IInventoryObserver inventoryObserver);
+        public void UnregisterObserverHealth(IHealthObserver healthObserver);
+        public void NotifyHealthObservers();
+        public void NotifyInventoryObservers();
     }
 }

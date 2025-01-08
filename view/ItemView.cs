@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
 using TempleOfDoom.model.Enums;
+using TempleOfDoom.model.Interfaces;
 
 namespace GameView
 {

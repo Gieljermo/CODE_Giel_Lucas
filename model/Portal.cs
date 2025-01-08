@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain;
+using Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,12 +13,12 @@ namespace TempleOfDoom.model
     {
         public int RoomId { get; set; }
         public IPosition Position { get; set; }
-        public bool IsOpen { get; set; }
 
         public Portal(int roomId, IPosition position) 
         {
             this.RoomId = roomId;
             this.Position = position;
         }
+
     }
 }

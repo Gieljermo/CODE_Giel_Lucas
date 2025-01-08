@@ -12,7 +12,6 @@ namespace TempleOfDoom
         {
             string fileName = "resources/TempleOfDoom_Extended_B_2122.json";
 
-
             IFileReader fileReader = new JsonFileReader();
 
             GameController gameController = new GameController(fileReader, fileName);

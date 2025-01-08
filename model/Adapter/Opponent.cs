@@ -36,7 +36,7 @@ namespace TempleOfDoom.model.Adapter
             if (type == "horizontal")
             {
                 _enemy = new HorizontallyMovingEnemy(1, position.X, position.Y, minXLocation, maxXLocation);
-                _enemy.CurrentField = new Field();
+                _enemy.CurrentField = new Field(CurrentRoom, Position);
                 _enemy.OnDeath += _enemyAdaptee_OnDeath;
 
             }
@@ -44,7 +44,7 @@ namespace TempleOfDoom.model.Adapter
             {
                 _enemy = new VerticallyMovingEnemy(1, position.X, position.Y, minYLocation, maxYLocation);
 
-                _enemy.CurrentField = new Field();
+                _enemy.CurrentField = new Field(CurrentRoom, Position);
 
                 _enemy.OnDeath += _enemyAdaptee_OnDeath;
             }
@@ -76,7 +76,7 @@ namespace TempleOfDoom.model.Adapter
 
         }
 
-        public override void moveByConveyor(IEntity entity, int amount, Direction direction)
+        public override void MoveByConveyor(IEntity entity, int amount, Direction direction)
         {
             this.Position = new Position(this.Position.X, this.Position.Y);
 

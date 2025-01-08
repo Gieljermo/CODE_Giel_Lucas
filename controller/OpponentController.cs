@@ -8,6 +8,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Adapter;
 using TempleOfDoom.model.Interfaces;
 
 namespace TempleOfDoom.controller
@@ -38,7 +39,7 @@ namespace TempleOfDoom.controller
                     Field field = room.Fields.Where(f => f.Position == opponent.Position).FirstOrDefault();
                     if (item != null)
                     {
-                        item.Interact(opponent, field, room);
+                        item.Interact(opponent, field);
                     }
                 }
 
