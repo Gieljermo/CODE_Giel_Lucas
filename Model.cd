@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="TempleOfDoom.model.Adapter.Entity">
-    <Position X="37" Y="3.75" Width="2" />
+    <Position X="30.25" Y="0.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAICAAAAgAAAAAAAAAAAAAAACAAAAgAAAAAA=</HashCode>
       <FileName>model\Adapter\Entity.cs</FileName>
@@ -9,7 +9,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="TempleOfDoom.model.Adapter.Opponent">
-    <Position X="43" Y="8" Width="2.25" />
+    <Position X="36.25" Y="5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>MAAAAAAwAICAAAAAAAACAAAAAAABAAAABwAAAAAAAAA=</HashCode>
       <FileName>model\Adapter\Opponent.cs</FileName>
@@ -19,24 +19,24 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="TempleOfDoom.model.Adapter.Player">
-    <Position X="25" Y="7" Width="3.25" />
+    <Position X="18.25" Y="4" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAgAAAAAAIBAAAQQIAAAAAAAAAgAAQABIAABggAACBA=</HashCode>
       <FileName>model\Adapter\Player.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Field Name="healthObservers" />
       <Field Name="inventoryObservers" />
+      <Field Name="healthObservers" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.Decorators.BaseDoorDecorator">
-    <Position X="13.75" Y="10.25" Width="2" />
+    <Position X="7" Y="7.25" Width="2" />
     <AssociationLine Name="_wrappee" Type="Domain.Interfaces.IDoor" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="15.75" Y="12" />
-        <Point X="26.25" Y="12" />
-        <Point X="26.25" Y="13.75" />
+        <Point X="9" Y="9" />
+        <Point X="19.5" Y="9" />
+        <Point X="19.5" Y="10.75" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -49,7 +49,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.Decorators.DoorColorDecorator">
-    <Position X="13.25" Y="5.5" Width="2.25" />
+    <Position X="6.5" Y="2.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAIAAAAAgAAAAAAAIgAAECAAAAAAAAABAA=</HashCode>
       <FileName>model\Decorators\DoorColorDecorator.cs</FileName>
@@ -57,28 +57,28 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Domain.Decorators.DoorOnStonesDecorator">
-    <Position X="16" Y="5.75" Width="2.5" />
+    <Position X="9.25" Y="2.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAgAAAAAAAAA=</HashCode>
       <FileName>model\Decorators\DoorOnStonesDecorator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Domain.Decorators.DoorToggleDecorator">
-    <Position X="19" Y="5.75" Width="2" />
+    <Position X="12.25" Y="2.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>model\Decorators\DoorToggleDecorator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TempleOfDoom.model.Decorators.ClosingGateDoorDecorator">
-    <Position X="7.25" Y="5.75" Width="2.25" />
+    <Position X="0.5" Y="2.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAEAAAAIAAAAAAAA=</HashCode>
       <FileName>model\Decorators\ClosingGateDoorDecorator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TempleOfDoom.model.Decorators.OpenOnOddDoorDecorator">
-    <Position X="10.5" Y="5.75" Width="2.25" />
+    <Position X="3.75" Y="2.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAACAEAAAAAEAAAAAAAAQEAAAAAABAAAAAA=</HashCode>
       <FileName>model\Decorators\OpenOnOddDoorDecorator.cs</FileName>
@@ -86,24 +86,24 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="TempleOfDoom.model.DTO.TempleOfDoomGame">
-    <Position X="31.75" Y="7.5" Width="2.5" />
-    <AssociationLine Name="Connections" Type="TempleOfDoom.model.Connection" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="31.75" Y="8.375" />
-        <Point X="31.562" Y="8.375" />
-        <Point X="31.562" Y="10.5" />
-      </Path>
-    </AssociationLine>
+    <Position X="25" Y="4.5" Width="2.5" />
     <AssociationLine Name="Rooms" Type="TempleOfDoom.model.Room" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="33" Y="8.603" />
-        <Point X="33" Y="8.978" />
-        <Point X="40.188" Y="8.978" />
-        <Point X="40.188" Y="14.25" />
+        <Point X="26.25" Y="5.603" />
+        <Point X="26.25" Y="5.978" />
+        <Point X="33.438" Y="5.978" />
+        <Point X="33.438" Y="11.25" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="1.385" Y="5.474" />
       </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Connections" Type="TempleOfDoom.model.Connection" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="25" Y="5.375" />
+        <Point X="24.812" Y="5.375" />
+        <Point X="24.812" Y="7.5" />
+      </Path>
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAASAAAAA=</HashCode>
@@ -113,59 +113,38 @@
       <Property Name="Player" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="Connections" />
       <Property Name="Rooms" />
+      <Property Name="Connections" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="TempleOfDoom.model.Factory.DoorFactory">
-    <Position X="25" Y="20.75" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
-      <FileName>model\Factory\DoorFactory.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="TempleOfDoom.model.Factory.EnemyFactory">
-    <Position X="29" Y="20.75" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
-      <FileName>model\Factory\EnemyFactory.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Domain.Factory.FieldElementFactory">
-    <Position X="32" Y="20.75" Width="3.5" />
-    <TypeIdentifier>
-      <HashCode>AABAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>model\Factory\FieldElementFactory.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Domain.Boobytrap">
-    <Position X="14" Y="20" Width="1.75" />
+    <Position X="7.25" Y="17" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAIgAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>model\InteractiveFieldElements\Boobytrap.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Domain.DisappearingBoobytrap">
-    <Position X="8.25" Y="20.75" Width="2" />
+    <Position X="1.5" Y="17.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>model\InteractiveFieldElements\DisappearingBoobytrap.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Domain.Key">
-    <Position X="8.25" Y="15" Width="1.75" />
+    <Position X="1.5" Y="12" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAIAAAAACAAAAAgAAAAAA=</HashCode>
       <FileName>model\InteractiveFieldElements\Key.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Domain.PressurePlate">
-    <Position X="8" Y="13" Width="2.75" />
+    <Position X="1.25" Y="10" Width="2.75" />
     <InheritanceLine Type="TempleOfDoom.model.Item" FixedToPoint="true">
       <Path>
-        <Point X="15.875" Y="15.75" />
-        <Point X="15.875" Y="14" />
-        <Point X="10.75" Y="14" />
+        <Point X="9.125" Y="12.75" />
+        <Point X="9.125" Y="11" />
+        <Point X="4" Y="11" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -174,12 +153,12 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Domain.SankaraStone">
-    <Position X="8.25" Y="17.75" Width="1.75" />
+    <Position X="1.5" Y="14.75" Width="1.75" />
     <InheritanceLine Type="TempleOfDoom.model.Item" ManuallyRouted="true" FixedToPoint="true">
       <Path>
-        <Point X="15.875" Y="18.267" />
-        <Point X="15.875" Y="18.813" />
-        <Point X="10" Y="18.813" />
+        <Point X="9.125" Y="15.267" />
+        <Point X="9.125" Y="15.813" />
+        <Point X="3.25" Y="15.813" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -188,14 +167,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Domain.Field" BaseTypeListCollapsed="true">
-    <Position X="20" Y="12.5" Width="3.5" />
+    <Position X="13.25" Y="9.5" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAAIEAAAAAAAAAEgABAAAAAEAEAAgAAEAAABAAAAAgA=</HashCode>
       <FileName>model\Field.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Connection" />
       <Property Name="InteractiveFieldElement" />
+      <Property Name="Connection" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Doors" />
@@ -203,14 +182,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="TempleOfDoom.model.ConveyorBelt">
-    <Position X="18" Y="21" Width="2.5" />
+    <Position X="11.25" Y="18" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAEAIAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>model\InteractiveFieldElements\ConveyorBelt.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TempleOfDoom.model.Item">
-    <Position X="15" Y="15.75" Width="1.75" />
+    <Position X="8.25" Y="12.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIgAAAAgAAAAAAAAIAAAAACAAQAAAAAAAAA=</HashCode>
       <FileName>model\InteractiveFieldElements\Item.cs</FileName>
@@ -218,7 +197,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="TempleOfDoom.model.SpecialFloorTile">
-    <Position X="18.75" Y="18" Width="1.75" />
+    <Position X="12" Y="15" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAgACAAAAAAIAAAAACAAQAAAAAAAAA=</HashCode>
       <FileName>model\InteractiveFieldElements\SpecialFloorTile.cs</FileName>
@@ -226,7 +205,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="TempleOfDoom.model.Connection">
-    <Position X="31" Y="10.5" Width="1.75" />
+    <Position X="24.25" Y="7.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AACAAAAAAAAAAIAAAAAAAAAAEAAAAAAAAAABAAABAAQ=</HashCode>
       <FileName>model\Connection.cs</FileName>
@@ -237,7 +216,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="TempleOfDoom.model.Portal" BaseTypeListCollapsed="true">
-    <Position X="34" Y="12.75" Width="1.75" />
+    <Position X="27.25" Y="9.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAACAIAAAAAgAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
       <FileName>model\Portal.cs</FileName>
@@ -245,20 +224,20 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="TempleOfDoom.model.Room">
-    <Position X="38" Y="14.25" Width="3.75" />
+    <Position X="31.25" Y="11.25" Width="3.75" />
     <AssociationLine Name="Connections" Type="TempleOfDoom.model.Connection" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="38.375" Y="14.25" />
-        <Point X="38.375" Y="11.566" />
-        <Point X="32.75" Y="11.566" />
+        <Point X="31.625" Y="11.25" />
+        <Point X="31.625" Y="8.566" />
+        <Point X="26" Y="8.566" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="Opponents" Type="TempleOfDoom.model.Adapter.Opponent" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="41.75" Y="14.812" />
-        <Point X="42.125" Y="14.812" />
-        <Point X="42.125" Y="10.272" />
-        <Point X="43" Y="10.272" />
+        <Point X="35" Y="11.812" />
+        <Point X="35.375" Y="11.812" />
+        <Point X="35.375" Y="7.272" />
+        <Point X="36.25" Y="7.272" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -268,41 +247,41 @@
     <ShowAsCollectionAssociation>
       <Property Name="Connections" />
       <Property Name="Fields" />
-      <Property Name="SpecialFloorTiles" />
       <Property Name="Items" />
       <Property Name="Opponents" />
+      <Property Name="SpecialFloorTiles" />
     </ShowAsCollectionAssociation>
   </Class>
   <Interface Name="Domain.Interfaces.IDoor">
-    <Position X="25.25" Y="13.75" Width="2" />
+    <Position X="18.5" Y="10.75" Width="2" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>model\Interfaces\IDoor.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="TempleOfDoom.model.Interfaces.IDrawable">
-    <Position X="28.5" Y="14.25" Width="1.75" />
+    <Position X="21.75" Y="11.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
       <FileName>model\Interfaces\IDrawable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="TempleOfDoom.model.Interfaces.IInteractiveFieldElement">
-    <Position X="16.75" Y="13" Width="2" />
+    <Position X="10" Y="10" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAIAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>model\Interfaces\IInteractiveFieldElement.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="TempleOfDoom.model.Observers.IHealthObserver">
-    <Position X="21.25" Y="9.25" Width="2" />
+    <Position X="14.5" Y="6.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>model\Observers\IHealthObserver.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="TempleOfDoom.model.Observers.IInventoryObserver">
-    <Position X="22" Y="4.25" Width="2.25" />
+    <Position X="15.25" Y="1.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>model\Observers\IInventoryObserver.cs</FileName>
