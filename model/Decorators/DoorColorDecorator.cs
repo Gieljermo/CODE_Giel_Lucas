@@ -36,12 +36,6 @@ namespace Domain.Decorators
             {
                 return "white";
             }
-            //return _color.ToLower() switch
-            //{
-            //    "green" => "green", _symbol = '',
-            //    "red" => "red",
-            //    _ => "white"
-            //};
         }
 
         public override char? GetSymbol() => _symbol;

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Interfaces;
 using TempleOfDoom.view;
 
 namespace GameView
@@ -11,8 +12,7 @@ namespace GameView
         private const int RIGHT_EDGE_OFFSET = 1;
         public void DrawField(Field field, Room gameRoom)
         {
-            // Check for right edge of the room to print a newline
-            if (field.Position.X == gameRoom.Width - RIGHT_EDGE_OFFSET)
+            if (FieldIsAtRightEdge(field, gameRoom))
             {
                 DrawElement(field, gameRoom.Height);
                 Console.WriteLine();
@@ -81,6 +81,12 @@ namespace GameView
         private void DrawEmptySpace()
         {
             Console.Write("  ");
+        }
+
+        // Check for right edge of the room to print a newline
+        private bool FieldIsAtRightEdge(Field field, Room gameRoom)
+        {
+            return field.Position.X == gameRoom.Width - RIGHT_EDGE_OFFSET;
         }
     }
 }

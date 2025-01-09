@@ -26,7 +26,7 @@ namespace TempleOfDoom.model.Decorators
         public void OnHealthChanged(int amountOfLives)
         {
             //Check lives are odd
-            if (amountOfLives % 2 == 0)
+            if (amountOfLives % MODULUS_BASE == EVEN_LIVES_CONDITION)
             {
                 unlocked = true;
             }
@@ -39,7 +39,7 @@ namespace TempleOfDoom.model.Decorators
         public override void ChangeDoorStatus(IEntity player, Room room)
         {
             //Check lives are odd
-            if (player.Lives % 2 == 0)
+            if (player.Lives % MODULUS_BASE == EVEN_LIVES_CONDITION)
             {
                 base.IsOpen = false;
                 return;

@@ -9,7 +9,7 @@ using TempleOfDoom.model.Interfaces;
 
 namespace Domain.Interfaces
 {
-    public interface IDoor : IDrawable
+    public interface IDoor
     {
         public bool IsOpen { get; set; }
         public void ChangeDoorStatus(IEntity player, Room room);

@@ -24,7 +24,7 @@ namespace TempleOfDoom.model.Adapter
 
         public Opponent(string type, IPosition position, int minX, int maxX, int minY, int maxY)
         {
-            Type = type.ToString();
+            Type = type;
             Position = position;
             MinX = minX;
             MaxX = maxX;

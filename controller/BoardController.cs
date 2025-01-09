@@ -92,8 +92,7 @@ namespace TempleOfDoom.controller
 
         private void MovePlayerToPortal(Field portalField)
         {
-            var newPortal = portalField.Connection.Portals
-                .FirstOrDefault(p => p.RoomId != CurrentRoom.Id);
+            var newPortal = portalField.Connection.Portals.FirstOrDefault(p => p.RoomId != CurrentRoom.Id);
 
             if (newPortal != null)
             {

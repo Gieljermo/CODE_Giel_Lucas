@@ -21,9 +21,9 @@ namespace GameView
             if (item is IDrawable drawableItem)
             {
                 string colorName = drawableItem.GetColor();
-                if (Enum.TryParse(colorName, true, out ConsoleColor consoleColor))
+                if (IsValidColor(colorName))
                 {
-                    Console.ForegroundColor = consoleColor;
+                    Console.ForegroundColor = ParseColor(colorName);
                 }
                 Console.Write($" {drawableItem.GetSymbol()}");
                 Console.ResetColor();
@@ -32,24 +32,24 @@ namespace GameView
 
         public void DrawPortal(Portal item)
         {
-            if (item is IDrawable drawableItem)
+            string colorName = item.GetColor();
+            if (IsValidColor(colorName))
             {
-                string colorName = drawableItem.GetColor();
-                if (Enum.TryParse(colorName, true, out ConsoleColor consoleColor))
-                {
-                    Console.ForegroundColor = consoleColor;
-                }
-                Console.Write($" {drawableItem.GetSymbol()}");
-                Console.ResetColor();
+                Console.ForegroundColor = ParseColor(colorName);
             }
+            Console.Write($" {item.GetSymbol()}");
+            Console.ResetColor();
         }
 
         public void DrawDoor(IDoor door)
         {
-            if (IsValidColor(door.GetColor()) && door.GetSymbol() != null)
+            if (door is IDrawable drawableItem)
             {
-                Console.ForegroundColor = ParseColor(door.GetColor());
-                Console.Write($" {door.GetSymbol()}");
+                if (IsValidColor(drawableItem.GetColor()) && drawableItem.GetSymbol() != null)
+                {
+                    Console.ForegroundColor = ParseColor(drawableItem.GetColor());
+                    Console.Write($" {drawableItem.GetSymbol()}");
+                }
             }
         }
 

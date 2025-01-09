@@ -10,12 +10,9 @@ using TempleOfDoom.model.Interfaces;
 
 namespace TempleOfDoom.model
 {
-    public class Door : IDoor, IDrawable
+    public class Door : IDoor
     {
-        private bool _isOpen;
-        public bool IsOpen { get => _isOpen; set => _isOpen = value; }
-        public string GetColor() => "green";
-        public char? GetSymbol() => '=';
+        public bool IsOpen { get; set; }
 
         public void ChangeDoorStatus(IEntity entity, Room room)
         {

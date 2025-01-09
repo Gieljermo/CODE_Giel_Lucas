@@ -34,7 +34,7 @@ namespace TempleOfDoom.model.Adapter
         public override void Move(IPosition position, Room room)
         {
             IPosition targetPosition = CalculateNewPosition(position);
-            Field fieldToMoveTo = room.Fields.FirstOrDefault(f => f.Position.Equals(targetPosition));
+            var fieldToMoveTo = room.Fields.FirstOrDefault(f => f.Position.Equals(targetPosition));
 
             if (fieldToMoveTo != null && !fieldToMoveTo.IsWall)
             {

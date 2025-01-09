@@ -9,7 +9,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="TempleOfDoom.model.Adapter.Opponent">
-    <Position X="36.25" Y="5" Width="2.25" />
+    <Position X="35.75" Y="5.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>MAAAAAAwAICAAAAAAAACAAAAAAABAAAABwAAAAAAAAA=</HashCode>
       <FileName>model\Adapter\Opponent.cs</FileName>
@@ -206,6 +206,16 @@
   </Class>
   <Class Name="TempleOfDoom.model.Connection">
     <Position X="24.25" Y="7.5" Width="1.75" />
+    <AssociationLine Name="Portals" Type="TempleOfDoom.model.Portal" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="26" Y="9.13" />
+        <Point X="28.625" Y="9.13" />
+        <Point X="28.625" Y="9.75" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.639" Y="0.162" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AACAAAAAAAAAAIAAAAAAAAAAEAAAAAAAAAABAAABAAQ=</HashCode>
       <FileName>model\Connection.cs</FileName>
@@ -221,7 +231,7 @@
       <HashCode>AAAAAAACAIAAAAAgAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
       <FileName>model\Portal.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="TempleOfDoom.model.Room">
     <Position X="31.25" Y="11.25" Width="3.75" />
@@ -236,8 +246,8 @@
       <Path>
         <Point X="35" Y="11.812" />
         <Point X="35.375" Y="11.812" />
-        <Point X="35.375" Y="7.272" />
-        <Point X="36.25" Y="7.272" />
+        <Point X="35.375" Y="7.522" />
+        <Point X="35.75" Y="7.522" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -257,13 +267,6 @@
     <TypeIdentifier>
       <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>model\Interfaces\IDoor.cs</FileName>
-    </TypeIdentifier>
-  </Interface>
-  <Interface Name="TempleOfDoom.model.Interfaces.IDrawable">
-    <Position X="21.75" Y="11.25" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
-      <FileName>model\Interfaces\IDrawable.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="TempleOfDoom.model.Interfaces.IInteractiveFieldElement">

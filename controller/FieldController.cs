@@ -31,17 +31,11 @@ namespace Controlllers
                 for (int x = 0; x < room.Width; x++)
                 {
                     IPosition position = new Position(x, y);
-
                     Field field = CreateBaseField(room, position);
-
                     ProcessItems(field, room, position);
-
                     ProcessPortals(field, roomPortals, connections, position);
-
                     ProcessSpecialFloorTiles(field, room, position);
-
                     field.IsWall = IsWall(x, y, room.Width, room.Height);
-
                     fields.Add(field);
                 }
             }

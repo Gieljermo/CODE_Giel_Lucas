@@ -6,7 +6,7 @@ using TempleOfDoom.model.Interfaces;
 
 namespace Domain.Decorators
 {
-    public abstract class BaseDoorDecorator : IDoor
+    public abstract class BaseDoorDecorator : IDoor, IDrawable
     {
         public IDoor _wrappee;
 

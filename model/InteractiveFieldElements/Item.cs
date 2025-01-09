@@ -14,7 +14,7 @@ namespace TempleOfDoom.model
     {
         public string Type { get; set; }
         public IPosition Position { get; set; }
-        public virtual char? GetSymbol() => ' ';
+        public virtual char? GetSymbol() => null;
         public virtual string GetColor() => "white";
         public virtual int GetDamage() => 0;
 

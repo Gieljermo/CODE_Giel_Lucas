@@ -30,6 +30,9 @@ namespace TempleOfDoom.controller
         {
             _gameData = fileReader.readFile(fileName);
             TempleOfDoomGame = GenerateGameClasses(_gameData);
+
+            InitializeObservers();
+
             fieldController = new FieldController();
             boardController = new BoardController(this, fieldController);
             playerController = new PlayerController(TempleOfDoomGame.Player, boardController);
@@ -81,6 +84,14 @@ namespace TempleOfDoom.controller
             return new TempleOfDoomGame(rooms, connections, player);
         }
 
+        private void InitializeObservers()
+        {
+            foreach (var connection in TempleOfDoomGame.Connections)
+            {
+                RegisterDoorObservers(connection.Doors);
+            }
+        }
+
         private List<Room> GenerateRooms(IEnumerable<RoomJson> roomData)
         {
             return roomData.Select(roomJson =>
@@ -110,7 +121,6 @@ namespace TempleOfDoom.controller
             }).ToList();
         }
 
-
         private List<SpecialFloorTile> GenerateSpecialFloorTiles(SpecialFloorTileJson[] floorData)
         {
             if (floorData == null)
@@ -134,7 +144,6 @@ namespace TempleOfDoom.controller
             }).ToList();
         }
 
-
         private List<Opponent> GenerateOpponents(IEnumerable<EnemyJson> enemyData)
         {
             if (enemyData == null)
@@ -149,7 +158,6 @@ namespace TempleOfDoom.controller
             }).ToList();
         }
 
-
         private Player GeneratePlayer(PlayerJson playerJson)
         {
             return new Player(playerJson.startRoomId, playerJson.startX, playerJson.startY, playerJson.lives);
@@ -162,8 +170,6 @@ namespace TempleOfDoom.controller
                 var connection = new Connection(connectionJson.NORTH, connectionJson.WEST, connectionJson.SOUTH, connectionJson.EAST);
                 connection.Portals = GeneratePortals(connectionJson.portal);
                 connection.Doors = GenerateDoors(connectionJson.doors);
-
-                RegisterDoorObservers(connection.Doors);
 
                 return connection;
             }).ToList();
@@ -182,7 +188,6 @@ namespace TempleOfDoom.controller
                 return new Portal(portalJson.roomId, portalPosition);
             }).ToList();
         }
-
 
         private List<IDoor> GenerateDoors(IEnumerable<DoorJson> doorData)
         {
@@ -205,7 +210,6 @@ namespace TempleOfDoom.controller
 
             return decoratedDoors;
         }
-
 
         private void RegisterDoorObservers(IEnumerable<IDoor> doors)
         {
