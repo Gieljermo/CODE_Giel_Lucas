@@ -12,7 +12,6 @@ namespace TempleOfDoom.model
 {
     public class Door : IDoor, IDrawable
     {
-        public string Color { get; set; }
         private bool _isOpen;
         public bool IsOpen { get => _isOpen; set => _isOpen = value; }
         public string GetColor() => "green";

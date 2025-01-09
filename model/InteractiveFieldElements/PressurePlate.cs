@@ -33,15 +33,11 @@ namespace Domain
 
         private void ChangeStatusOfToggleDoors(IEntity entity, Field field, Connection connection)
         {
-            // Itereer over elke deur in de lijst van deuren
             foreach (var currentDoor in connection.Doors)
             {
-                // Controleer of de deur een toggable deur is (dekorator)
                 if (currentDoor is DoorToggleDecorator toggleableDoor)
-                {
-                    // Wijzig de status van de deur
+                { 
                     toggleableDoor.ChangeDoorStatus(entity, field.Room);
-                    // Aangezien we alleen de eerste toggable deur willen wijzigen, breken we hier de loop
                     break;
                 }
             }
