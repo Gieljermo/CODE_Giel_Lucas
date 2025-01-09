@@ -1,9 +1,6 @@
 ﻿using Domain;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TempleOfDoom.model;
 using TempleOfDoom.view;
 
@@ -11,61 +8,79 @@ namespace GameView
 {
     public class FieldView
     {
+        private const int RIGHT_EDGE_OFFSET = 1;
         public void DrawField(Field field, Room gameRoom)
         {
             // Check for right edge of the room to print a newline
-            if (field.Position.X == gameRoom.Width - 1)
+            if (field.Position.X == gameRoom.Width - RIGHT_EDGE_OFFSET)
             {
-                DrawSymbol(field, gameRoom.Height);
+                DrawElement(field, gameRoom.Height);
                 Console.WriteLine();
                 return;
             }
             else
             {
-                DrawSymbol(field, gameRoom.Height);
+                DrawElement(field, gameRoom.Height);
             }
         }
 
-        private void DrawSymbol(Field field, int height)
+        private void DrawElement(Field field, int height)
         {
-            // Draw Wall
             if (field.IsWall)
             {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write(" #");
+                DrawWall();
             }
-            // Draw Item
             else if (field.InteractiveFieldElement != null)
             {
-                new ItemView().drawItem(field.InteractiveFieldElement);
+                DrawInteractiveElement(field);
             }
-            // Draw Door
-            else if (field.Door != null)
+            else if (field.Doors != null && field.Doors.Any())
             {
-                bool horizontal = false;
-                if (field.Position.Y == 0 || field.Position.Y == height - 1)
-                {
-                    horizontal = true;
-                }
-                new DoorView().DrawDoor(field.Door, horizontal);
+                DrawDoors(field);
             }
-            // Draw Connection
-            else if (field.Connection != null)
+            else if (field.Connection != null && field.Connection.Portals.Any())
             {
-                Console.ResetColor();
-                Console.Write(" *");
+                DrawPortals(field);
             }
-
-
-
-
-            // Empty Field
             else
             {
-                Console.Write("  ");
+                DrawEmptySpace();
             }
         }
 
-    }
+        private void DrawWall()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(" #");
+        }
 
+        private void DrawInteractiveElement(Field field)
+        {
+            new ElementView().DrawItem(field.InteractiveFieldElement);
+        }
+
+        private void DrawDoors(Field field)
+        {
+            foreach (var item in field.Doors)
+            {
+                new ElementView().DrawDoor(item);
+            }
+        }
+
+        private void DrawPortals(Field field)
+        {
+            foreach (var portal in field.Connection.Portals)
+            {
+                if (portal.RoomId == field.Room.Id)
+                {
+                    new ElementView().DrawPortal(portal);
+                }
+            }
+        }
+
+        private void DrawEmptySpace()
+        {
+            Console.Write("  ");
+        }
+    }
 }

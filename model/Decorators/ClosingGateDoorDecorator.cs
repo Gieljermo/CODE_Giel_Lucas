@@ -6,23 +6,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model.Adapter;
+using TempleOfDoom.model.Interfaces;
 
 namespace TempleOfDoom.model.Decorators
 {
     public class ClosingGateDoorDecorator : BaseDoorDecorator
     {
-        bool playerPassed = false;
+        private bool playerPassed;
+        public override char? GetSymbol() => '∩';
+
         public ClosingGateDoorDecorator(IDoor wrappee) : base(wrappee)
         {
             base.IsOpen = true;
+            playerPassed = false;
         }
 
-        public override void OpenDoor(Player player, Room room)
+        public override void ChangeDoorStatus(IEntity player, Room room)
         {
             if (!playerPassed)
             {
                 playerPassed = true;
-                base.OpenDoor(player, room);
+                base.ChangeDoorStatus(player, room);
             }
             else
             {

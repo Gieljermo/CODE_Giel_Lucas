@@ -11,7 +11,7 @@ namespace TempleOfDoom.model
     {
         public int North { get; set; }
         public int South { get; set; }
-        public IDoor? Door { get; set; }
+        public List<IDoor>? Doors { get; set; }
         public int West { get; set; }
         public int East { get; set; }
         public List<Portal> Portals { get; set; }

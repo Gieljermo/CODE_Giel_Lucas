@@ -10,12 +10,12 @@ using TempleOfDoom.model.Interfaces;
 
 namespace TempleOfDoom.model
 {
-    public abstract class Item : IInteractiveFieldElement
+    public abstract class Item : IInteractiveFieldElement, IDrawable
     {
         public string Type { get; set; }
         public IPosition Position { get; set; }
-
-        public virtual string GetColor() => "default";
+        public virtual char? GetSymbol() => ' ';
+        public virtual string GetColor() => "white";
         public virtual int GetDamage() => 0;
 
         public Item(string type, IPosition position)

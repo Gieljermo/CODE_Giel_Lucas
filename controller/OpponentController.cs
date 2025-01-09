@@ -15,19 +15,31 @@ namespace TempleOfDoom.controller
 {
     public class OpponentController
     {
+        private const int MOVE_LEFT = -1;
+        private const int MOVE_RIGHT = 1;
+        private const int MOVE_UP = -1;
+        private const int MOVE_DOWN = 1;
+        private const int NO_MOVEMENT = 0;
+
         private readonly Dictionary<ConsoleKey, (int xMovement, int yMovement)> movementMap;
         private BoardController boardController;
         public OpponentController(BoardController boardController)
         {
             this.boardController = boardController;
-            movementMap = new Dictionary<ConsoleKey, (int, int)>
+            movementMap = InitializeMovementMap();
+        }
+
+        private Dictionary<ConsoleKey, (int xMovement, int yMovement)> InitializeMovementMap()
+        {
+            return new Dictionary<ConsoleKey, (int, int)>
             {
-                { ConsoleKey.LeftArrow, (-1, 0) },
-                { ConsoleKey.UpArrow, (0, -1) },
-                { ConsoleKey.RightArrow, (1, 0) },
-                { ConsoleKey.DownArrow, (0, 1) }
+                { ConsoleKey.LeftArrow, (MOVE_LEFT, NO_MOVEMENT) },
+                { ConsoleKey.UpArrow, (NO_MOVEMENT, MOVE_UP) },
+                { ConsoleKey.RightArrow, (MOVE_RIGHT, NO_MOVEMENT) },
+                { ConsoleKey.DownArrow, (NO_MOVEMENT, MOVE_DOWN) }
             };
         }
+
         public void Move(ConsoleKey key, Room room)
         {
             if (movementMap.TryGetValue(key, out var movement))
@@ -35,19 +47,22 @@ namespace TempleOfDoom.controller
                 foreach (var opponent in room.Opponents)
                 {
                     opponent.Move(opponent.Position, room);
-                    IInteractiveFieldElement item = boardController.GetItemAtPosition(opponent.Position);
-                    Field field = room.Fields.Where(f => f.Position == opponent.Position).FirstOrDefault();
-                    if (item != null)
-                    {
-                        item.Interact(opponent, field);
-                    }
+                    HandleFieldInteraction(opponent, room);
                 }
 
             }
 
         }
 
-
+        private void HandleFieldInteraction(Opponent opponent, Room room)
+        {
+            IInteractiveFieldElement item = boardController.GetItemAtPosition(opponent.Position);
+            var field = room.Fields.Where(f => f.Position == opponent.Position).FirstOrDefault();
+            if (item != null)
+            {
+                item.Interact(opponent, field);
+            }
+        }
 
 
         public void CheckDamage(ConsoleKey key, Room room, Player player)

@@ -13,17 +13,12 @@ namespace TempleOfDoom.model.Factory
     {
         public IDoor CreateDecoratedDoor(IEnumerable<DoorJson> doorProperties, Room room = null)
         {
-            // Start with a base door
             IDoor decoratedDoor = new Door();
 
-            // Apply decorators based on each object in the doors array
             foreach (var doorProperty in doorProperties)
             {
                 decoratedDoor = doorProperty.type switch
                 {
-                    "colored" when !string.IsNullOrEmpty(doorProperty.color) =>
-                        new DoorColorDecorator(decoratedDoor, doorProperty.color),
-
                     "open on stones in room" =>
                         new DoorOnStonesDecorator(decoratedDoor, doorProperty.no_of_stones),
 
@@ -35,6 +30,9 @@ namespace TempleOfDoom.model.Factory
 
                     "closing gate" =>
                         new ClosingGateDoorDecorator(decoratedDoor),
+
+                    "colored" when !string.IsNullOrEmpty(doorProperty.color) =>
+                        new DoorColorDecorator(decoratedDoor, doorProperty.color),
 
                     _ => decoratedDoor
                 };

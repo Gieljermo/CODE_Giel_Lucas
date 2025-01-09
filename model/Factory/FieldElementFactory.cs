@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using CODE_TempleOfDoom_DownloadableContent;
+using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,32 +17,25 @@ namespace Domain.Factory
 
         public IInteractiveFieldElement CreateItem(string type, IPosition position, int damage, string color)
         {
-            switch (type.ToLower())
+            return type switch
             {
-                case "boobytrap":
-                    return new Boobytrap(type, position, damage);
-                case "disappearing boobytrap":
-                    return new DisappearingBoobytrap(type, position, damage);
-                case "sankara stone":
-                    return new SankaraStone(type, position, color);
-                case "key":
-                    return new Key(type, position, color);
-                case "pressure plate":
-                    return new PressurePlate(type, position);
-                default:
-                    throw new NotSupportedException($"Item type {type} is not supported.");
-            }
+                "boobytrap" => new Boobytrap(type, position, damage),
+                "disappearing boobytrap" => new DisappearingBoobytrap(type, position, damage),
+                "sankara stone" => new SankaraStone(type,position, color),
+                "key" => new Key(type,position,color),
+                "pressure plate" => new PressurePlate(type,position),
+                _ => throw new NotSupportedException($"Item type {type} is not supported.")
+            };
         }
 
         public IInteractiveFieldElement CreateSpecialFloorTile(string type, IPosition position, Direction direction)
         {
-            switch (type.ToLower())
+            return type switch
             {
-                case "conveyor belt":
-                    return new ConveyorBelt(type, position, direction);
-                default:
-                    throw new NotSupportedException($"Item type {type} is not supported.");
-            }
+                "conveyor belt" => new ConveyorBelt(type, position, direction),
+                _ => throw new NotSupportedException($"Item type {type} is not supported.")
+            };
+
         }
     }
 }

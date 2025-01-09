@@ -7,31 +7,29 @@ using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
 using TempleOfDoom.model.Adapter;
+using TempleOfDoom.model.Interfaces;
 
 namespace Domain.Decorators
 {
     public class DoorToggleDecorator : BaseDoorDecorator
     {
+        public override char? GetSymbol() => '-';
+
         public DoorToggleDecorator(IDoor wrappee) : base(wrappee)
         {
             
         }
 
-        public override void OpenDoor(Player player, Room room)
+        public override void ChangeDoorStatus(IEntity player, Room room)
         {
             if (this.IsOpen)
             {
-                CloseDoor();
+                base.IsOpen = false; 
             }
             else
             {
-                base.OpenDoor(player, room);
+                base.ChangeDoorStatus(player, room);
             }
-        }
-
-        private void CloseDoor()
-        {
-            base.IsOpen = false;
         }
     }
 }

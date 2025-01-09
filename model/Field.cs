@@ -15,7 +15,7 @@ namespace Domain
         public IPosition Position { get; set; }
         public Room Room { get; set; }
         public IInteractiveFieldElement? InteractiveFieldElement { get; set; }
-        public IDoor? Door { get; set; }
+        public List<IDoor> Doors { get; set; }
         public bool IsWall { get; set; }
         public int IsConnection { get; set; }
         public Connection? Connection { get; set; }

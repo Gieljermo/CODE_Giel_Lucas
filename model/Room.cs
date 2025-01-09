@@ -16,7 +16,7 @@ namespace TempleOfDoom.model
         public int Width { get; set; }
         public int Height { get; set; }
         public List<Connection> Connections { get; set; }
-        public List<Field>? Fields { get; set; }
+        public List<Field> Fields { get; set; }
 
         public List<Item> Items { get; set; }
         public List<Opponent> Opponents { get; set; }

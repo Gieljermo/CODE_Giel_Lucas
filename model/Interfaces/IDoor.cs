@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
 using TempleOfDoom.model.Adapter;
+using TempleOfDoom.model.Interfaces;
 
 namespace Domain.Interfaces
 {
-    public interface IDoor
+    public interface IDoor : IDrawable
     {
         public bool IsOpen { get; set; }
-        public void OpenDoor(Player player, Room room);
+        public void ChangeDoorStatus(IEntity player, Room room);
     }
 }

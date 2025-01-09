@@ -16,33 +16,30 @@ namespace Controlllers
 {
     public class FieldController
     {
+        private const int BOUNDARY_OFSETT = 0;
+        private const int EDGE_ADJUSTMENT = 1;
         private FieldElementFactory elementFactory = new FieldElementFactory();
 
         public List<Field> CreateFields(Room room, Player player, List<Connection> connections)
         {
             List<Field> fields = new List<Field>();
 
-            // Portalen ophalen
             var roomPortals = GetRoomPortals(connections, room.Id);
 
             for (int y = 0; y < room.Height; y++)
             {
                 for (int x = 0; x < room.Width; x++)
                 {
-                    IPosition position = new Position(x, y); // Maak een Position object van x en y
+                    IPosition position = new Position(x, y);
 
                     Field field = CreateBaseField(room, position);
 
-                    // Verwerk items
                     ProcessItems(field, room, position);
 
-                    // Verwerk portalen
                     ProcessPortals(field, roomPortals, connections, position);
 
-                    // Verwerk speciale vloerplaten
                     ProcessSpecialFloorTiles(field, room, position);
 
-                    // Stel muurwaarde in
                     field.IsWall = IsWall(x, y, room.Width, room.Height);
 
                     fields.Add(field);
@@ -109,7 +106,7 @@ namespace Controlllers
 
         private bool IsWall(int x, int y, int width, int height)
         {
-            return x == 0 || x == width - 1 || y == 0 || y == height - 1;
+            return x == BOUNDARY_OFSETT || x == width - EDGE_ADJUSTMENT || y == BOUNDARY_OFSETT || y == height - EDGE_ADJUSTMENT;
         }
 
         private List<Portal> GetRoomPortals(List<Connection> connections, int roomId)
@@ -120,20 +117,6 @@ namespace Controlllers
                 .Where(p => p.RoomId == roomId)
                 .ToList();
             return Rconnections;
-        }
-
-
-        public bool isMoveValid(Field nextField)
-        {
-            if (nextField == null)
-            {
-                return true;
-            }
-            if (nextField.IsWall)
-            {
-                return false;
-            }
-            return true;
         }
     }
 }

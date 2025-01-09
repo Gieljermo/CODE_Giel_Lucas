@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TempleOfDoom.model.Enums;
 using TempleOfDoom.model.Interfaces;
 using TempleOfDoom.model.Observers;
 
@@ -13,11 +14,12 @@ namespace TempleOfDoom.model.Adapter
     public class Player : Entity, IObservable
     {
         public int StartRoomId { get; set; }
-
-        private List<IInventoryObserver> inventoryObservers = new List<IInventoryObserver>();
-        private List<IHealthObserver> healthObservers = new List<IHealthObserver>();
-
+        public int AmountOfStones { get; set; }
         public List<Item> Inventory { get; set; }
+
+        private readonly List<IInventoryObserver> inventoryObservers;
+        private readonly List<IHealthObserver> healthObservers;
+
 
         public Player(int startRoomId, int startX, int startY, int lives)
         {
@@ -25,17 +27,25 @@ namespace TempleOfDoom.model.Adapter
             Position = new Position(startX, startY);
             Lives = lives;
             Inventory = new List<Item>();
+            inventoryObservers = new List<IInventoryObserver>();
+            healthObservers = new List<IHealthObserver>();
         }
 
         public override void Move(IPosition position, Room room)
         {
-            Field fieldToMoveTo = room.Fields.Where(f => f.Position.Y == Position.Y + position.Y && f.Position.X == Position.X + position.X).FirstOrDefault();
+            IPosition targetPosition = CalculateNewPosition(position);
+            Field fieldToMoveTo = room.Fields.FirstOrDefault(f => f.Position.Equals(targetPosition));
+
             if (fieldToMoveTo != null && !fieldToMoveTo.IsWall)
             {
                 Position = fieldToMoveTo.Position;
             }
         }
 
+        private IPosition CalculateNewPosition(IPosition position)
+        {
+            return new Position(Position.X + position.X, Position.Y + position.Y);
+        }
 
         public override void TakeDamage(int amount)
         {
@@ -43,7 +53,7 @@ namespace TempleOfDoom.model.Adapter
             NotifyHealthObservers();
         }
 
-        public override void AddItemToInvetory(Item item)
+        public void AddItemToInvetory(Item item)
         {
             Inventory.Add(item);
             NotifyInventoryObservers();

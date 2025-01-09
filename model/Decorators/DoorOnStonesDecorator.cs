@@ -6,40 +6,34 @@ using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
 using TempleOfDoom.model.Adapter;
+using TempleOfDoom.model.Interfaces;
 
 namespace Domain.Decorators
 {
     public class DoorOnStonesDecorator : BaseDoorDecorator
     {
-        private int _neededStones;
+        private readonly int _neededStones;
+
+
         public DoorOnStonesDecorator(IDoor wrappee, int neededStones) : base(wrappee) 
         {
             _neededStones = neededStones;
         }
 
-        public override void OpenDoor(Player player, Room room)
+        public override void ChangeDoorStatus(IEntity player, Room room)
         {
-            if(CheckRoomForStones(room) != _neededStones)
+            if(GetAmountOfStonesInRoom(room) != _neededStones)
             {
                 base.IsOpen = false;
                 return;
             }
  
-            base.OpenDoor(player, room);
+            base.ChangeDoorStatus(player, room);
         }
 
-        private int CheckRoomForStones(Room room)
+        private int GetAmountOfStonesInRoom(Room room)
         {
-            int amountOfStones = 0;
-            foreach(var field in room.Fields)
-            {
-                if(field.InteractiveFieldElement != null && field.InteractiveFieldElement is SankaraStone)
-                {
-                    amountOfStones++;
-                }
-            }
-
-            return amountOfStones;
+            return room.Fields.Count(field => field.InteractiveFieldElement is SankaraStone);
         }
     }
 }

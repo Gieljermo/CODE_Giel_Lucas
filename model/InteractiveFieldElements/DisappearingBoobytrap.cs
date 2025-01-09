@@ -12,6 +12,9 @@ namespace Domain
 {
     public class DisappearingBoobytrap : Boobytrap
     {
+
+        public override char? GetSymbol() => '@';
+
         public DisappearingBoobytrap(string type, IPosition position, int damage)
            : base(type, position, damage)
         {

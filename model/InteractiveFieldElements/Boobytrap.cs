@@ -12,19 +12,14 @@ namespace Domain
 {
     public class Boobytrap : Item
     {
-
-        private string _type;
-        public string Type { get => _type; set => _type = value; }
-
         public int Damage { get; set; }
         public override int GetDamage() => Damage;
 
-
+        public override char? GetSymbol() => 'O';
 
         public Boobytrap(string type, IPosition position, int damage)
             : base(type, position)
         {
-            this.Type = type; 
             this.Damage = damage;
         }
 

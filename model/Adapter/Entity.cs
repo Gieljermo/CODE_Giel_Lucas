@@ -14,7 +14,6 @@ namespace TempleOfDoom.model.Adapter
 
         public virtual IPosition Position { get; set; }
         public virtual int Lives { get; set; }
-        public virtual int AmountOfStones { get; set; }
 
         public virtual void MoveByConveyor(IEntity entity, int amount, Direction direction)
         {
@@ -42,11 +41,6 @@ namespace TempleOfDoom.model.Adapter
         public virtual void TakeDamage(int amount)
         {
             Lives -= amount;
-        }
-
-        public virtual void AddItemToInvetory(Item item)
-        {
-            return;
         }
 
         public virtual void Move(IPosition position, Room room)

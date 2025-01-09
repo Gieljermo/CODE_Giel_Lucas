@@ -2,12 +2,16 @@
 using System;
 using TempleOfDoom.model;
 using TempleOfDoom.model.Adapter;
+using TempleOfDoom.model.Interfaces;
 
 namespace Domain.Decorators
 {
     public abstract class BaseDoorDecorator : IDoor
     {
         public IDoor _wrappee;
+
+        public virtual char? GetSymbol() => null;
+        public virtual string GetColor() => "white";
 
         public virtual bool IsOpen
         {
@@ -20,9 +24,9 @@ namespace Domain.Decorators
             _wrappee = wrappee;
         }
 
-        public virtual void OpenDoor(Player player, Room room)
+        public virtual void ChangeDoorStatus(IEntity player, Room room)
         {
-            _wrappee.OpenDoor(player, room);
+            _wrappee.ChangeDoorStatus(player, room);
         }
     }
 }

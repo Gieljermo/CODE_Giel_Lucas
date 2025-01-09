@@ -11,11 +11,13 @@ using TempleOfDoom.model.Interfaces;
 
 namespace TempleOfDoom.model
 {
-    public class SpecialFloorTile : IInteractiveFieldElement
+    public class SpecialFloorTile : IInteractiveFieldElement, IDrawable
     {
         public string Type { get; set; }
         public Direction Direction { get; set; }
         public IPosition Position { get; set; }
+        public virtual char? GetSymbol() => ' ';
+        public virtual string GetColor() => "white";
 
         public SpecialFloorTile(string type, IPosition position, Direction direction)
         {

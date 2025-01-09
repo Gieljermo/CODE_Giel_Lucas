@@ -3,15 +3,16 @@ using Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TempleOfDoom.model.Enums;
+using TempleOfDoom.model.Factory;
 using TempleOfDoom.model.Interfaces;
 
 namespace TempleOfDoom.model.Adapter
 {
     public class Opponent : Entity
     {
+        private const int AMOUNT_OF_LIVES = 1;
+
         public string Type { get; set; }
         public int MinX { get; set; }
         public int MaxX { get; set; }
@@ -21,86 +22,68 @@ namespace TempleOfDoom.model.Adapter
 
         private readonly Enemy _enemy;
 
-        private readonly Enemy _enemyAdaptee;
-
-
-        public Opponent(string type, IPosition position, int minXLocation, int maxXLocation, int minYLocation, int maxYLocation)
+        public Opponent(string type, IPosition position, int minX, int maxX, int minY, int maxY)
         {
-            this.Type = type;
-            this.Position = position;
-            this.MinX = minXLocation;
-            this.MaxX = maxXLocation;
-            this.MinY = minYLocation;
-            this.MaxY = maxYLocation;
-
-            if (type == "horizontal")
-            {
-                _enemy = new HorizontallyMovingEnemy(1, position.X, position.Y, minXLocation, maxXLocation);
-                _enemy.CurrentField = new Field(CurrentRoom, Position);
-                _enemy.OnDeath += _enemyAdaptee_OnDeath;
-
-            }
-            else if(type == "vertical")
-            {
-                _enemy = new VerticallyMovingEnemy(1, position.X, position.Y, minYLocation, maxYLocation);
-
-                _enemy.CurrentField = new Field(CurrentRoom, Position);
-
-                _enemy.OnDeath += _enemyAdaptee_OnDeath;
-            }
+            Type = type.ToString();
+            Position = position;
+            MinX = minX;
+            MaxX = maxX;
+            MinY = minY;
+            MaxY = maxY;
 
 
+            _enemy = EnemyFactory.CreateEnemy(type, position, minX, maxX, minY, maxY);
+            _enemy.CurrentField = new Field(CurrentRoom, Position);
+            _enemy.OnDeath += HandleEnemyDeath;
         }
 
-        private void _enemyAdaptee_OnDeath(object? sender, EventArgs e)
+        private void HandleEnemyDeath(object? sender, EventArgs e)
         {
-            CurrentRoom.Opponents.Remove(this);
+            CurrentRoom?.Opponents?.Remove(this);
         }
 
         public void DoDamage(int damage)
         {
-            
             _enemy.DoDamage(damage);
         }
 
-        public override void Move(IPosition position,Room room)
+        public override void Move(IPosition position, Room room)
         {
-            Field fieldToMoveTo = room.Fields.Where(f => f.Position.Y == this.Position.Y).FirstOrDefault(f => f.Position.X == this.Position.X);
-            fieldToMoveTo.Position.X = _enemy.CurrentXLocation;
-            fieldToMoveTo.Position.Y = _enemy.CurrentYLocation;
-            _enemy.CurrentField = fieldToMoveTo;
-            CurrentRoom = room;
-            _enemy.Move();
-            this.Position.X = _enemy.CurrentXLocation;
-            this.Position.Y = _enemy.CurrentYLocation;
+            var targetField = room.Fields.FirstOrDefault(f =>
+                f.Position.X == _enemy.CurrentXLocation &&
+                f.Position.Y == _enemy.CurrentYLocation);
 
+            if (targetField != null)
+            {
+                _enemy.CurrentField = targetField;
+                CurrentRoom = room;
+                _enemy.Move();
+                Position = new Position(_enemy.CurrentXLocation, _enemy.CurrentYLocation);
+            }
         }
 
         public override void MoveByConveyor(IEntity entity, int amount, Direction direction)
         {
-            this.Position = new Position(this.Position.X, this.Position.Y);
-
             switch (direction)
             {
                 case Direction.NORTH:
-                    this.Position.Y -= amount;
-                    _enemy.CurrentYLocation = this.Position.Y;
+                    Position = new Position(Position.X, Position.Y - amount);
                     break;
                 case Direction.EAST:
-                    this.Position.X += amount;
-                    _enemy.CurrentXLocation = this.Position.X;
+                    Position = new Position(Position.X + amount, Position.Y);
                     break;
                 case Direction.SOUTH:
-                    this.Position.Y += amount;
-                    _enemy.CurrentYLocation = this.Position.Y;
+                    Position = new Position(Position.X, Position.Y + amount);
                     break;
                 case Direction.WEST:
-                    this.Position.X -= amount;
-                    _enemy.CurrentXLocation = this.Position.X;
+                    Position = new Position(Position.X - amount, Position.Y);
                     break;
                 default:
                     throw new InvalidOperationException("Invalid direction");
             }
+
+            _enemy.CurrentXLocation = Position.X;
+            _enemy.CurrentYLocation = Position.Y;
         }
     }
 }

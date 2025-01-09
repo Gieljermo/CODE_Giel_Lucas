@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Domain.Interfaces;
 using TempleOfDoom.model;
 using TempleOfDoom.model.Adapter;
+using TempleOfDoom.model.Enums;
+using TempleOfDoom.model.Interfaces;
 using TempleOfDoom.model.Observers;
 
 namespace Domain.Decorators
@@ -14,30 +16,61 @@ namespace Domain.Decorators
     public class DoorColorDecorator : BaseDoorDecorator, IInventoryObserver
     {
 
-        public string color;
-        private bool hasKey;
+        private string _color;
+        private bool _hasKey;
+        private char _symbol;
+
+        public override string GetColor()
+        {
+            if (_color == "red")
+            {
+                _symbol = '|';
+                return "red";
+            }
+            else if (_color == "green")
+            {
+                _symbol = '=';
+                return "green";
+            }
+            else
+            {
+                return "white";
+            }
+            //return _color.ToLower() switch
+            //{
+            //    "green" => "green", _symbol = '',
+            //    "red" => "red",
+            //    _ => "white"
+            //};
+        }
+
+        public override char? GetSymbol() => _symbol;
 
         public DoorColorDecorator(IDoor wrappee, string color) : base(wrappee)
         {
-            this.color = color;
-            this.hasKey = false;
+            this._color = color;
+            this._hasKey = false;
         }
 
         public void OnInventoryChange(List<Item> inventory)
         {
-            if(inventory.OfType<Key>().Any(k => k.Color == color))
+            _hasKey = HasKeyInInventory(inventory);
+        }
+
+        public override void ChangeDoorStatus(IEntity player, Room room)
+        {
+            if (_hasKey)
             {
-                hasKey = true;
+                base.ChangeDoorStatus(player, room);
             }
         }
 
-        public override void OpenDoor(Player player, Room room)
+        private bool HasKeyInInventory(List<Item> inventory)
         {
-            if (hasKey)
-            {
-                base.OpenDoor(player, room);
-            }
+            // Check if the inventory contains a key of the right color
+            return inventory.OfType<Key>().Any(k => string.Equals(k.Color.ToString(), _color.ToString(), StringComparison.OrdinalIgnoreCase));
         }
+
     }
 
 }

@@ -12,10 +12,9 @@ namespace Domain
 {
     public class Key : Item
     {
-        private string _type;
-        public string Type { get => _type; set => _type = value; }
         public string Color { get; set; }
         public override string GetColor() => Color;
+        public override char? GetSymbol() => 'K';
 
         public Key(string type, IPosition position, string color)
            : base(type, position)
@@ -25,7 +24,10 @@ namespace Domain
 
         public override void Interact(IEntity entity, Field field)
         {
-            entity.AddItemToInvetory(this);
+            if (entity is Player player)
+            {
+                player.AddItemToInvetory(this);
+            }
             field.RemoveItem();
         }
     }
