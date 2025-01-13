@@ -12,7 +12,10 @@ namespace Domain
     {
         private string _type;
         public string Type { get => _type; set => _type = value; }
-        public string Color { get; set; } 
+        public string Color { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+
         public void Interact(Player player, Field field, Room room)
         {
             player.AddItemToInvetory(this);

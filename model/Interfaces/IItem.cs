@@ -6,6 +6,9 @@ namespace Domain.Interfaces
     {
 
         string Type { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+
         void Interact(Player player, Field field, Room room);
     }
 }

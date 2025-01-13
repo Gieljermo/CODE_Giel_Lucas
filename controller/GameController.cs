@@ -7,6 +7,7 @@ using TempleOfDoom.model.Factory;
 using TempleOfDoom.model.Interfaces;
 using TempleOfDoom.model.Observers;
 using Domain.Decorators;
+using Domain.Factory;
 
 namespace TempleOfDoom.controller
 {
@@ -60,16 +61,11 @@ namespace TempleOfDoom.controller
                     roomJson.height
                 );
 
+                ItemFactory itemFactory = new ItemFactory();
                 // Populate the room's items
                 if (roomJson.items != null)
                 {
-                    room.Items = roomJson.items.Select(itemJson => new Item(
-                        itemJson.type,
-                        itemJson.damage,
-                        itemJson.x,
-                        itemJson.y,
-                        itemJson.color
-                    )).ToList();
+                    room.Items = roomJson.items.Select(itemJson => itemFactory.CreateItem(itemJson)).ToList();
                 }
 
                 return room;

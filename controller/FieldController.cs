@@ -12,7 +12,6 @@ namespace Controlllers
 {
     public class FieldController
     {
-        private ItemController itemController = new ItemController();
 
         public List<Field> CreateFields(Room room, Player player)
         {
@@ -31,7 +30,7 @@ namespace Controlllers
                         var item = room.Items.Where(ri => ri.X == x).FirstOrDefault(ri => ri.Y == y);
                         if (item != null)
                         {
-                            field.Item = itemController.CreateItem(item);
+                            field.Item = item;
                         }
                     }
 
