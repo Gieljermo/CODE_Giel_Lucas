@@ -6,5 +6,6 @@
         int Y { get; }
         void Move();
         bool isDead();
+        void takeDamage(int damage);
     }
 }

@@ -8,41 +8,86 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
+using TempleOfDoom.model.Observers;
 
 namespace TempleOfDoom.controller
 {
     public class PlayerController
     {
         private Player Player;
-        private readonly Dictionary<ConsoleKey, (int xMovement, int yMovement)> movementMap;
+        private readonly Dictionary<ConsoleKey, Action<Room>> actionMap;
         private BoardController boardController;
+
         public PlayerController(Player player, BoardController boardController)
         {
             this.Player = player;
             this.boardController = boardController;
 
-            movementMap = new Dictionary<ConsoleKey, (int, int)>
-            {
-                { ConsoleKey.LeftArrow, (-1, 0) },
-                { ConsoleKey.UpArrow, (0, -1) },
-                { ConsoleKey.RightArrow, (1, 0) },
-                { ConsoleKey.DownArrow, (0, 1) }
-            };
-            this.boardController = boardController;
-        }
-        public void Move(ConsoleKey key, Room room)
+            // Map actions to specific keys
+            actionMap = new Dictionary<ConsoleKey, Action<Room>>
         {
-            if (movementMap.TryGetValue(key, out var movement))
+            { ConsoleKey.LeftArrow, room => Move(-1, 0, room) },
+            { ConsoleKey.UpArrow, room => Move(0, -1, room) },
+            { ConsoleKey.RightArrow, room => Move(1, 0, room) },
+            { ConsoleKey.DownArrow, room => Move(0, 1, room) },
+            { ConsoleKey.Spacebar, room => Attack(room) }
+        };
+        }
+
+        public void Action(ConsoleKey key, Room room)
+        {
+            if (actionMap.TryGetValue(key, out var action))
             {
-                IItem item = boardController.GetItemAtPosition(Player.XPositon, Player.YPositon);
-                if (item != null)
+                action(room); // Execute the corresponding action
+            }
+        }
+
+        private void Move(int xMovement, int yMovement, Room room)
+        {
+            IItem item = boardController.GetItemAtPosition(Player.XPositon, Player.YPositon);
+            if (item != null)
+            {
+                item.Interact(Player, room.Fields
+                    .FirstOrDefault(f => f.X == Player.XPositon && f.Y == Player.YPositon), room);
+            }
+
+            if (boardController.CanMoveTo(Player.XPositon + xMovement, Player.YPositon + yMovement))
+            {
+                Player.Move(xMovement, yMovement, room);
+            }
+        }
+
+        private void Attack(Room room)
+        {
+            var directions = new List<(int x, int y)>
+            {
+                (0, -1),  // Up
+                (0, 1),   // Down
+                (-1, 0),  // Left
+                (1, 0)    // Right
+            };
+
+            foreach (var direction in directions)
+            {
+                int targetX = Player.XPositon + direction.x;
+                int targetY = Player.YPositon + direction.y;
+
+                var enemy = room.Enemies
+                    .FirstOrDefault(e => e.X == targetX && e.Y == targetY);
+
+                if (enemy != null)
                 {
-                    item.Interact(Player, room.Fields.Where(f => f.X == Player.XPositon).Where(f => f.Y == Player.YPositon).FirstOrDefault(), room);
-                }
+                    enemy.takeDamage(Player.DAMAGE);
 
-                if (boardController.CanMoveTo(Player.XPositon + movement.xMovement, Player.YPositon + movement.yMovement)){
-                    Player.Move(movement.xMovement, movement.yMovement, room);
+                    if (enemy.isDead())
+                    {
+                        if(enemy is IMovementObserver observer)
+                        {
+                            this.Player.RemoveMovementObserver(observer);
+                        }
 
+                        room.Enemies.Remove(enemy);
+                    }
                 }
             }
         }

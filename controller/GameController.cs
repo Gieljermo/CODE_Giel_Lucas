@@ -46,7 +46,7 @@ namespace TempleOfDoom.controller
             {
                 boardController.DrawRoom();
                 ConsoleKey key = Console.ReadKey(true).Key;
-                playerController.Move(key, boardController._gameRoom);
+                playerController.Action(key, boardController._gameRoom);
             }
         }
 

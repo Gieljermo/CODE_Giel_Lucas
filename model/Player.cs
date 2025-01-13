@@ -12,6 +12,7 @@ namespace TempleOfDoom.model
 {
     public class Player
     {
+        public const int DAMAGE = 1;
         public int StartRoomId { get; set; }
         private int xPosition;
         private List<IInventoryObserver> inventoryObservers = new List<IInventoryObserver>();

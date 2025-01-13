@@ -53,5 +53,10 @@ namespace TempleOfDoom.model.adapter
         {
             this.Move();
         }
+
+        public void takeDamage(int damage)
+        {
+            _adaptee.DoDamage(damage);
+        }
     }
 }
