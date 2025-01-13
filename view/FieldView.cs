@@ -50,6 +50,11 @@ namespace GameView
                 new DoorView().DrawDoor(field.Door, horizontal);
             }
 
+            else if (field.isLadder)
+            {
+                Console.Write(" L");
+            }
+
             // Empty Field
             else
             {

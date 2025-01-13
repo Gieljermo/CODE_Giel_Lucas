@@ -20,7 +20,7 @@ namespace TempleOfDoom.controller
         public Player _player { get; set; }
         public Room _gameRoom { get; set; }
 
-        public Room[] rooms = new Room[10];
+        public List<Room> rooms = new List<Room>();
 
         private FieldController fieldController;
 
@@ -38,7 +38,7 @@ namespace TempleOfDoom.controller
             Field currentPlayerField = _gameRoom.Fields.Where(f => f.Y == _player.YPositon).FirstOrDefault(f => f.X == _player.XPositon);
             if (currentPlayerField != null && currentPlayerField.IsConnection != 0)
             {
-                _gameRoom = rooms[currentPlayerField.IsConnection];
+                _gameRoom = rooms.Where(r => r.Id == currentPlayerField.IsConnection).FirstOrDefault();
                 if (_gameRoom == null)
                 {
                     _gameRoom = _gameController.TempleOfDoomGame.Rooms.Where(r => r.Id == currentPlayerField.IsConnection).FirstOrDefault();
@@ -79,11 +79,52 @@ namespace TempleOfDoom.controller
                     gameRoom.Connections.Add(item);
                     gameRoom.Fields = AddDoor(item, gameRoom);
                 }
+
+                if(item.Upper == gameRoom.Id || item.Lower == gameRoom.Id)
+                {
+                    gameRoom.Connections.Add(item);
+                    gameRoom.Fields = AddLadder(item, gameRoom);
+                }
             }
 
-            rooms[gameRoom.Id] = gameRoom;
+            rooms.Add(gameRoom);
 
             return gameRoom;
+        }
+
+        private List<Field> AddLadder(Connection connection, Room gameRoom)
+        {
+            foreach (var item in gameRoom.Fields)
+            {
+                int width = 0;
+                int height = 0;
+                int nextRoomId = 0;
+
+                // Determine the position of the door based on room and connection layout
+                if (connection.Upper == gameRoom.Id)
+                {
+                    width = connection.ladder.UpperX;
+                    height = connection.ladder.UpperY;
+                    nextRoomId = connection.Lower;
+                }
+                else if (connection.Lower == gameRoom.Id)
+                {
+                    width = connection.ladder.LowerX;
+                    height = connection.ladder.LowerY;
+                    nextRoomId = connection.Upper;
+                }
+
+
+                // Create and decorate the door at the calculated position
+                if (item.X == width && item.Y == height)
+                {
+                    item.isLadder = true;
+                    item.IsWall = false;
+                    item.IsConnection = nextRoomId;
+                }
+            }
+
+            return gameRoom.Fields;
         }
 
 
@@ -122,7 +163,7 @@ namespace TempleOfDoom.controller
                     width = room.Width - 1;
                     height = (room.Height - 1) / 2;
                     nextRoomId = connection.East;
-                }
+                } 
 
                 // Create and decorate the door at the calculated position
                 if (item.X == width && item.Y == height)

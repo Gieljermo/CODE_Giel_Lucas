@@ -97,11 +97,18 @@ namespace TempleOfDoom.controller
             // Convert connections
             List<Connection> connections = data.connections.Select(connectionJson =>
             {
+                var ladder = (connectionJson.UPPER != 0 && connectionJson.LOWER != 0)
+                    ? new Ladder(connectionJson.ladder.upperX, connectionJson.ladder.upperY, connectionJson.ladder.lowerX, connectionJson.ladder.lowerY)
+                    : null;
+
                 var connection = new Connection(
                     connectionJson.NORTH,
                     connectionJson.WEST,
                     connectionJson.SOUTH,
-                    connectionJson.EAST
+                    connectionJson.EAST,
+                    connectionJson.UPPER,
+                    connectionJson.LOWER,
+                    ladder
                 );
 
                 DoorFactory doorFactory = new DoorFactory();

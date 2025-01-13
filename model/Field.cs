@@ -19,6 +19,7 @@ namespace Domain
         public IEnemy Enemy { get; set; }
 
         public IDoor Door { get; set; }
+        public bool isLadder { get; set; }
         public bool IsWall { get; set; }
         public int IsConnection { get; set; }
 
