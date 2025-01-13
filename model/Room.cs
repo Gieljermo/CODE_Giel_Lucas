@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TempleOfDoom.model.Interfaces;
 
 namespace TempleOfDoom.model
 {
@@ -19,6 +20,8 @@ namespace TempleOfDoom.model
 
         public List<IItem> Items { get; set; }
 
+        public List<IEnemy> Enemies { get; set; }
+
         public Room(int id, string type, int width, int height)
         {
             this.Id = id;
@@ -28,6 +31,7 @@ namespace TempleOfDoom.model
             Connections = new List<Connection>();
             Fields = new List<Field>();
             Items = new List<IItem>();
+            Enemies = new List<IEnemy>();
         }
 
     }

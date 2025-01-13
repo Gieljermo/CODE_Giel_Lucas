@@ -21,6 +21,8 @@ public class RoomJson
     public int width { get; set; }
     public int height { get; set; }
     public ItemJson[] items { get; set; }
+    public SpecialfloortileJson[] specialFloorTiles { get; set; }
+    public EnemyJson[] enemies { get; set; }
 }
 
 public class ItemJson
@@ -32,6 +34,24 @@ public class ItemJson
     public string color { get; set; }
 }
 
+public class SpecialfloortileJson
+{
+    public string type { get; set; }
+    public int x { get; set; }
+    public int y { get; set; }
+}
+
+public class EnemyJson
+{
+    public string type { get; set; }
+    public int x { get; set; }
+    public int y { get; set; }
+    public int minX { get; set; }
+    public int minY { get; set; }
+    public int maxX { get; set; }
+    public int maxY { get; set; }
+}
+
 public class ConnectionJson
 {
     public int NORTH { get; set; }
@@ -39,6 +59,17 @@ public class ConnectionJson
     public DoorJson[] doors { get; set; }
     public int WEST { get; set; }
     public int EAST { get; set; }
+    public int UPPER { get; set; }
+    public int LOWER { get; set; }
+    public LadderJson ladder { get; set; }
+}
+
+public class LadderJson
+{
+    public int upperX { get; set; }
+    public int upperY { get; set; }
+    public int lowerX { get; set; }
+    public int lowerY { get; set; }
 }
 
 public class DoorJson

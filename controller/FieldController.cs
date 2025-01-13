@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
+using TempleOfDoom.model.adapter;
 
 namespace Controlllers
 {
@@ -23,7 +24,7 @@ namespace Controlllers
                     Field field = new Field();
                     field.X = x;
                     field.Y = y;
-                    field.Room = room.Id;
+                    field.Room = room;
 
                     if (room.Items != null)
                     {
@@ -31,6 +32,18 @@ namespace Controlllers
                         if (item != null)
                         {
                             field.Item = item;
+                        }
+                    }
+
+                    if(room.Enemies != null)
+                    {
+                        var enemy = room.Enemies.Where(re => re.X == x).FirstOrDefault(re => re.Y == y);
+                        if (enemy != null)
+                        {
+                            if(enemy is OrthogonalEnemyAdapter adaptee)
+                            {
+                                adaptee.setCurrentField(field);
+                            }
                         }
                     }
 

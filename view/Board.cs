@@ -32,6 +32,14 @@ namespace TempleOfDoom.view
                     continue;
                 }
 
+                var enemyOnField = gameRoom.Enemies.FirstOrDefault(e => e.X == field.X && e.Y == field.Y);
+                if (enemyOnField != null)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write(" E");
+                    continue;
+                }
+
                 new FieldView().DrawField(field, gameRoom);
             }
             Console.WriteLine("");

@@ -9,6 +9,8 @@ using TempleOfDoom.model.Observers;
 using Domain.Decorators;
 using Domain.Factory;
 
+using CODE_TempleOfDoom_DownloadableContent;
+
 namespace TempleOfDoom.controller
 {
     public class GameController
@@ -51,6 +53,13 @@ namespace TempleOfDoom.controller
 
         public TempleOfDoomGame GenerateGameClasses(TempleOfDoomGameJson data)
         {
+            Player player = new Player(
+            data.player.startRoomId,
+            data.player.startX,
+            data.player.startY,
+            data.player.lives
+);
+
             List<Room> rooms = data.rooms.Select(roomJson =>
             {
                 // Initialize room
@@ -68,15 +77,21 @@ namespace TempleOfDoom.controller
                     room.Items = roomJson.items.Select(itemJson => itemFactory.CreateItem(itemJson)).ToList();
                 }
 
+                EnemyFactory enemyFactory = new EnemyFactory();
+                if (roomJson.enemies != null)
+                {
+                    room.Enemies = roomJson.enemies.Select(enemyJson => enemyFactory.CreateEnemy(enemyJson)).ToList();
+                    foreach(var enemy in room.Enemies)
+                    {
+                        if(enemy is IMovementObserver observer)
+                        {
+                            player.AddMovementObserver(observer);
+                        }    
+                    }
+                }
+
                 return room;
             }).ToList();
-
-            Player player = new Player(
-                data.player.startRoomId,
-                data.player.startX,
-                data.player.startY,
-                data.player.lives
-            );
 
 
             // Convert connections

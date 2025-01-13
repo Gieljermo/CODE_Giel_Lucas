@@ -45,7 +45,7 @@ namespace TempleOfDoom.controller
                     CreateRoom(_gameRoom);
                 }
                
-                Field newRoomDoor = _gameRoom.Fields.Where(f => f.IsConnection == currentPlayerField.Room).FirstOrDefault();
+                Field newRoomDoor = _gameRoom.Fields.Where(f => f.IsConnection == currentPlayerField.Room.Id).FirstOrDefault();
                 if (newRoomDoor != null)
                 {
                     _player.XPositon = newRoomDoor.X;

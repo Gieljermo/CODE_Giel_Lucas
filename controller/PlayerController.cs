@@ -42,6 +42,7 @@ namespace TempleOfDoom.controller
 
                 if (boardController.CanMoveTo(Player.XPositon + movement.xMovement, Player.YPositon + movement.yMovement)){
                     Player.Move(movement.xMovement, movement.yMovement, room);
+
                 }
             }
         }

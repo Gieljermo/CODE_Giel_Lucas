@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using CODE_TempleOfDoom_DownloadableContent;
+using Domain;
 using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace TempleOfDoom.model
         private int xPosition;
         private List<IInventoryObserver> inventoryObservers = new List<IInventoryObserver>();
         private List<IHealthObserver> healthObservers = new List<IHealthObserver>();
+        private List<IMovementObserver> moveObservers = new List<IMovementObserver>();
         public int XPositon
         {
             get { return xPosition; }
@@ -42,9 +44,22 @@ namespace TempleOfDoom.model
 
         public void Move(int x, int y, Room room)
         {
+            foreach (var enemy in moveObservers)
+            {
+                enemy.onMovementChanged();
+            }
+
             Field fieldToMoveTo = room.Fields.Where(f => f.Y == this.YPositon + y).FirstOrDefault(f => f.X == this.XPositon + x);
+
             if (fieldToMoveTo != null && !fieldToMoveTo.IsWall)
             {
+                var enemyOnField = room.Enemies.FirstOrDefault(e => e.X == fieldToMoveTo.X && e.Y == fieldToMoveTo.Y);
+
+                if (enemyOnField != null)
+                {
+                    takeDamage(1);
+                }
+
                 this.xPosition += x;
                 this.yPosition += y;
             }
@@ -68,6 +83,16 @@ namespace TempleOfDoom.model
         public void RemoveHealthObserver(IHealthObserver observer)
         {
             healthObservers.Remove(observer);
+        }
+
+        public void AddMovementObserver(IMovementObserver observer)
+        {
+            moveObservers.Add(observer);
+        }
+
+        public void RemoveMovementObserver(IMovementObserver observer)
+        {
+            moveObservers.Remove(observer);
         }
 
         public void takeDamage(int amount)
