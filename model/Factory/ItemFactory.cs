@@ -16,42 +16,51 @@ namespace Domain.Factory
             ["pressure plate"] = () => new PressurePlate { Type = "pressure plate" },
         };
 
+        private readonly Dictionary<string, Action<IItem, ItemJson>> _propertyAssigners = new()
+        {
+            ["boobytrap"] = (created, source) =>
+            {
+                if (created is Boobytrap boobytrap)
+                {
+                    boobytrap.Damage = source.damage;
+                }
+            },
+            ["disappearing boobytrap"] = (created, source) =>
+            {
+                if (created is DisappearingBoobytrap disappearingBoobytrap)
+                {
+                    disappearingBoobytrap.Damage = source.damage;
+                }
+            },
+            ["key"] = (created, source) =>
+            {
+                if (created is Key key)
+                {
+                    key.Color = source.color;
+                }
+            },
+        };
+
         public IEnumerable<string> ItemNames => _itemCreators.Keys;
 
-        public IItem CreateItem(ItemJson item)
+        public IItem CreateItem(ItemJson sourceItem)
         {
-            if (!_itemCreators.TryGetValue(item.type, out var itemCreator))
+            if (!_itemCreators.TryGetValue(sourceItem.type, out var createFunc))
             {
-                throw new NotSupportedException($"Item {item.type} is not supported.");
+                throw new NotSupportedException($"Item '{sourceItem.type}' is not supported.");
             }
+            var createdItem = createFunc();
 
-            var createdItem = itemCreator.Invoke();
+            createdItem.X = sourceItem.x;
+            createdItem.Y = sourceItem.y;
 
-            createdItem.X = item.x;
-            createdItem.Y = item.y;
-
-            // Assign properties based on item type
-            AssignProperties(createdItem, item);
+   
+            if (_propertyAssigners.TryGetValue(sourceItem.type, out var assignAction))
+            {
+                assignAction(createdItem, sourceItem);
+            }
 
             return createdItem;
-        }
-
-        private void AssignProperties(IItem createdItem, ItemJson item)
-        {
-            switch (createdItem)
-            {
-                case Boobytrap boobytrap:
-                    boobytrap.Damage = item.damage;
-                    break;
-
-                case DisappearingBoobytrap disappearingBoobytrap:
-                    disappearingBoobytrap.Damage = item.damage;
-                    break;
-
-                case Key key:
-                    key.Color = item.color;
-                    break;
-            }
         }
     }
 }
