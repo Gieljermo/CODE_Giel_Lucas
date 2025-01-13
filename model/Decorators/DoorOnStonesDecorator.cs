@@ -27,8 +27,10 @@ namespace Domain.Decorators
                 base.IsOpen = false;
                 return;
             }
- 
-            base.ChangeDoorStatus(player, room);
+            else
+            {
+                base.IsOpen = true;
+            }
         }
 
         private int GetAmountOfStonesInRoom(Room room)

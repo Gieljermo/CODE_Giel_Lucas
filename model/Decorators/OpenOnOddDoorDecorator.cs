@@ -44,8 +44,10 @@ namespace TempleOfDoom.model.Decorators
                 base.IsOpen = false;
                 return;
             }
-
-            base.ChangeDoorStatus(player, room);
+            else
+            {
+                base.IsOpen = true;
+            }
         }
     }
 }

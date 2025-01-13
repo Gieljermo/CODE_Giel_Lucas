@@ -22,14 +22,21 @@ namespace Domain.Decorators
 
         public override void ChangeDoorStatus(IEntity player, Room room)
         {
+
+        }
+
+        public void ChangeToggleDoorStatus(IEntity player, Room room)
+        {
             if (this.IsOpen)
             {
-                base.IsOpen = false; 
+                base.IsOpen = false;
             }
             else
             {
-                base.ChangeDoorStatus(player, room);
+                base.IsOpen = true;
             }
         }
+
+
     }
 }

@@ -36,12 +36,12 @@ namespace Domain
             foreach (var currentDoor in connection.Doors)
             {
                 if (currentDoor is DoorToggleDecorator toggleableDoor)
-                { 
-                    toggleableDoor.ChangeDoorStatus(entity, field.Room);
-                    break;
+                {
+                    toggleableDoor.ChangeToggleDoorStatus(entity, field.Room);
                 }
             }
         }
+
 
 
     }

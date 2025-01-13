@@ -26,7 +26,7 @@ namespace TempleOfDoom.model.Decorators
             if (!playerPassed)
             {
                 playerPassed = true;
-                base.ChangeDoorStatus(player, room);
+                base.IsOpen = true;
             }
             else
             {

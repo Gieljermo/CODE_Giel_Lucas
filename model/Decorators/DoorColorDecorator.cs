@@ -55,7 +55,11 @@ namespace Domain.Decorators
         {
             if (_hasKey)
             {
-                base.ChangeDoorStatus(player, room);
+                base.IsOpen = true;
+            }
+            else
+            {
+                base.IsOpen = false;
             }
         }
 
