@@ -164,7 +164,6 @@ namespace TempleOfDoom.controller
             return gameRoom;
         }
 
-        //Adds a door to a field
         public List<Field> AddDoor(Connection connection, Room room)
         {
             foreach (var item in room.Fields)
