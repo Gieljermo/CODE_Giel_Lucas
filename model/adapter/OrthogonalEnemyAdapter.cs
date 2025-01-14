@@ -45,16 +45,21 @@ namespace TempleOfDoom.model.adapter
 
         public void move(int x, int y, Room room)
         {
-            
-            if (_adaptee != null)
+            if(room.Enemies.Count > 0)
             {
-                _adaptee.Move();
+                if (_adaptee != null)
+                {
+                    _adaptee.Move();
+                }
             }
 
-            Field currentNewField = room.Fields.Where(f => f.Y == this.Y).FirstOrDefault(f => f.X == this.X);
-            if (currentNewField.SpecialTileBehaviour != null)
+            if(room.SpecialFloorTiles != null)
             {
-                currentNewField.SpecialTileBehaviour.OnEnter(this, 0, room);
+                Field currentNewField = room.Fields.Where(f => f.Y == this.Y).FirstOrDefault(f => f.X == this.X);
+                if (currentNewField.SpecialTileBehaviour != null)
+                {
+                    currentNewField.SpecialTileBehaviour.OnEnter(this, 0, room);
+                }
             }
         }
 

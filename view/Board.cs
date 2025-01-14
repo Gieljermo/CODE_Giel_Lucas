@@ -40,15 +40,18 @@ namespace TempleOfDoom.view
                     continue;
                 }
 
-                var specialTile = gameRoom.SpecialFloorTiles.FirstOrDefault(s => s.x == field.X && s.y == field.Y);
-                if (specialTile != null)
+                if (gameRoom.SpecialFloorTiles != null)
                 {
-                    if (specialTile.type == "ice")
+                    var specialTile = gameRoom.SpecialFloorTiles.FirstOrDefault(s => s.x == field.X && s.y == field.Y);
+                    if (specialTile != null)
                     {
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.Write(" ~");
+                        if (specialTile.type == "ice")
+                        {
+                            Console.ForegroundColor = ConsoleColor.Blue;
+                            Console.Write(" ~");
+                        }
+                        continue;
                     }
-                    continue;
                 }
 
                 new FieldView().DrawField(field, gameRoom);

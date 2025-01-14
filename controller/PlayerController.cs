@@ -44,6 +44,11 @@ namespace TempleOfDoom.controller
 
         private void Move(int xMovement, int yMovement, Room room)
         {
+            if (boardController.CanMoveTo(Player.X + xMovement, Player.Y + yMovement))
+            {
+                Player.move(xMovement, yMovement, room);
+            }
+
             IItem item = boardController.GetItemAtPosition(Player.X, Player.Y);
             if (item != null)
             {
@@ -51,10 +56,6 @@ namespace TempleOfDoom.controller
                     .FirstOrDefault(f => f.X == Player.X && f.Y == Player.Y), room);
             }
 
-            if (boardController.CanMoveTo(Player.X + xMovement, Player.Y + yMovement))
-            {
-                Player.move(xMovement, yMovement, room);
-            }
         }
 
         private void Attack(Room room)
