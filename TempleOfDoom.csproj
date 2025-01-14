@@ -29,4 +29,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="model\SpecialTiles\" />
+  </ItemGroup>
+
 </Project>

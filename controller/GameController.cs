@@ -90,6 +90,18 @@ namespace TempleOfDoom.controller
                     }
                 }
 
+                if (roomJson.specialFloorTiles != null)
+                {
+                    room.SpecialFloorTiles = roomJson.specialFloorTiles?
+                        .Select(tile => new SpecialTile
+                        {
+                            type = tile.type,
+                            x = tile.x,
+                            y = tile.y
+                        })
+                        .ToList();
+                }
+
                 return room;
             }).ToList();
 

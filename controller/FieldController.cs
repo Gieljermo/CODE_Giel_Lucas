@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TempleOfDoom.model;
 using TempleOfDoom.model.adapter;
+using TempleOfDoom.model.Factory;
 
 namespace Controlllers
 {
@@ -25,6 +26,14 @@ namespace Controlllers
                     field.X = x;
                     field.Y = y;
                     field.Room = room;
+
+                    SpecialTileBehaviourFactory factory = new SpecialTileBehaviourFactory();
+                    var specialTileDef = room.SpecialFloorTiles.FirstOrDefault(tile => tile.x == x && tile.y == y);
+                    if (specialTileDef != null)
+                    {
+                        // Use the factory to create the behavior based on the type defined in JSON
+                        field.SpecialTileBehaviour = factory.Create(specialTileDef.type);
+                    }
 
                     if (room.Items != null)
                     {

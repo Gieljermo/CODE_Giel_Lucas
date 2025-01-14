@@ -19,7 +19,7 @@ namespace Domain
         public int Damage { get; set; }
         public void Interact(Player player, Field field, Room room)
         {
-            player.AmountOfLives--;
+            player.takeDamage(Damage);
             field.RemoveItem();
         }
     }

@@ -35,7 +35,7 @@ namespace TempleOfDoom.controller
 
         public void DrawRoom()
         {
-            Field currentPlayerField = _gameRoom.Fields.Where(f => f.Y == _player.YPositon).FirstOrDefault(f => f.X == _player.XPositon);
+            Field currentPlayerField = _gameRoom.Fields.Where(f => f.Y == _player.Y).FirstOrDefault(f => f.X == _player.X);
             if (currentPlayerField != null && currentPlayerField.IsConnection != 0)
             {
                 _gameRoom = rooms.Where(r => r.Id == currentPlayerField.IsConnection).FirstOrDefault();
@@ -48,8 +48,8 @@ namespace TempleOfDoom.controller
                 Field newRoomDoor = _gameRoom.Fields.Where(f => f.IsConnection == currentPlayerField.Room.Id).FirstOrDefault();
                 if (newRoomDoor != null)
                 {
-                    _player.XPositon = newRoomDoor.X;
-                    _player.YPositon = newRoomDoor.Y;
+                    _player.X = newRoomDoor.X;
+                    _player.Y = newRoomDoor.Y;
                 }
             }
 

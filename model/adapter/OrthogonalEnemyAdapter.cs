@@ -10,7 +10,7 @@ using TempleOfDoom.model.Observers;
 
 namespace TempleOfDoom.model.adapter
 {
-    public class OrthogonalEnemyAdapter : IEnemy, IMovementObserver
+    public class OrthogonalEnemyAdapter : IMovementObserver, IEntity
     {
         private readonly Enemy _adaptee;
         private FieldAdapter _fieldAdapter;
@@ -30,6 +30,8 @@ namespace TempleOfDoom.model.adapter
 
         public int Y => _adaptee.CurrentYLocation;
 
+        public int AmountOfLives => _adaptee.NumberOfLives;
+
         public bool isDead()
         {
             if (_adaptee.NumberOfLives > 0)
@@ -41,17 +43,24 @@ namespace TempleOfDoom.model.adapter
 
         }
 
-        public void Move()
+        public void move(int x, int y, Room room)
         {
+            
             if (_adaptee != null)
             {
                 _adaptee.Move();
             }
+
+            Field currentNewField = room.Fields.Where(f => f.Y == this.Y).FirstOrDefault(f => f.X == this.X);
+            if (currentNewField.SpecialTileBehaviour != null)
+            {
+                currentNewField.SpecialTileBehaviour.OnEnter(this, 0, room);
+            }
         }
 
-        public void onMovementChanged()
+        public void onMovementChanged(Room room)
         {
-            this.Move();
+            this.move(0, 0, room);
         }
 
         public void takeDamage(int damage)

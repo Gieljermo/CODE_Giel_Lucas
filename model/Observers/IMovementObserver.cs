@@ -8,6 +8,6 @@ namespace TempleOfDoom.model.Observers
 {
     public interface IMovementObserver
     {
-        void onMovementChanged();
+        void onMovementChanged(Room room);
     }
 }

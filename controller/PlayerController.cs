@@ -25,13 +25,13 @@ namespace TempleOfDoom.controller
 
             // Map actions to specific keys
             actionMap = new Dictionary<ConsoleKey, Action<Room>>
-        {
-            { ConsoleKey.LeftArrow, room => Move(-1, 0, room) },
-            { ConsoleKey.UpArrow, room => Move(0, -1, room) },
-            { ConsoleKey.RightArrow, room => Move(1, 0, room) },
-            { ConsoleKey.DownArrow, room => Move(0, 1, room) },
-            { ConsoleKey.Spacebar, room => Attack(room) }
-        };
+            {
+                { ConsoleKey.LeftArrow, room => Move(-1, 0, room) },
+                { ConsoleKey.UpArrow, room => Move(0, -1, room) },
+                { ConsoleKey.RightArrow, room => Move(1, 0, room) },
+                { ConsoleKey.DownArrow, room => Move(0, 1, room) },
+                { ConsoleKey.Spacebar, room => Attack(room) }
+            };
         }
 
         public void Action(ConsoleKey key, Room room)
@@ -44,16 +44,16 @@ namespace TempleOfDoom.controller
 
         private void Move(int xMovement, int yMovement, Room room)
         {
-            IItem item = boardController.GetItemAtPosition(Player.XPositon, Player.YPositon);
+            IItem item = boardController.GetItemAtPosition(Player.X, Player.Y);
             if (item != null)
             {
                 item.Interact(Player, room.Fields
-                    .FirstOrDefault(f => f.X == Player.XPositon && f.Y == Player.YPositon), room);
+                    .FirstOrDefault(f => f.X == Player.X && f.Y == Player.Y), room);
             }
 
-            if (boardController.CanMoveTo(Player.XPositon + xMovement, Player.YPositon + yMovement))
+            if (boardController.CanMoveTo(Player.X + xMovement, Player.Y + yMovement))
             {
-                Player.Move(xMovement, yMovement, room);
+                Player.move(xMovement, yMovement, room);
             }
         }
 
@@ -69,8 +69,8 @@ namespace TempleOfDoom.controller
 
             foreach (var direction in directions)
             {
-                int targetX = Player.XPositon + direction.x;
-                int targetY = Player.YPositon + direction.y;
+                int targetX = Player.X + direction.x;
+                int targetY = Player.Y + direction.y;
 
                 var enemy = room.Enemies
                     .FirstOrDefault(e => e.X == targetX && e.Y == targetY);

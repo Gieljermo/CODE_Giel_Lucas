@@ -13,7 +13,7 @@ namespace TempleOfDoom.model.Factory
 {
     public class EnemyFactory
     {
-        private readonly Dictionary<string, Func<EnemyJson, IEnemy>> _enemyCreators = new()
+        private readonly Dictionary<string, Func<EnemyJson, IEntity>> _enemyCreators = new()
         {
             ["horizontal"] = enemyJson => new OrthogonalEnemyAdapter(
                 new HorizontallyMovingEnemy(1, enemyJson.x, enemyJson.y, enemyJson.minX, enemyJson.maxX)
@@ -23,7 +23,7 @@ namespace TempleOfDoom.model.Factory
             )
         };
 
-        public IEnemy CreateEnemy(EnemyJson enemy)
+        public IEntity CreateEnemy(EnemyJson enemy)
         {
             if (_enemyCreators.TryGetValue(enemy.type, out var creator))
             {

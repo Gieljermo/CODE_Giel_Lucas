@@ -20,7 +20,9 @@ namespace TempleOfDoom.model
 
         public List<IItem> Items { get; set; }
 
-        public List<IEnemy> Enemies { get; set; }
+        public List<IEntity> Enemies { get; set; }
+
+        public List<SpecialTile> SpecialFloorTiles { get; set; }
 
         public Room(int id, string type, int width, int height)
         {
@@ -31,7 +33,7 @@ namespace TempleOfDoom.model
             Connections = new List<Connection>();
             Fields = new List<Field>();
             Items = new List<IItem>();
-            Enemies = new List<IEnemy>();
+            Enemies = new List<IEntity>();
         }
 
     }

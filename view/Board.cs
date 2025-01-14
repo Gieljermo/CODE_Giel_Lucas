@@ -21,10 +21,10 @@ namespace TempleOfDoom.view
             Console.ResetColor();
             foreach (Field field in gameRoom.Fields)
             {
-                if(field.X == player.XPositon && field.Y == player.YPositon)
+                if(field.X == player.X && field.Y == player.Y)
                 {
                     Console.ForegroundColor = ConsoleColor.White;
-                    if(player.XPositon == gameRoom.Width - 1){
+                    if(player.X == gameRoom.Width - 1){
                         Console.WriteLine(" X");
                         continue;
                     }
@@ -37,6 +37,17 @@ namespace TempleOfDoom.view
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write(" E");
+                    continue;
+                }
+
+                var specialTile = gameRoom.SpecialFloorTiles.FirstOrDefault(s => s.x == field.X && s.y == field.Y);
+                if (specialTile != null)
+                {
+                    if (specialTile.type == "ice")
+                    {
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.Write(" ~");
+                    }
                     continue;
                 }
 
