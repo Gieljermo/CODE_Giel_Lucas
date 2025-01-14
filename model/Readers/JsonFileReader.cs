@@ -10,7 +10,7 @@ namespace TempleOfDoom.model.Readers
 {
     public class JsonFileReader : IFileReader
     {
-        public TempleOfDoomGameJson readFile(string file)
+        public TempleOfDoomGameJson ReadFile(string file)
         {
             string fileContent = File.ReadAllText(file);
             return JsonSerializer.Deserialize<TempleOfDoomGameJson>(fileContent);

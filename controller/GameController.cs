@@ -28,7 +28,7 @@ namespace TempleOfDoom.controller
 
         public GameController(IFileReader fileReader, string fileName)
         {
-            _gameData = fileReader.readFile(fileName);
+            _gameData = fileReader.ReadFile(fileName);
             TempleOfDoomGame = GenerateGameClasses(_gameData);
 
             InitializeObservers();
