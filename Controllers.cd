@@ -3,7 +3,7 @@
   <Class Name="TempleOfDoom.controller.BoardController">
     <Position X="12.75" Y="4.25" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAEAACAAEIBCAAAAAAAASAAYACAAANAEAA=</HashCode>
+      <HashCode>AAAAAAAAAAAEAACAAEIBCAAAAAAgASAAYACAAANAEAA=</HashCode>
       <FileName>controller\BoardController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -17,44 +17,24 @@
       <FileName>controller\GameController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="_gameData" />
       <Field Name="boardController" />
-      <Field Name="fieldController" />
       <Field Name="playerController" />
+      <Field Name="fieldController" />
+      <Field Name="_gameData" />
     </ShowAsAssociation>
   </Class>
   <Class Name="TempleOfDoom.controller.PlayerController">
     <Position X="8" Y="0.5" Width="4.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAAAAAACAAAAAAAAAAAAAAAAAQAEAAA=</HashCode>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAABAIAAAAAAAAAAAQAEAAQ=</HashCode>
       <FileName>controller\PlayerController.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Controlllers.FieldController">
     <Position X="9" Y="8" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAIAAAAAAgAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAIAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>controller\FieldController.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="itemController" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="Controlllers.ItemController">
-    <Position X="8.5" Y="10" Width="2" />
-    <TypeIdentifier>
-      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
-      <FileName>controller\ItemController.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="_itemFactory" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="Domain.Factory.ItemFactory">
-    <Position X="7.5" Y="12.5" Width="3" />
-    <TypeIdentifier>
-      <HashCode>AABEAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>model\Factory\ItemFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TempleOfDoomGameJson">
@@ -67,8 +47,8 @@
       <Property Name="player" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="connections" />
       <Property Name="rooms" />
+      <Property Name="connections" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="PlayerJson" Collapsed="true">
@@ -81,14 +61,14 @@
   <Class Name="RoomJson" Collapsed="true">
     <Position X="5.25" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAQAgAAAAAAAABAAAAAAAAAAAAAgA=</HashCode>
+      <HashCode>AAAAAAAABAAAAAQAQAgAAAAAAAABAAABAAAAAAAAAgA=</HashCode>
       <FileName>model\TempleOfDoomDTO.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ConnectionJson" Collapsed="true">
     <Position X="3.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAgAAAAAABAAAQAAAAAAAAAAEAQAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAgAEAAAARAEAQAAAAAAAAAAEAQAAAAAAAAAA=</HashCode>
       <FileName>model\TempleOfDoomDTO.cs</FileName>
     </TypeIdentifier>
   </Class>
