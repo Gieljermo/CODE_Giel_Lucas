@@ -13,10 +13,8 @@ namespace TempleOfDoom.model.Factory
     {
         public IDoor CreateDecoratedDoor(IEnumerable<DoorJson> doorProperties, Room room = null)
         {
-            // Start with a base door
             IDoor decoratedDoor = new Door();
 
-            // Apply decorators based on each object in the doors array
             foreach (var doorProperty in doorProperties)
             {
                 decoratedDoor = doorProperty.type switch

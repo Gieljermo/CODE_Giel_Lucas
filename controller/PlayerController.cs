@@ -23,7 +23,6 @@ namespace TempleOfDoom.controller
             this.Player = player;
             this.boardController = boardController;
 
-            // Map actions to specific keys
             actionMap = new Dictionary<ConsoleKey, Action<Room>>
             {
                 { ConsoleKey.LeftArrow, room => Move(-1, 0, room) },
@@ -38,7 +37,7 @@ namespace TempleOfDoom.controller
         {
             if (actionMap.TryGetValue(key, out var action))
             {
-                action(room); // Execute the corresponding action
+                action(room);
             }
         }
 

@@ -57,7 +57,6 @@ namespace TempleOfDoom.controller
             _gameController.CheckGameStatus(_player);
         }
 
-        // CreateStartingRoom now receives starting room data as parameters instead of relying on JSON
         public void CreateStartingRoom(Player player, Room startingRoom)
         {
             _player = player;
@@ -100,7 +99,6 @@ namespace TempleOfDoom.controller
                 int height = 0;
                 int nextRoomId = 0;
 
-                // Determine the position of the door based on room and connection layout
                 if (connection.Upper == gameRoom.Id)
                 {
                     width = connection.ladder.UpperX;
@@ -114,8 +112,6 @@ namespace TempleOfDoom.controller
                     nextRoomId = connection.Upper;
                 }
 
-
-                // Create and decorate the door at the calculated position
                 if (item.X == width && item.Y == height)
                 {
                     item.isLadder = true;
@@ -139,7 +135,6 @@ namespace TempleOfDoom.controller
                 int height = 0;
                 int nextRoomId = 0;
 
-                // Determine the position of the door based on room and connection layout
                 if (connection.North == room.Id)
                 {
                     width = (room.Width - 1) / 2;
@@ -165,7 +160,7 @@ namespace TempleOfDoom.controller
                     nextRoomId = connection.East;
                 } 
 
-                // Create and decorate the door at the calculated position
+
                 if (item.X == width && item.Y == height)
                 {
                     item.Door = connection.Door;

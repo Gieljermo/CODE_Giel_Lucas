@@ -62,7 +62,6 @@ namespace TempleOfDoom.controller
 
             List<Room> rooms = data.rooms.Select(roomJson =>
             {
-                // Initialize room
                 var room = new Room(
                     roomJson.id,
                     roomJson.type,
@@ -71,7 +70,6 @@ namespace TempleOfDoom.controller
                 );
 
                 ItemFactory itemFactory = new ItemFactory();
-                // Populate the room's items
                 if (roomJson.items != null)
                 {
                     room.Items = roomJson.items.Select(itemJson => itemFactory.CreateItem(itemJson)).ToList();
@@ -145,7 +143,6 @@ namespace TempleOfDoom.controller
                         decoratedDoor = decorator._wrappee;
                     }
 
-                    // Lastly, check the base door itself
                     if (decoratedDoor is IInventoryObserver baseObserver)
                     {
                         player.AddInventoryObserver(baseObserver);
@@ -161,7 +158,6 @@ namespace TempleOfDoom.controller
             }).ToList();
 
 
-            // Create and return the TempleOfDoomGame domain object
             return new TempleOfDoomGame(rooms, connections, player);
         }
 

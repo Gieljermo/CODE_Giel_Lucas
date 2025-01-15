@@ -12,31 +12,29 @@ namespace TempleOfDoom.view
         public void DrawDoor(IDoor door, bool isHorizontal)
         {
             Console.OutputEncoding = Encoding.UTF8;
-            // Default color and symbol
+
             ConsoleColor doorColor = ConsoleColor.White;
             string doorSymbol = isHorizontal ? " =" : " |";
 
-            // Traverse through the chain of decorators
             IDoor currentDoor = door;
             while (currentDoor is BaseDoorDecorator decorator)
             {
-                // Check for specific decorator types
                 if (decorator is DoorColorDecorator colorDecorator)
                 {
                     doorColor = colorDecorator.color.ToLower() switch
                     {
                         "green" => ConsoleColor.Green,
                         "red" => ConsoleColor.Red,
-                        _ => doorColor // Keep the existing color if unrecognized
+                        _ => doorColor
                     };
                 }
                 else if (decorator is DoorToggleDecorator)
                 {
-                    doorSymbol = " Ʇ"; // Override symbol for toggle doors
+                    doorSymbol = " Ʇ";
                 }
                 else if (decorator is ClosingGateDoorDecorator)
                 {
-                    doorSymbol = " ∩"; // Override symbol for closing gate
+                    doorSymbol = " ∩";
                 }
 
                 // Move to the next decorator in the chain

@@ -13,7 +13,6 @@ namespace GameView
     {
         public void DrawField(Field field, Room gameRoom)
         {
-            // Check for right edge of the room to print a newline
             if (field.X == gameRoom.Width - 1)
             {
                 DrawSymbol(field, gameRoom.Height);
@@ -28,18 +27,15 @@ namespace GameView
 
         private void DrawSymbol(Field field, int height)
         {
-            // Draw Wall
             if (field.IsWall)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write(" #");
             }
-            // Draw Item
             else if (field.Item != null)
             {
                 new ItemView().drawItem(field.Item);
             }
-            // Draw Door
             else if (field.Door != null)
             {
                 bool horizontal = false;
@@ -55,7 +51,6 @@ namespace GameView
                 Console.Write(" L");
             }
 
-            // Empty Field
             else
             {
                 Console.Write("  ");

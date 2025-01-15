@@ -33,7 +33,6 @@ namespace Controlllers
                         var specialTileDef = room.SpecialFloorTiles.FirstOrDefault(tile => tile.x == x && tile.y == y);
                         if (specialTileDef != null)
                         {
-                            // Use the factory to create the behavior based on the type defined in JSON
                             field.SpecialTileBehaviour = factory.Create(specialTileDef.type);
                         }
                     }

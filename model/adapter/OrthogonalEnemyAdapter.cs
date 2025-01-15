@@ -58,6 +58,7 @@ namespace TempleOfDoom.model.adapter
                 Field currentNewField = room.Fields.Where(f => f.Y == this.Y).FirstOrDefault(f => f.X == this.X);
                 if (currentNewField.SpecialTileBehaviour != null)
                 {
+                    //direction is 0 because it is set in the move method of the enemy
                     currentNewField.SpecialTileBehaviour.OnEnter(this, 0, room);
                 }
             }
